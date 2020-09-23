@@ -53,6 +53,27 @@ namespace PerfilEfectividad.WebServices
             public int TipoAmbienteId { get; set; }
         }
 
+        public class RiesgoOcupacional
+        {
+            public int RiesgoOcupacionalId { get; set; }
+        }
+
+        public class EsfuerzoFisico
+        {
+            public int EsfuerzoFisicoId { get; set; }
+        }
+
+        public class CursosTecnicos
+        {
+            public string Curso { get; set; }
+            public string Duracion { get; set; }
+        }
+
+        public class Idiomas
+        {
+            public string Idioma { get; set; }
+            public int DominioId { get; set; }
+        }
 
         [WebMethod]
         public string CaptureFile(string Archivo)
@@ -86,7 +107,10 @@ namespace PerfilEfectividad.WebServices
             int RelacionInterna = 0;
             int RelacionExterna = 0;
             int ManejoInf = 0;
-
+            int EducacionFormalId = 0;
+            string Carrera = "";
+            int ImpactoErrorId = 0;
+            string OtrosEstudios = "";
             try
             {
                 byte[] imageBytes = Convert.FromBase64String(Archivo);
@@ -726,10 +750,191 @@ namespace PerfilEfectividad.WebServices
                                 TipoAmbienteId = TipoAmbienteId + 1;
                             }
 
-                        }
-                        else //Seccion B
-                        {
+                            for (int k = 107; k < 116; k++)
+                            {
+                                if (excelPackage.Workbook.Worksheets[i].Cells[k, 6].Text != "")
+                                {
+                                    AmbienteTrabajo Registro = new AmbienteTrabajo();
+                                    Registro.TipoAmbienteId = TipoAmbienteId;
+                                    AmbienteDatos.Add(Registro);
+                                }
+                                TipoAmbienteId = TipoAmbienteId + 1;
+                            }
 
+                            //RiesgoOcupacional
+                            List<RiesgoOcupacional> RiesgoDatos = new List<RiesgoOcupacional>();
+                            int TipoRiesgoId = 1;
+                            for (int k = 119; k < 128; k++)
+                            {
+                                if (excelPackage.Workbook.Worksheets[i].Cells[k, 1].Text != "")
+                                {
+                                    RiesgoOcupacional Registro = new RiesgoOcupacional();
+                                    Registro.RiesgoOcupacionalId = TipoRiesgoId;
+                                    RiesgoDatos.Add(Registro);
+                                }
+                                TipoRiesgoId = TipoRiesgoId + 1;
+                            }
+
+                            for (int k = 119; k < 128; k++)
+                            {
+                                if (excelPackage.Workbook.Worksheets[i].Cells[k, 6].Text != "")
+                                {
+                                    RiesgoOcupacional Registro = new RiesgoOcupacional();
+                                    Registro.RiesgoOcupacionalId = TipoRiesgoId;
+                                    RiesgoDatos.Add(Registro);
+                                }
+                                TipoRiesgoId = TipoRiesgoId + 1;
+                            }
+
+                            //EsfuerzoFisico
+                            List<EsfuerzoFisico> EsfuerzoFisicoDatos = new List<EsfuerzoFisico>();
+                            int TipoEsfuerzoId = 1;
+                            for (int k = 130; k < 137; k++)
+                            {
+                                if (excelPackage.Workbook.Worksheets[i].Cells[k, 1].Text != "")
+                                {
+                                    EsfuerzoFisico Registro = new EsfuerzoFisico();
+                                    Registro.EsfuerzoFisicoId = TipoEsfuerzoId;
+                                    EsfuerzoFisicoDatos.Add(Registro);
+                                }
+                                TipoEsfuerzoId = TipoEsfuerzoId + 1;
+                            }
+
+                            for (int k = 130; k < 138; k++)
+                            {
+                                if (excelPackage.Workbook.Worksheets[i].Cells[k, 6].Text != "")
+                                {
+                                    EsfuerzoFisico Registro = new EsfuerzoFisico();
+                                    Registro.EsfuerzoFisicoId = TipoEsfuerzoId;
+                                    EsfuerzoFisicoDatos.Add(Registro);
+                                }
+                                TipoEsfuerzoId = TipoRiesgoId + 1;
+                            }
+
+                            //Seccion B
+                            //Educacion Formal
+                            if ((excelPackage.Workbook.Worksheets[i + 1].Cells[30, 4].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[31, 4].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[32, 4].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[33, 4].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[35, 4].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[36, 4].Text == ""))
+                            {
+                                HayError = true;
+                                if (Error == "")
+                                    Error = "<ul><li>No selecciono ninguna opción en la sección de Educación Formal Hoja " + HojaB + "</li>";
+                                else
+                                    Error = Error + Environment.NewLine + "<li>No selecciono ninguna opción en la sección de Educación Formal Hoja " + HojaB + "</li>";
+                            }
+                            else
+                            {
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[30, 4].Text != "")
+                                {
+                                    EducacionFormalId = 1;
+                                    Carrera = "";
+                                }
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[31, 4].Text != "")
+                                {
+                                    EducacionFormalId = 2;
+                                    Carrera = "";
+                                }
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[32, 4].Text != "")
+                                {
+                                    EducacionFormalId = 3;
+                                    Carrera = excelPackage.Workbook.Worksheets[i + 1].Cells[32, 5].Text;
+                                }
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[33, 4].Text != "")
+                                {
+                                    EducacionFormalId = 4;
+                                    Carrera = excelPackage.Workbook.Worksheets[i + 1].Cells[33, 5].Text;
+                                }
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[34, 4].Text != "")
+                                {
+                                    EducacionFormalId = 5;
+                                    Carrera = excelPackage.Workbook.Worksheets[i + 1].Cells[34, 5].Text;
+                                }
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[35, 4].Text != "")
+                                {
+                                    EducacionFormalId = 6;
+                                    Carrera = excelPackage.Workbook.Worksheets[i + 1].Cells[35, 5].Text;
+                                }
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[36, 4].Text != "")
+                                {
+                                    EducacionFormalId = 6;
+                                    Carrera = excelPackage.Workbook.Worksheets[i + 1].Cells[36, 5].Text;
+                                }
+                            }
+
+                            //Impacto del Error
+                            if ((excelPackage.Workbook.Worksheets[i + 1].Cells[40, 1].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[41, 1].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[42, 1].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[43, 1].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[44, 1].Text == ""))
+                            {
+                                HayError = true;
+                                if (Error == "")
+                                    Error = "<ul><li>No selecciono ninguna opción en la sección de Impacto de Error Hoja " + HojaB + "</li>";
+                                else
+                                    Error = Error + Environment.NewLine + "<li>No selecciono ninguna opción en la sección de Impacto de Error Hoja " + HojaB + "</li>";
+                            }
+                            else
+                            {
+                                if (excelPackage.Workbook.Worksheets[i].Cells[44, 1].Text != "")
+                                    ImpactoErrorId = 5;
+                                if (excelPackage.Workbook.Worksheets[i].Cells[43, 1].Text != "")
+                                    ImpactoErrorId = 4;
+                                if (excelPackage.Workbook.Worksheets[i].Cells[42, 1].Text != "")
+                                    ImpactoErrorId = 3;
+                                if (excelPackage.Workbook.Worksheets[i].Cells[41, 1].Text != "")
+                                    ImpactoErrorId = 2;
+                                if (excelPackage.Workbook.Worksheets[i].Cells[40, 1].Text != "")
+                                    ImpactoErrorId = 1;
+
+                            }
+
+                            //Cursos Técnicos
+                            List<CursosTecnicos> DatosCursosTecnicos = new List<CursosTecnicos>();
+                            for (int k = 49; k < 54; k++)
+                            {
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[k, 1].Text != "")
+                                {
+                                    CursosTecnicos Registro = new CursosTecnicos();
+                                    Registro.Curso = excelPackage.Workbook.Worksheets[i + 1].Cells[k, 1].Text;
+                                    Registro.Duracion = excelPackage.Workbook.Worksheets[i + 1].Cells[k, 6].Text;
+                                    DatosCursosTecnicos.Add(Registro);
+                                }
+                            }
+
+                            OtrosEstudios = excelPackage.Workbook.Worksheets[i + 1].Cells[55, 1].Text;
+
+                            //Otros Idiomas
+                            List<Idiomas> DatosIdiomas = new List<Idiomas>();
+                            for (int k = 64; k < 67; k++)
+                            {
+                                if (excelPackage.Workbook.Worksheets[i + 1].Cells[k, 1].Text != "")
+                                {
+                                    
+                                    if ((excelPackage.Workbook.Worksheets[i + 1].Cells[k, 5].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[k, 6].Text == "") && (excelPackage.Workbook.Worksheets[i + 1].Cells[k, 7].Text == ""))
+                                    {
+                                        HayError = true;
+                                        if (Error == "")
+                                            Error = "<ul><li>No selecciono el dominío del idioma: " + excelPackage.Workbook.Worksheets[i + 1].Cells[k, 1].Text + " Hoja " + HojaB + "</li>";
+                                        else
+                                            Error = Error + Environment.NewLine + "<li>No selecciono el dominío del idioma: " + excelPackage.Workbook.Worksheets[i + 1].Cells[k, 1].Text + " Hoja " + HojaB + "</li>";
+                                    }
+                                    else
+                                    {
+                                        Idiomas Registro = new Idiomas();
+                                        Registro.Idioma = excelPackage.Workbook.Worksheets[i + 1].Cells[k, 1].Text;
+                                        if (excelPackage.Workbook.Worksheets[i + 1].Cells[k, 5].Text != "")
+                                            Registro.DominioId = 1;
+                                        else if (excelPackage.Workbook.Worksheets[i + 1].Cells[k, 6].Text != "")
+                                            Registro.DominioId = 2;
+                                        else if (excelPackage.Workbook.Worksheets[i + 1].Cells[k, 7].Text != "")
+                                            Registro.DominioId = 3;
+                                        DatosIdiomas.Add(Registro);
+                                    }
+                                    
+                                }
+                            }
+
+                        }
+                        else 
+                        {
+                            
+                            
                         }
                         if (Error != "")
                             Error = Error + "</ul>";
