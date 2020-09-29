@@ -21,7 +21,7 @@ function readURL(input) {
         $("#DivErr").empty();
 
         reader.onload = function (e) {
-
+            var SeccionA = $("#ChkSeccionA").is(":checked");
             var ext = input.files[0].name.split('.').pop().toLowerCase();
             var size = input.files[0].size;
             if (ext != 'xlsx') {
@@ -37,7 +37,8 @@ function readURL(input) {
                 bfile = e.target.result
                 byteData = bfile.split(';')[1].replace("base64,", "");
                 var sentAjaxData = {
-                    "Archivo": byteData
+                    "Archivo": byteData,
+                    "Opcion": SeccionA
                 };
                 $.ajax({
                     type: "POST",

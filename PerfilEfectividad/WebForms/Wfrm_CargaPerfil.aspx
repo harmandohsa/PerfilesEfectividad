@@ -39,9 +39,18 @@
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-3">
                                     <input type="file" name="file" class="btn btn-label-brand btn-bold btn-sm" id="FileUpload" >
                                 </div>
+                                <div class="col-md-3">
+                                   <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+									    <input id="ChkSeccionA"  type="checkbox"> Solo Sección A
+									    <span></span>
+								    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
