@@ -38,7 +38,8 @@ function readURL(input) {
                 byteData = bfile.split(';')[1].replace("base64,", "");
                 var sentAjaxData = {
                     "Archivo": byteData,
-                    "Opcion": SeccionA
+                    "Opcion": SeccionA,
+                    "UsuarioId": Desencriptar(Cookies.get('UsuarioId')),
                 };
                 $.ajax({
                     type: "POST",

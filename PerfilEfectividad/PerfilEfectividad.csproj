@@ -12614,14 +12614,19 @@
     <Content Include="assets\vendors\general\wnumb\package.json" />
     <Content Include="assets\vendors\general\wnumb\README.md" />
     <Content Include="WebForms\Wfrm_CargaPerfil.aspx" />
+    <Content Include="WebForms\Wfrm_EditPuestos.aspx" />
     <Content Include="WebForms\Wfrm_Inicio.aspx" />
+    <Content Include="WebForms\Wfrm_Puestos.aspx" />
     <Content Include="WebScripts\SrcCargaPerfil.js" />
+    <Content Include="WebScripts\SrcEditPuesto.js" />
     <Content Include="WebScripts\SrcGenerales.js" />
     <Content Include="WebScripts\SrcInicio.js" />
     <Content Include="WebScripts\SrcLogin.js" />
+    <Content Include="WebScripts\SrcPuesto.js" />
     <Content Include="WebServices\Ws_CargaPerfil.asmx" />
     <Content Include="WebServices\Ws_Generales.asmx" />
     <Content Include="WebServices\Ws_Login.asmx" />
+    <Content Include="WebServices\Ws_Puestos.asmx" />
     <Content Include="Wfrm_Login.aspx" />
     <Content Include="MasterPage\Site.Master" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -12667,6 +12672,8 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Clases\ClPerfilPuesto.cs" />
+    <Compile Include="Clases\Cl_Puestos.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -12706,12 +12713,26 @@
     <Compile Include="WebForms\Wfrm_CargaPerfil.aspx.designer.cs">
       <DependentUpon>Wfrm_CargaPerfil.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfrm_EditPuestos.aspx.cs">
+      <DependentUpon>Wfrm_EditPuestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_EditPuestos.aspx.designer.cs">
+      <DependentUpon>Wfrm_EditPuestos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_Inicio.aspx.cs">
       <DependentUpon>Wfrm_Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebForms\Wfrm_Inicio.aspx.designer.cs">
       <DependentUpon>Wfrm_Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Puestos.aspx.cs">
+      <DependentUpon>Wfrm_Puestos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Puestos.aspx.designer.cs">
+      <DependentUpon>Wfrm_Puestos.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\Ws_CargaPerfil.asmx.cs">
       <DependentUpon>Ws_CargaPerfil.asmx</DependentUpon>
@@ -12723,6 +12744,10 @@
     </Compile>
     <Compile Include="WebServices\Ws_Login.asmx.cs">
       <DependentUpon>Ws_Login.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_Puestos.asmx.cs">
+      <DependentUpon>Ws_Puestos.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Wfrm_Login.aspx.cs">
