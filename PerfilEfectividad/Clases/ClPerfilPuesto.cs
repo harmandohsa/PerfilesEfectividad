@@ -87,7 +87,7 @@ namespace PerfilEfectividad.Clases
 
         public int Insert_Perfil(int PuestoId, string Fecha, int AreaId, string FuncPrincipal, string Principales, string FuncSemQuin, string FuncMenual, string FuncTriMen, string FuncAnual, 
             string FuncEventual, int TomaDesicionId, int EsfuerzoMentalId, int RelacionInternaId, int RelacionExternaId, int ManejoInformacionId, int UsuarioId, string PuestoSuperior, 
-            string NombrePersona, string Superior)
+            string NombrePersona, string Superior, string FuncionesDiarias)
         {
             try
             {
@@ -115,6 +115,7 @@ namespace PerfilEfectividad.Clases
                 Comando.Parameters.Add("@PuestoSuperior", SqlDbType.VarChar, 500).Value = PuestoSuperior;
                 Comando.Parameters.Add("@NombrePersona", SqlDbType.VarChar, 500).Value = NombrePersona;
                 Comando.Parameters.Add("@Superior", SqlDbType.VarChar, 500).Value = Superior;
+                Comando.Parameters.Add("@FuncDiarias", SqlDbType.Text).Value = FuncionesDiarias;
                 Comando.Parameters.Add("@PuestoVerId", SqlDbType.Int).Direction = ParameterDirection.Output;
                 SqlDataAdapter adp = new SqlDataAdapter(Comando);
                 adp.Fill(ds, "DATOS");

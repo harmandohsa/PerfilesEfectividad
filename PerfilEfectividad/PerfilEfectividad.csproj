@@ -12618,12 +12618,16 @@
     <Content Include="WebForms\Wfrm_Inicio.aspx" />
     <Content Include="WebForms\Wfrm_Puestos.aspx" />
     <Content Include="WebScripts\SrcCargaPerfil.js" />
+    <Content Include="WebScripts\SrcCombos.js" />
     <Content Include="WebScripts\SrcEditPuesto.js" />
     <Content Include="WebScripts\SrcGenerales.js" />
     <Content Include="WebScripts\SrcInicio.js" />
     <Content Include="WebScripts\SrcLogin.js" />
     <Content Include="WebScripts\SrcPuesto.js" />
+    <Content Include="WebServices\Ws_Areas.asmx" />
     <Content Include="WebServices\Ws_CargaPerfil.asmx" />
+    <Content Include="WebServices\Ws_CrudPerfil.asmx" />
+    <Content Include="WebServices\Ws_Factor.asmx" />
     <Content Include="WebServices\Ws_Generales.asmx" />
     <Content Include="WebServices\Ws_Login.asmx" />
     <Content Include="WebServices\Ws_Puestos.asmx" />
@@ -12673,6 +12677,9 @@
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Clases\ClPerfilPuesto.cs" />
+    <Compile Include="Clases\Cl_Areas.cs" />
+    <Compile Include="Clases\Cl_CrudPerfil.cs" />
+    <Compile Include="Clases\Cl_Factor.cs" />
     <Compile Include="Clases\Cl_Puestos.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -12734,8 +12741,20 @@
     <Compile Include="WebForms\Wfrm_Puestos.aspx.designer.cs">
       <DependentUpon>Wfrm_Puestos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebServices\Ws_Areas.asmx.cs">
+      <DependentUpon>Ws_Areas.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebServices\Ws_CargaPerfil.asmx.cs">
       <DependentUpon>Ws_CargaPerfil.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_CrudPerfil.asmx.cs">
+      <DependentUpon>Ws_CrudPerfil.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_Factor.asmx.cs">
+      <DependentUpon>Ws_Factor.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebServices\Ws_Generales.asmx.cs">

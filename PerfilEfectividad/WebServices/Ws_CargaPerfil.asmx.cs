@@ -803,7 +803,7 @@ namespace PerfilEfectividad.WebServices
                                         int PuestoId = clPerfil.Insert_Puesto(NombrePuesto);
                                         string Fecha = Mes.ToString() + "/" + Dia.ToString() + "/" + Anis.ToString();
                                         int PuestoVer = clPerfil.Insert_Perfil(PuestoId, Fecha, AreaId, FuncionPrincipal, FuncionesPrincipales, FuncionesQuinSem, FuncionesMen, FuncionesTri, FuncionesAnual,
-                                            FuncionEventual, TomaDecisiones, EsfuerzoMental, RelacionInterna, RelacionExterna, ManejoInf, UsuarioId, PuestoSuperior, NombreColaborador, Jefe);
+                                            FuncionEventual, TomaDecisiones, EsfuerzoMental, RelacionInterna, RelacionExterna, ManejoInf, UsuarioId, PuestoSuperior, NombreColaborador, Jefe, FuncionesDiareas);
                                         if (DineroEfectivo != "")
                                         {
                                             string[] words = ResponDineroEfectivo.Split(',');

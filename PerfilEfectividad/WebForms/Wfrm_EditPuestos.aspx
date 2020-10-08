@@ -42,36 +42,132 @@
 						<div class="card">
 							<div class="card-header" id="headingOne4">
 								<div class="card-title" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
-									<i class="flaticon2-layers-1"></i> User Permissions
+									<i class="flaticon2-layers-1"></i> Información General
 								</div>
 							</div>
 							<div id="collapseOne4" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample4">
 								<div class="card-body">
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="cboArea">Área</label>
+                                                <select id="cboArea" class="full-width" data-init-plugin="select2"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="txtpuestojefe">Puesto del jefe inmediato superior</label>
+                                                <input id="txtpuestojefe" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 						</div>
 						<div class="card">
 							<div class="card-header" id="headingTwo4">
 								<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo4" aria-expanded="false" aria-controls="collapseTwo4">
-									<i class="flaticon2-copy"></i> Account Settings
+									<i class="flaticon2-copy"></i> Tareas que realiza el puesto
 								</div>
 							</div>
 							<div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo1" data-parent="#accordionExample4">
 								<div class="card-body">
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									<div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtfuncprincipal">Función Principal</label>
+                                                <textarea id="txtfuncprincipal" rows="5"  class="form-control" required></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtfuncprincipales">Principales funciones</label>
+                                                <textarea id="txtfuncprincipales" rows="5"  class="form-control" required></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtfuncdiarias">Funciones Diarias</label>
+                                                <textarea id="txtfuncdiarias" rows="5"  class="form-control" required></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtfuncsemquin">Funciones Semanales o Quincenales</label>
+                                                <textarea id="txtfuncsemquin" rows="5"  class="form-control" required></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtfuncmensual">Funciones Mensuales</label>
+                                                <textarea id="txtfuncmensual" rows="5"  class="form-control" required></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtfunctrimsem">Funciones Trimestrales o Semestrales</label>
+                                                <textarea id="txtfunctrimsem" rows="5"  class="form-control" required></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtfuncanual">Funciones Anuales</label>
+                                                <textarea id="txtfuncanual" rows="5"  class="form-control" required></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="txtfunceventual">Funciones Eventuales</label>
+                                                <textarea id="txtfunceventual" rows="5"  class="form-control" required></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 						</div>
 						<div class="card">
 							<div class="card-header" id="headingThree4">
 								<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree4" aria-expanded="false" aria-controls="collapseThree4">
-									<i class="flaticon2-bell-alarm-symbol"></i> Application Options
+									<i class="flaticon2-bell-alarm-symbol"></i> Toma de Desiciones
 								</div>
 							</div>
 							<div id="collapseThree4" class="collapse" aria-labelledby="headingThree1" data-parent="#accordionExample4">
 								<div class="card-body">
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									<div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label for="cboTomaDesicion">Factor Toma de Desiciones</label>
+                                                <select id="cboTomaDesicion" class="full-width" data-init-plugin="select2"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+						</div>
+                        <div class="card">
+							<div class="card-header" id="headingFour4">
+								<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseFour4" aria-expanded="false" aria-controls="collapseFour4">
+									<i class="flaticon2-user-1"></i> Esfuerzo Mental
+								</div>
+							</div>
+							<div id="collapseFour4" class="collapse" aria-labelledby="headingThree1" data-parent="#accordionExample4">
+								<div class="card-body">
+									<div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label for="cboEsfuerzoMental">Factor Esfuerzo Mental</label>
+                                                <select id="cboEsfuerzoMental" class="full-width" data-init-plugin="select2"></select>
+                                            </div>
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -113,6 +209,10 @@
     </div>
 </div>
 <input id="txtPuestoId" type="text" class="form-control" Style="display:none" >
+<input id="txtAreaId" type="text" class="form-control" Style="display:none" >
+<input id="txtTomaDecisionId" type="text" class="form-control" Style="display:none" >
+<input id="txtEsfuerzoMentalId" type="text" class="form-control" Style="display:none" >
 <input id="txtllamada" type="text" class="form-control" Style="display:none" >
 <script src="../WebScripts/SrcEditPuesto.js" type="text/javascript"></script>
+<script src="../WebScripts/SrcCombos.js" type="text/javascript"></script>
 </asp:Content>
