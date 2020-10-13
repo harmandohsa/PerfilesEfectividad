@@ -330,6 +330,60 @@
 						</div>
 					</div>
 				</div>
+                <div class="card">
+					<div class="card-header" id="headingTen4">
+						<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTen4" aria-expanded="false" aria-controls="collapseTen4">
+							<i class="flaticon-security"></i> Riesgo Ocupacional
+						</div>
+					</div>
+					<div id="collapseTen4" class="collapse" aria-labelledby="headingTen1" data-parent="#accordionExample4">
+						<div class="card-body">
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="cboTipoRiesgoOcupacional">Seleccione, una o varias opciones, que describan los riesgos a los que puede estar expuesta la ejecución de sus tareas.</label>
+                                        <select id="cboTipoRiesgoOcupacional" class="full-width" data-init-plugin="select2" multiple></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="cboRiesgoOcupacional">Factor Riesgo Ocupacional</label>
+                                        <select id="cboRiesgoOcupacional" class="full-width" data-init-plugin="select2"></select>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+                <div class="card">
+					<div class="card-header" id="headingEleven4">
+						<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseEleven4" aria-expanded="false" aria-controls="collapseEleven4">
+							<i class="flaticon2-heart-rate-monitor"></i> Esfuerzo Físico
+						</div>
+					</div>
+					<div id="collapseEleven4" class="collapse" aria-labelledby="headingEleven1" data-parent="#accordionExample4">
+						<div class="card-body">
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="cboTipoEsfuerzoFisico">Seleccione, una o varias opciones, que describan los esfuerzos físicos que requiere la ejecución de las tareas del puesto.</label>
+                                        <select id="cboTipoEsfuerzoFisico" class="full-width" data-init-plugin="select2" multiple></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="cboEsfuerzoFisico">Factor Esfuerzo Fisico</label>
+                                        <select id="cboEsfuerzoFisico" class="full-width" data-init-plugin="select2"></select>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<%--end accordion--%>
@@ -374,6 +428,10 @@
 <input id="txtManejoInformacionId" type="text" class="form-control" Style="display:none">
 <input id="txtTipoAmbienteTrabajoId" type="text" class="form-control" Style="display:none">
 <input id="txtAmbienteTrabajoId" type="text" class="form-control" Style="display:none">
+<input id="txtTipoRiesgoOcupacionalId" type="text" class="form-control" Style="display:none">
+<input id="txtRiesgoOcupacionalId" type="text" class="form-control" Style="display:none">
+<input id="txtTipoEsfueroFisicolId" type="text" class="form-control" Style="display:none">
+<input id="txtEsfuerzoFisicolId" type="text" class="form-control" Style="display:none">
 <input id="txtllamada" type="text" class="form-control" Style="display:none" >
 <script src="../WebScripts/SrcEditPuesto.js" type="text/javascript"></script>
 <script src="../WebScripts/SrcCombos.js" type="text/javascript"></script>

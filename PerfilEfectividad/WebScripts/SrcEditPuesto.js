@@ -115,6 +115,47 @@ function OpcionesInicioLocal() {
         $("#txtAmbienteTrabajoId").val($("#cboAmbienteTrabajo").val());
     });
 
+    $("#cboTipoRiesgoOcupacional").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtTipoRiesgoOcupacionalId").val($("#cboTipoRiesgoOcupacional").val());
+    });
+
+    $("#cboRiesgoOcupacional").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtRiesgoOcupacionalId").val($("#cboRiesgoOcupacional").val());
+    });
+
+    $("#cboTipoEsfuerzoFisico").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtTipoEsfueroFisicolId").val($("#cboTipoEsfuerzoFisico").val());
+    });
+
+    $("#cboEsfuerzoFisico").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtEsfuerzoFisicolId").val($("#cboEsfuerzoFisico").val());
+    });
+
+
     ComboAreas();
     ComboFactorTomaDescion(1);
     ComboFactorEsfuerzoMental(2);
@@ -124,6 +165,8 @@ function OpcionesInicioLocal() {
     ComboFactorRelacionExterna(6);
     ComboManejoInformacion(7);
     ComboAmbienteTrabajo(8);
+    ComboRiesgoOcupacional(9);
+    ComboEsfuerzoFisico(10);
     GetDataGeneral(urlParams.get('PuestoId'));
     GetDataFunciones(urlParams.get('PuestoId'));
     GetDataFactores(urlParams.get('PuestoId'));
@@ -132,6 +175,11 @@ function OpcionesInicioLocal() {
     DibujarTablaRelacionesTrabajo(urlParams.get('PuestoId'));
     DibujarTablaManejoInformacion(urlParams.get('PuestoId'));
     ComboTipoAmbienteTrabajo();
+    GetDataAmbienteTrabajo(urlParams.get('PuestoId'))
+    ComboTipoRiesgoOcupacional();
+    GetDataRiesgoOcupacional(urlParams.get('PuestoId'))
+    ComboTipoEsfuerzoFisico();
+    GetDataEsfuerzoFisico(urlParams.get('PuestoId'));
 }
 
 function GetDataGeneral(PuestoId) {
@@ -212,6 +260,8 @@ function GetDataFactores(PuestoId) {
             $('#txtSupervisionId').val(data.d[0]['SupervisionId'])
             $('#txtManejoInformacionId').val(data.d[0]['ManejoInformacionId'])
             $('#txtAmbienteTrabajoId').val(data.d[0]['AmbienteTrabajoId'])
+            $('#txtRiesgoOcupacionalId').val(data.d[0]['RiesgoOcupacionalId'])
+            $('#txtEsfuerzoFisicolId').val(data.d[0]['EsfuerzoFisicoId'])
             $('#cboTomaDesicion').val(data.d[0]['TomaDesicionId'])
             $('#cboEsfuerzoMental').val(data.d[0]['EsfuerzoMentalId'])
             $('#cboRelacionInterna').val(data.d[0]['RelacionInternaId'])
@@ -220,6 +270,8 @@ function GetDataFactores(PuestoId) {
             $('#cboSupervion').val(data.d[0]['SupervisionId'])
             $('#cboManejoInformacion').val(data.d[0]['ManejoInformacionId'])
             $('#cboAmbienteTrabajo').val(data.d[0]['AmbienteTrabajoId'])
+            $('#cboRiesgoOcupacional').val(data.d[0]['RiesgoOcupacionalId'])
+            $('#cboEsfuerzoFisico').val(data.d[0]['EsfuerzoFisicoId'])
             return false;
         },
         error: function (request, status, error) {
@@ -708,4 +760,82 @@ function DibujarTablaManejoInformacion(PuestoId) {
         }
     });
 
+}
+
+function GetDataAmbienteTrabajo(PuestoId) {
+    var sentAjaxData = {
+        "PuestoId": PuestoId
+    };
+
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_CrudPerfil.asmx/GetDataAmbienteTrabajo",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            console.log(data.d);
+            $('#txtTipoAmbienteTrabajoId').val(data.d[0]['Tipos'])
+            var str = data.d[0]['Tipos'].trim();
+            $("#cboTipoAmbienteTrabajo").val(str.split(",")).trigger("change");
+            return false;
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+function GetDataRiesgoOcupacional(PuestoId) {
+    var sentAjaxData = {
+        "PuestoId": PuestoId
+    };
+
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_CrudPerfil.asmx/GetDataRiesgoOcupacional",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            console.log(data.d);
+            $('#txtTipoRiesgoOcupacionalId').val(data.d[0]['Tipos'])
+            var str = data.d[0]['Tipos'].trim();
+            $("#cboTipoRiesgoOcupacional").val(str.split(",")).trigger("change");
+            return false;
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+function GetDataEsfuerzoFisico(PuestoId) {
+    var sentAjaxData = {
+        "PuestoId": PuestoId
+    };
+
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_CrudPerfil.asmx/GetDataEsfuerzoFisico",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            console.log(data.d);
+            $('#txtTipoEsfueroFisicolId').val(data.d[0]['Tipos'])
+            var str = data.d[0]['Tipos'].trim();
+            $("#cboTipoEsfuerzoFisico").val(str.split(",")).trigger("change");
+            return false;
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
 }

@@ -95,7 +95,7 @@ namespace PerfilEfectividad.WebServices
             public int ManejoInformacionId { get; set; }
             public int AmbienteTrabajoId { get; set; }
             public int RiesgoOcupacionalId { get; set; }
-            public int EducacionFormalId { get; set; }
+            public int EsfuerzoFisicoId { get; set; }
         }
 
         [WebMethod]
@@ -131,10 +131,10 @@ namespace PerfilEfectividad.WebServices
                     Registro.RiesgoOcupacionalId = 0;
                 else
                     Registro.RiesgoOcupacionalId = Convert.ToInt32(dr["RiesgoOcupacionalId"].ToString());
-                if (dr["EducacionFormalId"].ToString() == "")
-                    Registro.EducacionFormalId = 0;
+                if (dr["EsfuerzoFisicoId"].ToString() == "")
+                    Registro.EsfuerzoFisicoId = 0;
                 else
-                    Registro.EducacionFormalId = Convert.ToInt32(dr["EducacionFormalId"].ToString());
+                    Registro.EsfuerzoFisicoId = Convert.ToInt32(dr["EsfuerzoFisicoId"].ToString());
                 Datos.Add(Registro);
             }
             return Datos;
@@ -275,6 +275,81 @@ namespace PerfilEfectividad.WebServices
                 Registro.Jefe = Convert.ToInt32(dr["Jefe"].ToString());
                 Registro.AuditoriaInt = Convert.ToInt32(dr["AuditoriaInt"].ToString());
                 Registro.AuditoriaExterna = Convert.ToInt32(dr["AuditoriaExterna"].ToString());
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
+        public class DataAmbienteTrabajo
+        {
+            public int PuestoVer { get; set; }
+            public string Tipos { get; set; }
+        }
+
+        [WebMethod]
+        public List<DataAmbienteTrabajo> GetDataAmbienteTrabajo(int PuestoId)
+        {
+            ds.Tables.Clear();
+            Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            ds = clCrudPerfil.GetAmbienteTrabajo(PuestoId);
+            List<DataAmbienteTrabajo> Datos = new List<DataAmbienteTrabajo>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                DataAmbienteTrabajo Registro = new DataAmbienteTrabajo();
+                Registro.PuestoVer = Convert.ToInt32(dr["PuestoVer"].ToString());
+                Registro.Tipos = dr["Tipos"].ToString();
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
+        public class DataRiesgoOcupacional
+        {
+            public int PuestoVer { get; set; }
+            public string Tipos { get; set; }
+        }
+
+        [WebMethod]
+        public List<DataRiesgoOcupacional> GetDataRiesgoOcupacional(int PuestoId)
+        {
+            ds.Tables.Clear();
+            Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            ds = clCrudPerfil.GetRiesgoOcupacional(PuestoId);
+            List<DataRiesgoOcupacional> Datos = new List<DataRiesgoOcupacional>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                DataRiesgoOcupacional Registro = new DataRiesgoOcupacional();
+                Registro.PuestoVer = Convert.ToInt32(dr["PuestoVer"].ToString());
+                Registro.Tipos = dr["Tipos"].ToString();
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
+        public class DataEsfuerzoFisico
+        {
+            public int PuestoVer { get; set; }
+            public string Tipos { get; set; }
+        }
+
+        [WebMethod]
+        public List<DataRiesgoOcupacional> GetDataEsfuerzoFisico(int PuestoId)
+        {
+            ds.Tables.Clear();
+            Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            ds = clCrudPerfil.GetEsfuerzoFisico(PuestoId);
+            List<DataRiesgoOcupacional> Datos = new List<DataRiesgoOcupacional>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                DataRiesgoOcupacional Registro = new DataRiesgoOcupacional();
+                Registro.PuestoVer = Convert.ToInt32(dr["PuestoVer"].ToString());
+                Registro.Tipos = dr["Tipos"].ToString();
                 Datos.Add(Registro);
             }
             return Datos;

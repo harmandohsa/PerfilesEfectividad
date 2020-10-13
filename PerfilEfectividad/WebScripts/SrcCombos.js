@@ -303,3 +303,123 @@ function ComboAmbienteTrabajo(factor) {
         }
     });
 }
+
+function ComboTipoRiesgoOcupacional() {
+
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_TipoRiesgoOcupacional.asmx/GetTipoRiesgoOcupacional",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            //$('#cboTipoAmbienteTrabajo').get(0).options.length = 0;
+            //$('#cboTipoAmbienteTrabajo').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['TipoRiesgoOcupacionalId'];
+                var name = data.d[i]['TipoRiesgoOcupacional'];
+
+                $('#cboTipoRiesgoOcupacional').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboRiesgoOcupacional(factor) {
+    var sentAjaxData = {
+        "FactorId": factor
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Factor.asmx/GetListaFactor",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(sentAjaxData),
+        success: function (data) {
+            $('#cboRiesgoOcupacional').get(0).options.length = 0;
+            $('#cboRiesgoOcupacional').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['Id'];
+                var name = data.d[i]['Texto'];
+
+                $('#cboRiesgoOcupacional').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboTipoEsfuerzoFisico() {
+
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_TipoEsfuerzoFisico.asmx/GetTipoEsfuerzoFisico",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            //$('#cboTipoAmbienteTrabajo').get(0).options.length = 0;
+            //$('#cboTipoAmbienteTrabajo').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['TipoEsfuerzoFisicoId'];
+                var name = data.d[i]['EsfuerzoFisico'];
+
+                $('#cboTipoEsfuerzoFisico').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboEsfuerzoFisico(factor) {
+    var sentAjaxData = {
+        "FactorId": factor
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Factor.asmx/GetListaFactor",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(sentAjaxData),
+        success: function (data) {
+            $('#cboEsfuerzoFisico').get(0).options.length = 0;
+            $('#cboEsfuerzoFisico').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['Id'];
+                var name = data.d[i]['Texto'];
+
+                $('#cboEsfuerzoFisico').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
