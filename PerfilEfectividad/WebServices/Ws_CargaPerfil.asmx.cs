@@ -809,20 +809,36 @@ namespace PerfilEfectividad.WebServices
                                             string[] words = ResponDineroEfectivo.Split(',');
                                             clPerfil.Insert_DetalleManejoBien(PuestoId, PuestoVer, 1, DineroEfectivo, Convert.ToInt32(words[0]), Convert.ToInt32(words[1]), Convert.ToInt32(words[2]));
                                         }
+                                        else
+                                        {
+                                            clPerfil.Insert_DetalleManejoBien(PuestoId, PuestoVer, 1, "", 0, 0, 0);
+                                        }
                                         if (Instrumentos != "")
                                         {
                                             string[] words = ResponInstrumentos.Split(',');
                                             clPerfil.Insert_DetalleManejoBien(PuestoId, PuestoVer, 2, Instrumentos, Convert.ToInt32(words[0]), Convert.ToInt32(words[1]), Convert.ToInt32(words[2]));
+                                        }
+                                        else
+                                        {
+                                            clPerfil.Insert_DetalleManejoBien(PuestoId, PuestoVer, 2, "", 0, 0, 0);
                                         }
                                         if (VehiculoLiviano != "")
                                         {
                                             string[] words = ResponVehiculoLiviano.Split(',');
                                             clPerfil.Insert_DetalleManejoBien(PuestoId, PuestoVer, 3, VehiculoLiviano, Convert.ToInt32(words[0]), Convert.ToInt32(words[1]), Convert.ToInt32(words[2]));
                                         }
+                                        else
+                                        {
+                                            clPerfil.Insert_DetalleManejoBien(PuestoId, PuestoVer, 3, "", 0, 0, 0);
+                                        }
                                         if (VehiculoPesado != "")
                                         {
                                             string[] words = ResponVehiculoPesado.Split(',');
                                             clPerfil.Insert_DetalleManejoBien(PuestoId, PuestoVer, 4, VehiculoPesado, Convert.ToInt32(words[0]), Convert.ToInt32(words[1]), Convert.ToInt32(words[2]));
+                                        }
+                                        else
+                                        {
+                                            clPerfil.Insert_DetalleManejoBien(PuestoId, PuestoVer, 4, "", 0, 0, 0);
                                         }
                                         for (int j = 0; j < Datos.Count; j++)
                                         {

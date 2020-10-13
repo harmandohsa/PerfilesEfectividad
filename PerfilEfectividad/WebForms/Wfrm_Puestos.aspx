@@ -29,7 +29,6 @@
 			<div class="kt-portlet__head-wrapper">
 				<div class="kt-portlet__head-actions">
 					<%--<button type="button" id="BtnNuevo" onclick="NuevoDepartamento()" data-toggle="modal" data-target="#modalNuevoDepartamento" class="btn btn-primary"><i class="fa fa-plus-circle"></i>Nuevo Departamento</button>--%>
-                        
                        
 				</div>
 			</div>

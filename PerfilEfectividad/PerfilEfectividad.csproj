@@ -12631,6 +12631,7 @@
     <Content Include="WebServices\Ws_Generales.asmx" />
     <Content Include="WebServices\Ws_Login.asmx" />
     <Content Include="WebServices\Ws_Puestos.asmx" />
+    <Content Include="WebServices\Ws_TipoAmbienteTrabajo.asmx" />
     <Content Include="Wfrm_Login.aspx" />
     <Content Include="MasterPage\Site.Master" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -12681,6 +12682,7 @@
     <Compile Include="Clases\Cl_CrudPerfil.cs" />
     <Compile Include="Clases\Cl_Factor.cs" />
     <Compile Include="Clases\Cl_Puestos.cs" />
+    <Compile Include="Clases\Cl_TipoAmbienteTrabajo.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -12767,6 +12769,10 @@
     </Compile>
     <Compile Include="WebServices\Ws_Puestos.asmx.cs">
       <DependentUpon>Ws_Puestos.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_TipoAmbienteTrabajo.asmx.cs">
+      <DependentUpon>Ws_TipoAmbienteTrabajo.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Wfrm_Login.aspx.cs">
