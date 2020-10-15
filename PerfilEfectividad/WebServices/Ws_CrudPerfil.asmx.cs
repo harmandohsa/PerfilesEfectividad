@@ -110,8 +110,14 @@ namespace PerfilEfectividad.WebServices
             foreach (DataRow dr in ds.Tables["DATOS"].Rows)
             {
                 DataFactores Registro = new DataFactores();
-                Registro.TomaDesicionId = Convert.ToInt32(dr["TomaDesicionId"].ToString());
-                Registro.EsfuerzoMentalId = Convert.ToInt32(dr["EsfuerzoMentalId"].ToString());
+                if (dr["TomaDesicionId"].ToString() == "")
+                    Registro.TomaDesicionId = 0;
+                else
+                    Registro.TomaDesicionId = Convert.ToInt32(dr["TomaDesicionId"].ToString());
+                if (dr["EsfuerzoMentalId"].ToString() == "")
+                    Registro.EsfuerzoMentalId = 0;
+                else
+                    Registro.EsfuerzoMentalId = Convert.ToInt32(dr["EsfuerzoMentalId"].ToString());
                 if (dr["ManejoBienId"].ToString() == "")
                     Registro.ManejoBienId = 0;
                 else
@@ -353,6 +359,90 @@ namespace PerfilEfectividad.WebServices
                 Datos.Add(Registro);
             }
             return Datos;
+        }
+
+        [WebMethod]
+        public int UpdateInfoGeneral(int AreaId, string PuestoJefe, int PuestoId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_UpdateInfoGeneral", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@AreaId", SqlDbType.Int).Value = AreaId;
+                Comando.Parameters.Add("@PuestoJefe", SqlDbType.VarChar, 900).Value = PuestoJefe;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int UpdateFunciones(int PuestoId, string FuncPrincipal, string FuncPrincipales, 
+            string FuncDiarias, string FuncSemanalQuin, string FuncMensual, string FuncTrimSemestre, 
+            string FuncAnual, string FuncEventual)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_UpdateFunciones", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@FuncPrincipal", SqlDbType.Text).Value = FuncPrincipal;
+                Comando.Parameters.Add("@FuncPrincipales", SqlDbType.Text).Value = FuncPrincipales;
+                Comando.Parameters.Add("@FuncDiarias", SqlDbType.Text).Value = FuncDiarias;
+                Comando.Parameters.Add("@FuncSemanalQuin", SqlDbType.Text).Value = FuncSemanalQuin;
+                Comando.Parameters.Add("@FuncMensual", SqlDbType.Text).Value = FuncMensual;
+                Comando.Parameters.Add("@FuncTrimSemestre", SqlDbType.Text).Value = FuncTrimSemestre;
+                Comando.Parameters.Add("@FuncAnual", SqlDbType.Text).Value = FuncAnual;
+                Comando.Parameters.Add("@FuncEventual", SqlDbType.Text).Value = FuncEventual;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int UpdateFactores(int PuestoId, int FactorId, string Id)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_UpdateFactor", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@FactorId", SqlDbType.Int).Value = FactorId;
+                if (Id != "")
+                    Comando.Parameters.Add("@Id", SqlDbType.VarChar, 2).Value = Id;
+                else
+                    Comando.Parameters.Add("@Id", SqlDbType.VarChar, 2).Value = DBNull.Value;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
         }
     }
 }

@@ -10,7 +10,7 @@
 				<a href="WebForms/Wfrm_Inicio.aspx" class="kt-subheader__breadcrumbs-home"><i class="flaticon-home-2"></i></a>
 				<span class="kt-subheader__breadcrumbs-separator"></span>
 				<a class="kt-subheader__breadcrumbs-link">
-					Editar Puestoo </a>
+					Editar Puesto </a>
 			</div>
 		</div>
 	</div>
@@ -58,6 +58,11 @@
                                     <div class="form-group">
                                         <label for="txtpuestojefe">Puesto del jefe inmediato superior</label>
                                         <input id="txtpuestojefe" type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" onclick="GrabarInfoGenral()" id="BtnActualizaInfoGeneral" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>
                                     </div>
                                 </div>
                             </div>
@@ -129,6 +134,11 @@
                                                 
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" onclick="GrabarFunciones()" id="BtnActualizaFunciones" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>
+                                    </div>
+                                </div>
                             </div>
 						</div>
 					</div>
@@ -145,7 +155,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboTomaDesicion">Factor Toma de Desiciones</label>
-                                        <select id="cboTomaDesicion" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboTomaDesicion" onchange="GrabarFactores(1)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +174,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboEsfuerzoMental">Factor Esfuerzo Mental</label>
-                                        <select id="cboEsfuerzoMental" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboEsfuerzoMental" onchange="GrabarFactores(2)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -189,6 +199,11 @@
 				                            </tr>
 			                            </thead>
 		                            </table>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" onclick="GrabarManejoBienes()" id="BtnActualizaBienes" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">

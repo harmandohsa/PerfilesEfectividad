@@ -315,7 +315,7 @@ function DibujarTablaManejoBienes(PuestoId) {
                         "data": "ConceptoId",
                         "render": function (data, type, row) {
                             //return '<label class="kt-radio kt-radio--danger" ><input name="Resp' + row['PreguntaId'] + '" value="1" type="radio"><span></span></label>';
-                            return '<input id="txtConcepto' + row['ConceptoId'] + '" type="text" value="' + row['Monto'] + '" class="form-control">'
+                            return '<input id="' + row['ConceptoId'] + '" type="text" value="' + row['Monto'] + '" class="form-control">'
                         }
                     },
                     {
@@ -342,10 +342,17 @@ function DibujarTablaManejoBienes(PuestoId) {
                         "title": "Compartida",
                         "data": "Compartida",
                         "render": function (data, type, row) {
+                            var state;
                             if (data == 1)
-                                return '<center><input checked="checked" id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
+                                state = 'true'
                             else
-                                return '<center><input id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
+                                state = 'false'
+                            //alert(state);
+                            return '<center><input checked="' + state + '" id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
+                            //if (data == 1)
+                            //    return '<center><input checked="checked" id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
+                            //else
+                            //    return '<center><input id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
                         }
                     },
                     
@@ -838,4 +845,150 @@ function GetDataEsfuerzoFisico(PuestoId) {
             alert(request.responseText);
         }
     });
+}
+
+function GrabarInfoGenral() {
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            var CamposVacios = "<b>" + "Campos Invalidos: " + "</b>" + "<br />";
+            var Error = true;
+            if ($('#txtAreaId').val() == "") {
+                CamposVacios = CamposVacios + 'Área' + "<br />";
+                Error = false;
+            }
+            if ($('#txtpuestojefe').val() == "") {
+                CamposVacios = CamposVacios + 'Puesto del Jefe Inmediato' + "<br />";
+                Error = false;
+            }
+            if (Error == false) {
+                toastr.error(CamposVacios);
+                $.unblockUI();
+                return Error;
+
+            }
+            else {
+                var sentAjaxData = {
+                    "AreaId": $('#txtAreaId').val(),
+                    "PuestoJefe": $('#txtpuestojefe').val(),
+                    "PuestoId": $('#txtPuestoId').val()
+                };
+                var retval;
+                $.ajax({
+                    type: "POST",
+                    url: "../WebServices/Ws_CrudPerfil.asmx/UpdateInfoGeneral",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(sentAjaxData),
+                    async: false,
+                    success: function (data) {
+                        $.unblockUI();
+                        toastr.success('Datos Modificados');
+                        return false;
+                    },
+                    error: function (request, status, error) {
+                        alert(request.responseText);
+                    }
+                });
+            }
+        }
+    });
+}
+
+function GrabarFunciones() {
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            var sentAjaxData = {
+                "FuncPrincipal": $('#txtfuncprincipal').val(),
+                "FuncPrincipales": $('#txtfuncprincipales').val(),
+                "FuncDiarias": $('#txtfuncdiarias').val(),
+                "FuncSemanalQuin": $('#txtfuncsemquin').val(),
+                "FuncMensual": $('#txtfuncmensual').val(),
+                "FuncTrimSemestre": $('#txtfunctrimsem').val(),
+                "FuncAnual": $('#txtfuncanual').val(),
+                "FuncEventual": $('#txtfunceventual').val(),
+                "PuestoId": $('#txtPuestoId').val()
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/UpdateFunciones",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    $.unblockUI();
+                    toastr.success('Datos Modificados');
+                    return false;
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                }
+            });
+        }
+    });
+}
+
+
+function GrabarFactores(factor) {
+    var Id;
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            if (factor == 1)
+                Id = $('#txtTomaDecisionId').val()
+            if (factor == 2)
+                Id = $('#txtEsfuerzoMentalId').val()
+            var sentAjaxData = {
+                "PuestoId": $('#txtPuestoId').val(),
+                "FactorId": factor,
+                "Id": Id
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/UpdateFactores",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    $.unblockUI();
+                    toastr.success('Factor Modificado');
+                    return false;
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                }
+            });
+        }
+    });
+}
+
+function GrabarManejoBienes() {
+    var table = $('#kt_table_ManejoBienes').DataTable();
+    var i = 0;
+    var Indirecta = 0;
+    var Directa = 0;
+    var Compartida = 0;
+    var data = table
+        .rows()
+        .data()
+
+        .each(function (row) {
+            if (table.cell(i, 2).nodes().to$().find('input')[0].value != '') {
+                ResulA = table.cell(i, 2).nodes().to$().find('input')[0].value
+                alert(ResulA)
+                alert(table.cell(i, 3).nodes().to$().find('input')[0].value)
+                alert(table.cell(i, 4).nodes().to$().find('input')[0].value)
+                alert(table.cell(i, 5).nodes().to$().find('input')[0].value)
+                //alert(table.cell(i, 3).nodes().to$().find('input')[1].value)
+            }
+            i = i + 1;
+        });
 }
