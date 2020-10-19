@@ -12628,12 +12628,15 @@
     <Content Include="WebServices\Ws_CargaPerfil.asmx" />
     <Content Include="WebServices\Ws_CrudPerfil.asmx" />
     <Content Include="WebServices\Ws_Factor.asmx" />
+    <Content Include="WebServices\WS_Frecuencia.asmx" />
     <Content Include="WebServices\Ws_Generales.asmx" />
     <Content Include="WebServices\Ws_Login.asmx" />
     <Content Include="WebServices\Ws_Puestos.asmx" />
     <Content Include="WebServices\Ws_TipoAmbienteTrabajo.asmx" />
     <Content Include="WebServices\Ws_TipoEsfuerzoFisico.asmx" />
+    <Content Include="WebServices\Ws_TipoRelacion.asmx" />
     <Content Include="WebServices\Ws_TipoRiesgoOcupacional.asmx" />
+    <Content Include="WebServices\WS_TipoSupervision.asmx" />
     <Content Include="Wfrm_Login.aspx" />
     <Content Include="MasterPage\Site.Master" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -12683,10 +12686,13 @@
     <Compile Include="Clases\Cl_Areas.cs" />
     <Compile Include="Clases\Cl_CrudPerfil.cs" />
     <Compile Include="Clases\Cl_Factor.cs" />
+    <Compile Include="Clases\Cl_Frecuencia.cs" />
     <Compile Include="Clases\Cl_Puestos.cs" />
     <Compile Include="Clases\Cl_TipoAmbienteTrabajo.cs" />
     <Compile Include="Clases\Cl_TipoEsfuerzoFisico.cs" />
+    <Compile Include="Clases\Cl_TipoRelacion.cs" />
     <Compile Include="Clases\CL_TipoRiesgoOcupacional.cs" />
+    <Compile Include="Clases\Cl_TipoSupervision.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -12763,6 +12769,10 @@
       <DependentUpon>Ws_Factor.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WebServices\WS_Frecuencia.asmx.cs">
+      <DependentUpon>WS_Frecuencia.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebServices\Ws_Generales.asmx.cs">
       <DependentUpon>Ws_Generales.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -12783,8 +12793,16 @@
       <DependentUpon>Ws_TipoEsfuerzoFisico.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WebServices\Ws_TipoRelacion.asmx.cs">
+      <DependentUpon>Ws_TipoRelacion.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebServices\Ws_TipoRiesgoOcupacional.asmx.cs">
       <DependentUpon>Ws_TipoRiesgoOcupacional.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_TipoSupervision.asmx.cs">
+      <DependentUpon>WS_TipoSupervision.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Wfrm_Login.aspx.cs">

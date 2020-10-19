@@ -210,7 +210,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboManejoBienes">Factor Manejo de Bienes </label>
-                                        <select id="cboManejoBienes" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboManejoBienes" class="full-width" onchange="GrabarFactores(3)" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -225,6 +225,15 @@
 					</div>
 					<div id="collapseSix4" class="collapse" aria-labelledby="headingSix1" data-parent="#accordionExample4">
 						<div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" data-toggle="modal" data-target="#modalSupervisiones" onclick="NuevaSupervision()" id="BtnNuevaSupervision" class="btn btn-primary"><i class="fa fa-plus"></i>Nueva Supervisión</button>                            
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
 							<div class="row">
                                 <div class="col-md-12">
                                     <table class="table table-striped- table-bordered table-hover table-checkable order-column" id="kt_table_Supervision">
@@ -237,11 +246,12 @@
 		                            </table>
                                 </div>
                             </div>
+
                              <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboSupervion">Factor Supervisiones </label>
-                                        <select id="cboSupervion" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboSupervion" onchange="GrabarFactores(4)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -256,6 +266,14 @@
 					</div>
 					<div id="collapseSeven4" class="collapse" aria-labelledby="headingSeven1" data-parent="#accordionExample4">
 						<div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" data-toggle="modal" data-target="#modalRelacionesIntExt" onclick="NuevaRelacion()" id="BtnNuevaRelacion" class="btn btn-primary"><i class="fa fa-plus"></i>Nueva Relación de Trabajo</button>                            
+                                    </div>
+                                    
+                                </div>
+                            </div>
 							<div class="row">
                                 <div class="col-md-12">
                                     <table class="table table-striped- table-bordered table-hover table-checkable order-column" id="kt_table_RelacionesTrabajo">
@@ -272,7 +290,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboRelacionInterna">Factor Relacion Internas</label>
-                                        <select id="cboRelacionInterna" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboRelacionInterna" onchange="GrabarFactores(5)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +298,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboRelacionExterna">Factor Relacion Externas</label>
-                                        <select id="cboRelacionExterna" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboRelacionExterna" onchange="GrabarFactores(6)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -295,6 +313,14 @@
 					</div>
 					<div id="collapseEigth4" class="collapse" aria-labelledby="headingEigth1" data-parent="#accordionExample4">
 						<div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" data-toggle="modal" data-target="#modalManejoInformacion" onclick="NuevaManejoInfo()" id="BtnNuevaManejoInfo" class="btn btn-primary"><i class="fa fa-plus"></i>Nuevo Manejo de Información y Documentos</button>                            
+                                    </div>
+                                    
+                                </div>
+                            </div>
 							<div class="row">
                                 <div class="col-md-12">
                                     <table class="table table-striped- table-bordered table-hover table-checkable order-column" id="kt_table_ManejoInformacion">
@@ -311,7 +337,7 @@
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboManejoInformacion">Factor Manejo Información</label>
-                                        <select id="cboManejoInformacion" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboManejoInformacion" onchange="GrabarFactores(7)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -333,12 +359,17 @@
                                         <select id="cboTipoAmbienteTrabajo" class="full-width" data-init-plugin="select2" multiple></select>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" onclick="ActualizaAmiente()" id="BtnUpdateAmbiente" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>                            
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboAmbienteTrabajo">Factor Ambiente Trabajo</label>
-                                        <select id="cboAmbienteTrabajo" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboAmbienteTrabajo" onchange="GrabarFactores(8)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -360,12 +391,17 @@
                                         <select id="cboTipoRiesgoOcupacional" class="full-width" data-init-plugin="select2" multiple></select>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" onclick="ActualizaRiesgo()" id="BtnUpdateRiesgo" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>                            
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboRiesgoOcupacional">Factor Riesgo Ocupacional</label>
-                                        <select id="cboRiesgoOcupacional" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboRiesgoOcupacional" onchange="GrabarFactores(9)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -387,12 +423,17 @@
                                         <select id="cboTipoEsfuerzoFisico" class="full-width" data-init-plugin="select2" multiple></select>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" onclick="ActualizaEsfuerzoFisico()" id="BtnUpdateEsfuerzo" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>                            
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="cboEsfuerzoFisico">Factor Esfuerzo Fisico</label>
-                                        <select id="cboEsfuerzoFisico" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboEsfuerzoFisico" onchange="GrabarFactores(10)" class="full-width" data-init-plugin="select2"></select>
                                     </div>
                                 </div>
                             </div>
@@ -404,27 +445,155 @@
 		<%--end accordion--%>
 	</div>
 </div>
-<div class="modal fade slide-up" id="modalNuevoDepartamento" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+<div class="modal fade slide-up" id="modalSupervisiones" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content-wrapper">
         <div class="modal-content ">
             <div class="modal-header clearfix text-left">
-                <h5>Nuevo Departamento</h5>
+                <h5>Crear / Editar Supervisiones</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="ik ik-arrow-down bg-blue"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div class="col-md-6">
-                        <div class="form-group required" >
-                            <label for="txtDepartamento">Nombre Departamento</label>
-                            <input id="txtDepartamento" type="text" class="form-control" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtPuestoSupervision">Puesto (s)</label>
+                                <input id="txtPuestoSupervision" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group required" >
+                                <label for="txtCantidadSupervision">Cantidad</label>
+                                <input id="txtCantidadSupervision" type="number" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group required" >
+                                <label for="cboTipoSupervision">Tipo Supervisión</label>
+                                <select id="cboTipoSupervision" class="full-width" data-init-plugin="select2"></select>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                   <button type="button" onclick="GrabarDepartamento()" id="BtnGrabarDepartamento" class="btn btn-primary"><i class="fa fa-save"></i>Grabar</button>
+                   <button type="button" onclick="GrabarSupervision()" id="BtnGrabarSupervision" class="btn btn-primary"><i class="fa fa-save"></i>Grabar</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<div class="modal fade slide-up" id="modalRelacionesIntExt" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-wrapper">
+        <div class="modal-content ">
+            <div class="modal-header clearfix text-left">
+                <h5>Crear / Editar Relaciones de Trabajo Internas y Externas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="ik ik-arrow-down bg-blue"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtPuestoRelacionTrabajo">Puesto o Departamento</label>
+                                <input id="txtPuestoRelacionTrabajo" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtProposito">Proposito</label>
+                                <input id="txtProposito" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="cboFrecuencia">Frecuencia</label>
+                                <select id="cboFrecuencia" class="full-width" data-init-plugin="select2"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="cboTipoRelacion">Tipo Relación</label>
+                                <select id="cboTipoRelacion" class="full-width" data-init-plugin="select2"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" onclick="GrabarRelacion()" id="BtnGrabarRelacion" class="btn btn-primary"><i class="fa fa-save"></i>Grabar</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<div class="modal fade slide-up" id="modalManejoInformacion" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-wrapper">
+        <div class="modal-content ">
+            <div class="modal-header clearfix text-left">
+                <h5>Crear / Editar Manejo de Información y Documentos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="ik ik-arrow-down bg-blue"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtDocuemento">Documento</label>
+                                <input id="txtDocuemento" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtAccionDoc">Acción Documento</label>
+                                <input id="txtAccionDoc" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtTipoInfo">Tipo Información</label>
+                                <input id="txtTipoInfo" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group required" >
+                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+									<input id="ChkJefe"  type="checkbox"> Jefe
+									<span></span>
+								</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group required" >
+                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+									<input id="ChkAuditInterna"  type="checkbox"> Auditoria Interna
+									<span></span>
+								</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group required" >
+                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+									<input id="ChkAuditExterna"  type="checkbox"> Auditoria Externa
+									<span></span>
+								</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" onclick="GrabarmanejoInfo()" id="BtnGrabarManejoInfo" class="btn btn-primary"><i class="fa fa-save"></i>Grabar</button>
                 </div>
             </div>
         </div>
@@ -447,7 +616,15 @@
 <input id="txtRiesgoOcupacionalId" type="text" class="form-control" Style="display:none">
 <input id="txtTipoEsfueroFisicolId" type="text" class="form-control" Style="display:none">
 <input id="txtEsfuerzoFisicolId" type="text" class="form-control" Style="display:none">
-<input id="txtllamada" type="text" class="form-control" Style="display:none" >
+<input id="txtllamadaSupervision" type="text" class="form-control" Style="display:none" >
+<input id="txtTipoSupervisionId" value="1" type="text" class="form-control" Style="display:none" >
+<input id="txtIdSupervision" type="text" class="form-control" Style="display:none" >
+<input id="txtFrecuenciaId" value="1" type="text" class="form-control" Style="display:none" >
+<input id="txtTipoRelacionId" value="1" type="text" class="form-control" Style="display:none" >
+<input id="txtRelacionId" type="text" class="form-control" Style="display:none" >
+<input id="txtllamadaRelacion" type="text" class="form-control" Style="display:none" >
+<input id="txtManejoInfoId" type="text" class="form-control" Style="display:none" >
+<input id="txtllamadaManejoInfo" type="text" class="form-control" Style="display:none" >
 <script src="../WebScripts/SrcEditPuesto.js" type="text/javascript"></script>
 <script src="../WebScripts/SrcCombos.js" type="text/javascript"></script>
 </asp:Content>

@@ -155,6 +155,35 @@ function OpcionesInicioLocal() {
         $("#txtEsfuerzoFisicolId").val($("#cboEsfuerzoFisico").val());
     });
 
+    $("#cboTipoSupervision").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtTipoSupervisionId").val($("#cboTipoSupervision").val());
+    });
+
+    $("#cboFrecuencia").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtFrecuenciaId").val($("#cboFrecuencia").val());
+    });
+
+    $("#cboTipoRelacion").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtTipoRelacionId").val($("#cboTipoRelacion").val());
+    });
 
     ComboAreas();
     ComboFactorTomaDescion(1);
@@ -180,6 +209,7 @@ function OpcionesInicioLocal() {
     GetDataRiesgoOcupacional(urlParams.get('PuestoId'))
     ComboTipoEsfuerzoFisico();
     GetDataEsfuerzoFisico(urlParams.get('PuestoId'));
+    
 }
 
 function GetDataGeneral(PuestoId) {
@@ -341,18 +371,11 @@ function DibujarTablaManejoBienes(PuestoId) {
                     {
                         "title": "Compartida",
                         "data": "Compartida",
-                        "render": function (data, type, row) {
-                            var state;
+                        "render": function (data, type, row) {                            
                             if (data == 1)
-                                state = 'true'
+                                return '<center><input checked="checked" id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
                             else
-                                state = 'false'
-                            //alert(state);
-                            return '<center><input checked="' + state + '" id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
-                            //if (data == 1)
-                            //    return '<center><input checked="checked" id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
-                            //else
-                            //    return '<center><input id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
+                                return '<center><input id="ChkConceptoIndirecta' + row['ConceptoId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
                         }
                     },
                     
@@ -452,7 +475,7 @@ function DibujarTablaSupervision(PuestoId) {
                     {
                         "title": "Puesto",
                         "render": function (data, type, row) {
-                            return '<a data-toggle="modal" onclick="ModificarEmpresa(' + row['EmpresaId'] + ',\'' + row['Nombre'] + '\', ' + row['PaisId'] + ',' + row['UnidadNegocioId'] + ', \'' + row['Direccion'] + '\', \'' + row['Telefono'] + '\')" data-target="#modalNuevaEmpresa" href="">' + row['NombrePuesto'] + '</a>'
+                            return '<a data-toggle="modal" onclick="ModificarSupervision(' + row['SupervisionId'] + ',\'' + row['NombrePuesto'] + '\', ' + row['TipoSupervisionId'] + ',' + row['Cantidad'] + ')" data-target="#modalSupervisiones" href="">' + row['NombrePuesto'] + '</a>'
                         },
                         "width": "25%"
                     },
@@ -460,7 +483,14 @@ function DibujarTablaSupervision(PuestoId) {
                         "title": "Cantidad",
                         "data": "Cantidad",
                         "width": "25%"
-                    }
+                    },
+                    {
+                        "title": "Borrar",
+                        "data": "SupervisionId",
+                        "render": function (data, type, row) {
+                            return '<a onclick="BorrarSupervision(' + row['SupervisionId'] + ')"><i class="fa fa-trash-alt"></i></a>'
+                        }
+                    },
                 ],
                 oLanguage: {
 
@@ -556,7 +586,7 @@ function DibujarTablaRelacionesTrabajo(PuestoId) {
                     {
                         "title": "Puesto",
                         "render": function (data, type, row) {
-                            return '<a data-toggle="modal" onclick="ModificarEmpresa(' + row['EmpresaId'] + ',\'' + row['Nombre'] + '\', ' + row['PaisId'] + ',' + row['UnidadNegocioId'] + ', \'' + row['Direccion'] + '\', \'' + row['Telefono'] + '\')" data-target="#modalNuevaEmpresa" href="">' + row['Puesto'] + '</a>'
+                            return '<a data-toggle="modal" onclick="ModificarRelacion(' + row['RelacionId'] + ',\'' + row['Puesto'] + '\', \'' + row['Proposito'] + '\', ' + row['FrecuenciaId'] + ', ' + row['TipoRelacionId'] + ')" data-target="#modalRelacionesIntExt" href="">' + row['Puesto'] + '</a>'
                         },
                         "width": "25%"
                     },
@@ -569,6 +599,13 @@ function DibujarTablaRelacionesTrabajo(PuestoId) {
                         "title": "Frecuencia",
                         "data": "Frecuencia",
                         "width": "25%"
+                    },
+                    {
+                        "title": "Borrar",
+                        "data": "RelacionId",
+                        "render": function (data, type, row) {
+                            return '<a onclick="BorrarRelacion(' + row['RelacionId'] + ')"><i class="fa fa-trash-alt"></i></a>'
+                        }
                     }
                 ],
                 oLanguage: {
@@ -661,7 +698,7 @@ function DibujarTablaManejoInformacion(PuestoId) {
                     {
                         "title": "Documento",
                         "render": function (data, type, row) {
-                            return '<a data-toggle="modal" onclick="ModificarEmpresa(' + row['EmpresaId'] + ',\'' + row['Nombre'] + '\', ' + row['PaisId'] + ',' + row['UnidadNegocioId'] + ', \'' + row['Direccion'] + '\', \'' + row['Telefono'] + '\')" data-target="#modalNuevaEmpresa" href="">' + row['Documento'] + '</a>'
+                            return '<a data-toggle="modal" onclick="ModificarManejoInfo(' + row['ManejoInformacionId'] + ',\'' + row['Documento'] + '\',\'' + row['AccionDocumento'] + '\',\'' + row['TipoInformacion'] + '\', ' + row['Jefe'] + ',' + row['AuditoriaInt'] + ',' + row['AuditoriaExterna'] + ')" data-target="#modalManejoInformacion" href="">' + row['Documento'] + '</a>'
                         },
                         "width": "25%"
                     },
@@ -705,6 +742,13 @@ function DibujarTablaManejoInformacion(PuestoId) {
                                 return '<center><input id="ChkManejoInfo' + row['ManejoInformacionId'] + '" onchange="CargarMapa()" type="checkbox"></center>'
                         }
                     },
+                    {
+                        "title": "Borrar",
+                        "data": "ManejoInformacionId",
+                        "render": function (data, type, row) {
+                            return '<a onclick="BorrarManejoInfo(' + row['ManejoInformacionId'] + ')"><i class="fa fa-trash-alt"></i></a>'
+                        }
+                    }
 
                 ],
                 oLanguage: {
@@ -944,6 +988,22 @@ function GrabarFactores(factor) {
                 Id = $('#txtTomaDecisionId').val()
             if (factor == 2)
                 Id = $('#txtEsfuerzoMentalId').val()
+            if (factor == 3)
+                Id = $('#txtManejoBienesId').val()
+            if (factor == 4)
+                Id = $('#txtSupervisionId').val()
+            if (factor == 5)
+                Id = $('#txtRelacionInternalId').val()
+            if (factor == 6)
+                Id = $('#txtRelacionExternalId').val()
+            if (factor == 7)
+                Id = $('#txtManejoInformacionId').val()
+            if (factor == 8)
+                Id = $('#txtAmbienteTrabajoId').val()
+            if (factor == 9)
+                Id = $('#txtRiesgoOcupacionalId').val()
+            if (factor == 10)
+                Id = $('#txtEsfuerzoFisicolId').val()
             var sentAjaxData = {
                 "PuestoId": $('#txtPuestoId').val(),
                 "FactorId": factor,
@@ -976,19 +1036,610 @@ function GrabarManejoBienes() {
     var Indirecta = 0;
     var Directa = 0;
     var Compartida = 0;
+    var Monto;
     var data = table
         .rows()
         .data()
 
         .each(function (row) {
-            if (table.cell(i, 2).nodes().to$().find('input')[0].value != '') {
-                ResulA = table.cell(i, 2).nodes().to$().find('input')[0].value
-                alert(ResulA)
-                alert(table.cell(i, 3).nodes().to$().find('input')[0].value)
-                alert(table.cell(i, 4).nodes().to$().find('input')[0].value)
-                alert(table.cell(i, 5).nodes().to$().find('input')[0].value)
-                //alert(table.cell(i, 3).nodes().to$().find('input')[1].value)
-            }
+            
+            Monto = table.cell(i, 2).nodes().to$().find('input')[0].value
+            if (table.cell(i, 3).nodes().to$().find('input')[0].checked == true)
+                Indirecta = 1;
+            if (table.cell(i, 4).nodes().to$().find('input')[0].checked == true)
+                Directa = 1;
+            if (table.cell(i, 5).nodes().to$().find('input')[0].checked == true)
+                Compartida = 1;
+            var sentAjaxData = {
+                "PuestoId": $('#txtPuestoId').val(),
+                "ConceptoId": row.ConceptoId,
+                "Monto": Monto,
+                "Indirecta": Indirecta,
+                "Directa": Directa,
+                "Compartida": Compartida
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/UpdateDetalleManejoBientes",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    //$.unblockUI();
+                    
+                    return false;
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                }
+            });
             i = i + 1;
+            Indirecta = 0;
+            Directa = 0;
+            Compartida = 0;
         });
+        toastr.success('Manejo de Bienes y Valores Económicos Modificados');
+}
+
+function BorrarSupervision(SupervisionId) {
+    swal.fire({
+        title: 'Eliminar',
+        text: "Esta seguro de eliminar esta supervisión",
+        type: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si'
+    }).then(function (result) {
+        if (result.value) {
+            var sentAjaxData = {
+                "PuestoId": $('#txtPuestoId').val(),
+                "SupervisionId": SupervisionId
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleSupervision",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    if (data.d == 1) {
+                        toastr.success('Supervisión Eliminada');
+                        DibujarTablaSupervision($('#txtPuestoId').val());
+                        $.unblockUI();
+                    }
+                    else
+                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+                    return false;
+                }
+            });
+            return retval;
+        }
+    });
+}
+
+function ModificarSupervision(SupervisionId, Puesto, TipoSupervisionId, Cantidad) {
+    $('#txtIdSupervision').val(SupervisionId)
+    $('#txtPuestoSupervision').val(Puesto)
+    $('#txtllamadaSupervision').val(2)
+    $('#txtCantidadSupervision').val(Cantidad)
+    ComboTipoSupervision();
+    $('#cboTipoSupervision').val(TipoSupervisionId)
+    $('#txtTipoSupervisionId').val(TipoSupervisionId)
+}
+
+function LimpiarSupervision() {
+    $('#txtIdSupervision').val('')
+    $('#txtPuestoSupervision').val('')
+    $('#txtllamadaSupervision').val('')
+    $('#txtCantidadSupervision').val('')
+}
+
+function NuevaSupervision() {
+    ComboTipoSupervision();
+    LimpiarSupervision();
+}
+
+function GrabarSupervision() {
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            var CamposVacios = "<b>" + "Campos Invalidos: " + "</b>" + "<br />";
+            var Error = true;
+            if ($('#txtPuestoSupervision').val() == "") {
+                CamposVacios = CamposVacios + 'Puesto (s)' + "<br />";
+                Error = false;
+            }
+            if ($('#txtCantidadSupervision').val() == "") {
+                CamposVacios = CamposVacios + 'Cantidad de Puestos' + "<br />";
+                Error = false;
+            }
+            if (Error == false) {
+                toastr.error(CamposVacios);
+                $.unblockUI();
+                return Error;
+
+            }
+            else {
+                if ($('#txtllamadaSupervision').val() == 2) {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "SupervisionId": $('#txtIdSupervision').val(),
+                        "Puesto": $('#txtPuestoSupervision').val(),
+                        "Cantidad": $('#txtCantidadSupervision').val(),
+                        "TipoSupervision": $('#txtTipoSupervisionId').val(),
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/EditDetalleSupervision",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Supervisión Modificada');
+                            DibujarTablaSupervision($('#txtPuestoId').val());
+                            $('#modalSupervisiones').modal('hide');
+                            LimpiarSupervision();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+                else {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "PuestoVer": 1,
+                        "TipoSupervisionId": $('#txtTipoSupervisionId').val(),
+                        "NombrePuesto": $('#txtPuestoSupervision').val(),
+                        "Cantidad": $('#txtCantidadSupervision').val(),
+                        
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/Insert_DetalleSupervisiones",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Supervisión Agregada');
+                            DibujarTablaSupervision($('#txtPuestoId').val());
+                            $('#modalSupervisiones').modal('hide');
+                            LimpiarSupervision();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+function ModificarRelacion(RelacionId, Puesto, Proposito, FrecuenciaId, TipoRelacionId) {
+    $('#txtRelacionId').val(RelacionId)
+    $('#txtPuestoRelacionTrabajo').val(Puesto)
+    $('#txtProposito').val(Proposito)
+    ComboFrecuencia();
+    $('#cboFrecuencia').val(FrecuenciaId)
+    ComboTipoRelacion();
+    $('#cboTipoRelacion').val(TipoRelacionId)
+    $('#txtllamadaRelacion').val(2)
+}
+
+function LimpiarRelacion() {
+    $('#txtRelacionId').val('')
+    $('#txtPuestoRelacionTrabajo').val('')
+    $('#txtProposito').val('')
+    $('#txtllamadaRelacion').val('')
+}
+
+function NuevaRelacion() {
+    ComboFrecuencia();
+    ComboTipoRelacion();
+    LimpiarRelacion();
+}
+
+function GrabarRelacion() {
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            var CamposVacios = "<b>" + "Campos Invalidos: " + "</b>" + "<br />";
+            var Error = true;
+            if ($('#txtPuestoRelacionTrabajo').val() == "") {
+                CamposVacios = CamposVacios + 'Puesto o Departamento' + "<br />";
+                Error = false;
+            }
+            if ($('#txtProposito').val() == "") {
+                CamposVacios = CamposVacios + 'Proposito' + "<br />";
+                Error = false;
+            }
+            if (Error == false) {
+                toastr.error(CamposVacios);
+                $.unblockUI();
+                return Error;
+
+            }
+            else {
+                if ($('#txtllamadaRelacion').val() == 2) {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "RelacionId": $('#txtRelacionId').val(),
+                        "Puesto": $('#txtPuestoRelacionTrabajo').val(),
+                        "Proposito": $('#txtProposito').val(),
+                        "FrecuenciaId": $('#txtFrecuenciaId').val(),
+                        "TipoRelacionId": $('#txtTipoRelacionId').val(),
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/EditDetalleRelaciones",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Relación de Trabajo Modificada');
+                            DibujarTablaRelacionesTrabajo($('#txtPuestoId').val());
+                            $('#modalRelacionesIntExt').modal('hide');
+                            LimpiarRelacion();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+                else {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "PuestoVer": 1,
+                        "NombrePuesto": $('#txtPuestoRelacionTrabajo').val(),
+                        "Proposito": $('#txtProposito').val(),
+                        "FrecuenciaId": $('#txtFrecuenciaId').val(),
+                        "TipoRelacionId": $('#txtTipoRelacionId').val(),
+
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/Insert_DetalleRelaciones",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Relación de Trabajo Agregada');
+                            DibujarTablaRelacionesTrabajo($('#txtPuestoId').val());
+                            $('#modalRelacionesIntExt').modal('hide');
+                            LimpiarRelacion();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+function BorrarRelacion(RelacionId) {
+    swal.fire({
+        title: 'Eliminar',
+        text: "Esta seguro de eliminar esta relación de trabajo",
+        type: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si'
+    }).then(function (result) {
+        if (result.value) {
+            var sentAjaxData = {
+                "PuestoId": $('#txtPuestoId').val(),
+                "RelacionId": RelacionId
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleRelacion",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    if (data.d == 1) {
+                        toastr.success('Relación de Trabajo Eliminada');
+                        DibujarTablaRelacionesTrabajo($('#txtPuestoId').val());
+                        $.unblockUI();
+                    }
+                    else
+                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+                    return false;
+                }
+            });
+            return retval;
+        }
+    });
+}
+
+function ModificarManejoInfo(ManejoInformacionId, Documento, AccionDocumento, TipoInformacion, Jefe, AuditoriaInt, AuditoriaExterna) {
+    $('#txtManejoInfoId').val(ManejoInformacionId)
+    $('#txtDocuemento').val(Documento)
+    $('#txtAccionDoc').val(AccionDocumento)
+    $('#txtTipoInfo').val(TipoInformacion)
+    if (Jefe == 1)
+        $("#ChkJefe").prop("checked", true);
+    else
+        $("#ChkJefe").prop("checked", false);
+
+    if (AuditoriaInt == 1)
+        $("#ChkAuditInterna").prop("checked", true);
+    else
+        $("#ChkAuditInterna").prop("checked", false);
+
+    if (AuditoriaExterna == 1)
+        $("#ChkAuditExterna").prop("checked", true);
+    else
+        $("#ChkAuditExterna").prop("checked", false);
+    $('#txtllamadaManejoInfo').val(2)
+}
+
+function GrabarmanejoInfo() {
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            var CamposVacios = "<b>" + "Campos Invalidos: " + "</b>" + "<br />";
+            var Error = true;
+            if ($('#txtDocuemento').val() == "") {
+                CamposVacios = CamposVacios + 'Docuemento' + "<br />";
+                Error = false;
+            }
+            if ($('#txtAccionDoc').val() == "") {
+                CamposVacios = CamposVacios + 'Acción Documento' + "<br />";
+                Error = false;
+            }
+            if ($('#txtTipoInfo').val() == "") {
+                CamposVacios = CamposVacios + 'Tipo de Información' + "<br />";
+                Error = false;
+            }
+            if (Error == false) {
+                toastr.error(CamposVacios);
+                $.unblockUI();
+                return Error;
+
+            }
+            else {
+                var Jefe = 0;
+                var AuditoriaInt = 0;
+                var AuditoriaExt = 0;
+                if ($('#ChkJefe').prop('checked'))
+                    Jefe = 1;
+                if ($('#ChkAuditInterna').prop('checked'))
+                    AuditoriaInt = 1;
+                if ($('#ChkAuditExterna').prop('checked'))
+                    AuditoriaExt = 1;
+
+                if ($('#txtllamadaManejoInfo').val() == 2) {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "ManejoInformacionId": $('#txtManejoInfoId').val(),
+                        "Docuemento": $('#txtDocuemento').val(),
+                        "AccionDocumento": $('#txtAccionDoc').val(),
+                        "TipoInformacion": $('#txtTipoInfo').val(),
+                        "Jefe": Jefe,
+                        "AuditoriaInt": AuditoriaInt,
+                        "AuditoriaExt": AuditoriaExt
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/EditManjeoInfo",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Manejo de Información Modificada');
+                            DibujarTablaManejoInformacion($('#txtPuestoId').val());
+                            $('#modalManejoInformacion').modal('hide');
+                            LimpiarManejoInfo();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+                else {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "PuestoVer": 1,
+                        "Documento": $('#txtDocuemento').val(),
+                        "Accion": $('#txtAccionDoc').val(),
+                        "TipoInformacion": $('#txtTipoInfo').val(),
+                        "Jefe": Jefe,
+                        "AuditoriaInt": AuditoriaInt,
+                        "AuditoriaExt": AuditoriaExt
+
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/Insert_DetalleManejoInfo",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Manejo de Información Agregada');
+                            DibujarTablaManejoInformacion($('#txtPuestoId').val());
+                            $('#modalManejoInformacion').modal('hide');
+                            LimpiarManejoInfo();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+function LimpiarManejoInfo() {
+    $('#txtDocuemento').val('')
+    $('#txtAccionDoc').val('')
+    $('#txtTipoInfo').val('')
+    $("#ChkJefe").prop("checked", false);
+    $("#ChkAuditInterna").prop("checked", false);
+    $("#ChkAuditExterna").prop("checked", false);
+    $('#txtManejoInfoId').val('')
+    $('#txtllamadaManejoInfo').val('')
+}
+
+function NuevaManejoInfo() {
+    LimpiarManejoInfo();
+}
+
+function BorrarManejoInfo(ManejoInformacionId) {
+    swal.fire({
+        title: 'Eliminar',
+        text: "Esta seguro de eliminar el manejo de información",
+        type: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si'
+    }).then(function (result) {
+        if (result.value) {
+            var sentAjaxData = {
+                "PuestoId": $('#txtPuestoId').val(),
+                "ManejoInformacionId": ManejoInformacionId
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleManejoInfo",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    if (data.d == 1) {
+                        toastr.success('Manejo de Información Eliminada');
+                        DibujarTablaManejoInformacion($('#txtPuestoId').val());
+                        $.unblockUI();
+                    }
+                    else
+                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+                    return false;
+                }
+            });
+            return retval;
+        }
+    });
+}
+
+function ActualizaAmiente() {
+    var sentAjaxData = {
+        "PuestoId": $('#txtPuestoId').val(),
+        "TipoAmbienteTrabajo": $('#txtTipoAmbienteTrabajoId').val()
+    };
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_CrudPerfil.asmx/AddAmbienteTrabajo",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            if (data.d == 1) {
+                toastr.success('Ambiente Laboral Modificado');
+                //ComboTipoAmbienteTrabajo($('#txtPuestoId').val());
+                $.unblockUI();
+            }
+            else
+                toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+            return false;
+        }
+    });
+}
+
+function ActualizaRiesgo() {
+    var sentAjaxData = {
+        "PuestoId": $('#txtPuestoId').val(),
+        "TipoRiesgoOcupacional": $('#txtTipoRiesgoOcupacionalId').val()
+    };
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_CrudPerfil.asmx/AddRiesgoOcupacional",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            if (data.d == 1) {
+                toastr.success('Riesgo Ocupacional Modificado');
+                //ComboTipoAmbienteTrabajo($('#txtPuestoId').val());
+                $.unblockUI();
+            }
+            else
+                toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+            return false;
+        }
+    });
+}
+
+function ActualizaEsfuerzoFisico() {
+    var sentAjaxData = {
+        "PuestoId": $('#txtPuestoId').val(),
+        "TipoEsfuerzoFisico": $('#txtTipoEsfueroFisicolId').val()
+    };
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_CrudPerfil.asmx/AddEsfuerzoFisico",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            if (data.d == 1) {
+                toastr.success('Esfuerzo Físico Modificado');
+                //ComboTipoAmbienteTrabajo($('#txtPuestoId').val());
+                $.unblockUI();
+            }
+            else
+                toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+            return false;
+        }
+    });
 }

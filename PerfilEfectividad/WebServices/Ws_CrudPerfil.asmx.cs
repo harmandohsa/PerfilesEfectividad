@@ -444,5 +444,333 @@ namespace PerfilEfectividad.WebServices
             }
 
         }
+
+        [WebMethod]
+        public int UpdateDetalleManejoBientes(int PuestoId, int ConceptoId, string Monto, int Indirecta, int Directa, int Compartida)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_UpdateManejoBien", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@ConceptoId", SqlDbType.Int).Value = ConceptoId;
+                Comando.Parameters.Add("@Monto", SqlDbType.VarChar, 500).Value = Monto;
+                Comando.Parameters.Add("@Indirecta", SqlDbType.Int).Value = Indirecta;
+                Comando.Parameters.Add("@Directa", SqlDbType.Int).Value = Directa;
+                Comando.Parameters.Add("@Compartida", SqlDbType.Int).Value = Compartida;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int DeleteDetalleSupervision(int PuestoId, int SupervisionId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_DeleteSupervision", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@SupervisionId", SqlDbType.Int).Value = SupervisionId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int EditDetalleSupervision(int PuestoId, int SupervisionId, string Puesto, int Cantidad, int TipoSupervision)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_UpdateDetalleSupervision", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@SupervisionId", SqlDbType.Int).Value = SupervisionId;
+                Comando.Parameters.Add("@Puesto", SqlDbType.VarChar, 500).Value = Puesto;
+                Comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Cantidad;
+                Comando.Parameters.Add("@TipoSupervision", SqlDbType.Int).Value = TipoSupervision;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int Insert_DetalleSupervisiones(int PuestoId, int PuestoVer, int TipoSupervisionId, string NombrePuesto, int Cantidad)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleSupervisiones", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                Comando.Parameters.Add("@TipoSupervisionId", SqlDbType.Int).Value = TipoSupervisionId;
+                Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 900).Value = NombrePuesto;
+                Comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Cantidad;
+
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int EditDetalleRelaciones(int PuestoId, int RelacionId, string Puesto, 
+            string Proposito, int FrecuenciaId, int TipoRelacionId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_EditDetalleRelacion", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@RelacionId", SqlDbType.Int).Value = RelacionId;
+                Comando.Parameters.Add("@Puesto", SqlDbType.VarChar, 500).Value = Puesto;
+                Comando.Parameters.Add("@Proposito", SqlDbType.VarChar, 500).Value = Proposito;
+                Comando.Parameters.Add("@FrecuenciaId", SqlDbType.Int).Value = FrecuenciaId;
+                Comando.Parameters.Add("@TipoRelacionId", SqlDbType.Int).Value = TipoRelacionId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int Insert_DetalleRelaciones(int PuestoId, int PuestoVer, string NombrePuesto, 
+            string Proposito, int FrecuenciaId, int TipoRelacionId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleRelaciones", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 900).Value = NombrePuesto;
+                Comando.Parameters.Add("@Proposito", SqlDbType.VarChar, 900).Value = Proposito;
+                Comando.Parameters.Add("@FrecuenciaId", SqlDbType.Int).Value = FrecuenciaId;
+                Comando.Parameters.Add("@TipoRelacionId", SqlDbType.Int).Value = TipoRelacionId;
+
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int DeleteDetalleRelacion(int PuestoId, int RelacionId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_DeleteRelacion", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@RelacionId", SqlDbType.Int).Value = RelacionId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int EditManjeoInfo(int PuestoId, int ManejoInformacionId, string Docuemento,
+            string AccionDocumento, string TipoInformacion, int Jefe, int AuditoriaInt, int AuditoriaExt)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_EditManejoInfo", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@ManejoInformacionId", SqlDbType.Int).Value = ManejoInformacionId;
+                Comando.Parameters.Add("@Docuemento", SqlDbType.VarChar, 500).Value = Docuemento;
+                Comando.Parameters.Add("@AccionDocumento", SqlDbType.VarChar, 500).Value = AccionDocumento;
+                Comando.Parameters.Add("@TipoInformacion", SqlDbType.VarChar, 500).Value = TipoInformacion;
+                Comando.Parameters.Add("@Jefe", SqlDbType.Int).Value = Jefe;
+                Comando.Parameters.Add("@AuditoriaInt", SqlDbType.Int).Value = AuditoriaInt;
+                Comando.Parameters.Add("@AuditoriaExt", SqlDbType.Int).Value = AuditoriaExt;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int Insert_DetalleManejoInfo(int PuestoId, int PuestoVer, string Documento, string Accion, string TipoInformacion, int Jefe, int AuditoriaInt, int AuditoriaExt)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleManejoInfo", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                Comando.Parameters.Add("@Documento", SqlDbType.VarChar, 900).Value = Documento;
+                Comando.Parameters.Add("@Accion", SqlDbType.VarChar, 900).Value = Accion;
+                Comando.Parameters.Add("@TipoInformacion", SqlDbType.VarChar, 900).Value = TipoInformacion;
+                Comando.Parameters.Add("@Jefe", SqlDbType.Int).Value = Jefe;
+                Comando.Parameters.Add("@AuditoriaInt", SqlDbType.Int).Value = AuditoriaInt;
+                Comando.Parameters.Add("@AuditoriaExt", SqlDbType.Int).Value = AuditoriaExt;
+
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int DeleteDetalleManejoInfo(int PuestoId, int ManejoInformacionId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_DeleteManejoInfo", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@ManejoInformacionId", SqlDbType.Int).Value = ManejoInformacionId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int AddAmbienteTrabajo(int PuestoId, string TipoAmbienteTrabajo)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_AddAmbienteTrabajo", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@TipoAmbienteTrabajo", SqlDbType.VarChar, 1000).Value = TipoAmbienteTrabajo;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int AddRiesgoOcupacional(int PuestoId, string TipoRiesgoOcupacional)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_AddRiesgoOcupacional", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@TipoRiesgoOcupacional", SqlDbType.VarChar, 1000).Value = TipoRiesgoOcupacional;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int AddEsfuerzoFisico(int PuestoId, string TipoEsfuerzoFisico)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_AddEsfuerzoFisico", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@TipoEsfuerzoFisico", SqlDbType.VarChar, 1000).Value = TipoEsfuerzoFisico;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
     }
 }

@@ -423,3 +423,84 @@ function ComboEsfuerzoFisico(factor) {
         }
     });
 }
+
+function ComboTipoSupervision() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_TipoSupervision.asmx/GetListaTipoSupervision",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $('#cboTipoSupervision').get(0).options.length = 0;
+            //$('#cboTipoAmbienteTrabajo').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['TipoSupervisionId'];
+                var name = data.d[i]['TipoSupervision'];
+
+                $('#cboTipoSupervision').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboFrecuencia() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_Frecuencia.asmx/GetListaFrecuencia",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $('#cboFrecuencia').get(0).options.length = 0;
+            //$('#cboTipoAmbienteTrabajo').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['FrecuenciaId'];
+                var name = data.d[i]['Frecuencia'];
+
+                $('#cboFrecuencia').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboTipoRelacion() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_TipoRelacion.asmx/GetListaFrecuencia",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $('#cboTipoRelacion').get(0).options.length = 0;
+            //$('#cboTipoAmbienteTrabajo').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['TipoRelacionId'];
+                var name = data.d[i]['TipoRelacion'];
+
+                $('#cboTipoRelacion').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
