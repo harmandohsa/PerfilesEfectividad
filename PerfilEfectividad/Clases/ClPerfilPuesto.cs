@@ -87,7 +87,8 @@ namespace PerfilEfectividad.Clases
 
         public int Insert_Perfil(int PuestoId, string Fecha, int AreaId, string FuncPrincipal, string Principales, string FuncSemQuin, string FuncMenual, string FuncTriMen, string FuncAnual, 
             string FuncEventual, int TomaDesicionId, int EsfuerzoMentalId, int RelacionInternaId, int RelacionExternaId, int ManejoInformacionId, int UsuarioId, string PuestoSuperior, 
-            string NombrePersona, string Superior, string FuncionesDiarias)
+            string NombrePersona, string Superior, string FuncionesDiarias, int EducacionFormalId,
+            int ImpcatoErrorId, string OtrosEstudios, int GradoId, int CarreraId)
         {
             try
             {
@@ -116,7 +117,22 @@ namespace PerfilEfectividad.Clases
                 Comando.Parameters.Add("@NombrePersona", SqlDbType.VarChar, 500).Value = NombrePersona;
                 Comando.Parameters.Add("@Superior", SqlDbType.VarChar, 500).Value = Superior;
                 Comando.Parameters.Add("@FuncDiarias", SqlDbType.Text).Value = FuncionesDiarias;
+                if (EducacionFormalId == 0)
+                    Comando.Parameters.Add("@EducacionFormalId", SqlDbType.Int).Value = DBNull.Value;
+                else
+                    Comando.Parameters.Add("@EducacionFormalId", SqlDbType.Int).Value = EducacionFormalId;
+                if (ImpcatoErrorId == 0)
+                    Comando.Parameters.Add("@ImpcatoErrorId", SqlDbType.Int).Value = DBNull.Value;
+                else
+                    Comando.Parameters.Add("@ImpcatoErrorId", SqlDbType.Int).Value = ImpcatoErrorId;
+                Comando.Parameters.Add("@OtrosEstudios", SqlDbType.VarChar, 500).Value = OtrosEstudios;
                 Comando.Parameters.Add("@PuestoVerId", SqlDbType.Int).Direction = ParameterDirection.Output;
+                Comando.Parameters.Add("@GradoId", SqlDbType.Int).Value = GradoId;
+                if (CarreraId == 0)
+                    Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = DBNull.Value;
+                else
+                    Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = CarreraId;
+
                 SqlDataAdapter adp = new SqlDataAdapter(Comando);
                 adp.Fill(ds, "DATOS");
                 int Resultado = Convert.ToInt32(Comando.Parameters["@PuestoVerId"].Value.ToString());
@@ -312,6 +328,132 @@ namespace PerfilEfectividad.Clases
                 cn.Close();
 
                 return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        public int Insert_DetalleOtrosCursos(int PuestoId, int PuestoVer, string Curso, 
+            string Duracion)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleOtrosEstudios", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                Comando.Parameters.Add("@Curso", SqlDbType.VarChar, 500).Value = Curso;
+                Comando.Parameters.Add("@Duracion", SqlDbType.VarChar, 500).Value = Duracion;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        public int Insert_DetalleOtrosIdiomas(int PuestoId, int PuestoVer,
+            int DominioIdiomaId, int IdiomaId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleOtrosIdiomas", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                
+                Comando.Parameters.Add("@DominioIdiomaId", SqlDbType.Int).Value = DominioIdiomaId;
+                Comando.Parameters.Add("@IdomaId", SqlDbType.VarChar, 500).Value = IdiomaId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        public int Insert_DetalleExperiencia(int PuestoId, int PuestoVer, string TipoTrabajo,
+            string Tiempo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleExperiencia", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                Comando.Parameters.Add("@TipoTrabajo", SqlDbType.VarChar, 900).Value = TipoTrabajo;
+                Comando.Parameters.Add("@Tiempo", SqlDbType.VarChar, 900).Value = Tiempo;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        public int Get_Idioma(string Idioma)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("SP_GetIdiomaId", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@Idioma", SqlDbType.VarChar, 500).Value = Idioma;
+                Comando.Parameters.Add("@IdiomaId", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                int Resultado = Convert.ToInt32(Comando.Parameters["@IdiomaId"].Value.ToString());
+                cn.Close();
+
+                return Resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        public int Get_Carrera(string Carrera, int GradoId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("SP_GetCarreraId", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@Carrera", SqlDbType.VarChar, 500).Value = Carrera;
+                Comando.Parameters.Add("@GradoId", SqlDbType.Int).Value = GradoId;
+                Comando.Parameters.Add("@CarreraId", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                int Resultado = Convert.ToInt32(Comando.Parameters["@CarreraId"].Value.ToString());
+                cn.Close();
+
+                return Resultado;
             }
             catch (Exception ex)
             {

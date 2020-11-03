@@ -12626,10 +12626,14 @@
     <Content Include="WebScripts\SrcPuesto.js" />
     <Content Include="WebServices\Ws_Areas.asmx" />
     <Content Include="WebServices\Ws_CargaPerfil.asmx" />
+    <Content Include="WebServices\WS_Carreras.asmx" />
     <Content Include="WebServices\Ws_CrudPerfil.asmx" />
+    <Content Include="WebServices\Ws_DominioIdioma.asmx" />
     <Content Include="WebServices\Ws_Factor.asmx" />
     <Content Include="WebServices\WS_Frecuencia.asmx" />
     <Content Include="WebServices\Ws_Generales.asmx" />
+    <Content Include="WebServices\WS_Grado.asmx" />
+    <Content Include="WebServices\Ws_Idioma.asmx" />
     <Content Include="WebServices\Ws_Login.asmx" />
     <Content Include="WebServices\Ws_Puestos.asmx" />
     <Content Include="WebServices\Ws_TipoAmbienteTrabajo.asmx" />
@@ -12684,9 +12688,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Clases\ClPerfilPuesto.cs" />
     <Compile Include="Clases\Cl_Areas.cs" />
+    <Compile Include="Clases\Cl_Carreras.cs" />
     <Compile Include="Clases\Cl_CrudPerfil.cs" />
+    <Compile Include="Clases\Cl_DominioIdioma.cs" />
     <Compile Include="Clases\Cl_Factor.cs" />
     <Compile Include="Clases\Cl_Frecuencia.cs" />
+    <Compile Include="Clases\Cl_Grado.cs" />
+    <Compile Include="Clases\Cl_Idiomas.cs" />
     <Compile Include="Clases\Cl_Puestos.cs" />
     <Compile Include="Clases\Cl_TipoAmbienteTrabajo.cs" />
     <Compile Include="Clases\Cl_TipoEsfuerzoFisico.cs" />
@@ -12761,8 +12769,16 @@
       <DependentUpon>Ws_CargaPerfil.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WebServices\WS_Carreras.asmx.cs">
+      <DependentUpon>WS_Carreras.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebServices\Ws_CrudPerfil.asmx.cs">
       <DependentUpon>Ws_CrudPerfil.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_DominioIdioma.asmx.cs">
+      <DependentUpon>Ws_DominioIdioma.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebServices\Ws_Factor.asmx.cs">
@@ -12775,6 +12791,14 @@
     </Compile>
     <Compile Include="WebServices\Ws_Generales.asmx.cs">
       <DependentUpon>Ws_Generales.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_Grado.asmx.cs">
+      <DependentUpon>WS_Grado.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_Idioma.asmx.cs">
+      <DependentUpon>Ws_Idioma.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebServices\Ws_Login.asmx.cs">

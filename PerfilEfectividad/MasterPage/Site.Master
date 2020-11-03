@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PerfilEfectividad.MasterPage.Site" %>
+﻿    <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PerfilEfectividad.MasterPage.Site" %>
 <!DOCTYPE html>
 
 <html>
@@ -93,7 +93,7 @@
 		<div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
 			<div class="kt-header-mobile__logo">
 				<a>
-					<img alt="Logo" width="50%" height="50%" src="../assets/media/logos/terra_energia_logo.png" />
+					<img alt="Logo" width="50%" height="50%" src="../assets/media/logos/LogoVistera.png" />
 				</a>
 			</div>
 			<div class="kt-header-mobile__toolbar">
@@ -115,7 +115,7 @@
 					<div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
 						<div class="kt-aside__brand-logo">
 							<a>
-								<img alt="Logo" width="50%" src="./assets/media/logos/terra_energia_logo.png" />
+								<img alt="Logo" width="50%" src="./assets/media/logos/LogoVistera.png" />
 							</a>
 						</div>
 						<div class="kt-aside__brand-tools">

@@ -440,6 +440,193 @@
 						</div>
 					</div>
 				</div>
+
+                <div class="card">
+					<div class="card-header" id="headingTwelve4">
+						<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwelve4" aria-expanded="false" aria-controls="collapseTwelve4">
+							<i class="flaticon2-laptop"></i> Educación Formal
+						</div>
+					</div>
+					<div id="collapseTwelve4" class="collapse" aria-labelledby="headingTwelve1" data-parent="#accordionExample4">
+						<div class="card-body">
+							<div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cboNivelEducacional">Nivel Educacional</label>
+                                        <select id="cboNivelEducacional" class="full-width" data-init-plugin="select2"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="DivCarrera">
+                                    <div class="form-group">
+                                        <label for="cboCarrera">Carrera específica</label>
+                                        <select id="cboCarrera" class="full-width" data-init-plugin="select2"></select>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="cboEducacionFormal">Factor Eduación Formal</label>
+                                        <select id="cboEducacionFormal" disabled class="full-width" data-init-plugin="select2"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" onclick="ActualizaNivelEducacional()" id="BtnUpdateNivelEducacional" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>                            
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+                <div class="card">
+					<div class="card-header" id="headingTrece4">
+						<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTrece4" aria-expanded="false" aria-controls="collapseTrece4">
+							<i class="flaticon2-cross"></i> Impacto del Error
+						</div>
+					</div>
+					<div id="collapseTrece4" class="collapse" aria-labelledby="headingThree1" data-parent="#accordionExample4">
+						<div class="card-body">
+							<div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="CboImopactoError">Impacto del Error</label>
+                                        <select id="CboImopactoError" onchange="GrabarFactores(12)" class="full-width" data-init-plugin="select2"></select>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+                <div class="card">
+					<div class="card-header" id="headingCatorce4">
+						<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseCatorce4" aria-expanded="false" aria-controls="collapseCatorce4">
+							<i class="flaticon2-ui"></i> Cursos Técnicos
+						</div>
+					</div>
+					<div id="collapseCatorce4" class="collapse" aria-labelledby="headingCatorce1" data-parent="#accordionExample4">
+						<div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" data-toggle="modal" data-target="#modalCursosTecnicos" onclick="NuevaCursoTecnico()" id="BtnNuevaCursoTecnico" class="btn btn-primary"><i class="fa fa-plus"></i>Nuevo Curso Técnico</button>                            
+                                    </div>
+                                    
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped- table-bordered table-hover table-checkable order-column" id="kt_table_CursosTecnicos">
+                                        <thead>
+				                            <tr>
+                                                <th>Código</th>
+					                            <th>Departamentos</th>
+				                            </tr>
+			                            </thead>
+		                            </table>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+                <div class="card">
+					<div class="card-header" id="headingQuince4">
+						<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseQuince4" aria-expanded="false" aria-controls="collapseQuince4">
+							<i class="flaticon2-copy"></i> Otros Estudios Requeridos
+						</div>
+					</div>
+					<div id="collapseQuince4" class="collapse" aria-labelledby="headingQuince1" data-parent="#accordionExample4">
+						<div class="card-body">
+							<div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="txtOtrosEstudios">Estudios</label>
+                                        <textarea id="txtOtrosEstudios" rows="5"  class="form-control" required></textarea>
+                                                
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" onclick="GrabarOtrosEstudios()" id="BtnActualizaEstudios" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+                <div class="card">
+					<div class="card-header" id="headingDiecisies4">
+						<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseDiecisies4" aria-expanded="false" aria-controls="collapseDiecisies4">
+							<i class=" flaticon2-chat-1"></i> Idiomas
+						</div>
+					</div>
+					<div id="collapseDiecisies4" class="collapse" aria-labelledby="headingDiecisies1" data-parent="#accordionExample4">
+						<div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" data-toggle="modal" data-target="#modalIdiomas" onclick="NuevoIdioma()" id="BtnNuevoIdioma" class="btn btn-primary"><i class="fa fa-plus"></i>Nuevo Idioma</button>                            
+                                    </div>
+                                    
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped- table-bordered table-hover table-checkable order-column" id="kt_table_Idiomas">
+                                        <thead>
+				                            <tr>
+                                                <th>Código</th>
+					                            <th>Departamentos</th>
+				                            </tr>
+			                            </thead>
+		                            </table>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+                <div class="card">
+					<div class="card-header" id="headingDiecisiete4">
+						<div class="card-title collapsed" data-toggle="collapse" data-target="#collapseDiecisiete4" aria-expanded="false" aria-controls="collapseDiecisiete4">
+							<i class="flaticon-presentation"></i> Experiencia
+						</div>
+					</div>
+					<div id="collapseDiecisiete4" class="collapse" aria-labelledby="headingDiecisiete1" data-parent="#accordionExample4">
+						<div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button type="button" data-toggle="modal" data-target="#modalExperiencia" onclick="NuevaExperiencia()" id="BtnNuevaExperiencia" class="btn btn-primary"><i class="fa fa-plus"></i>Nueva Experiencia</button>                            
+                                    </div>
+                                    
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped- table-bordered table-hover table-checkable order-column" id="kt_table_Experiencia">
+                                        <thead>
+				                            <tr>
+                                                <th>Código</th>
+					                            <th>Departamentos</th>
+				                            </tr>
+			                            </thead>
+		                            </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="CboExperiencia">Factor Experiencia</label>
+                                        <select id="CboExperiencia" onchange="GrabarFactores(13)" class="full-width" data-init-plugin="select2"></select>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<%--end accordion--%>
@@ -601,6 +788,110 @@
         <!-- /.modal-content -->
     </div>
 </div>
+<div class="modal fade slide-up" id="modalCursosTecnicos" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-wrapper">
+        <div class="modal-content ">
+            <div class="modal-header clearfix text-left">
+                <h5>Crear / Editar Cursos Técnicos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="ik ik-arrow-down bg-blue"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtCurso">Curso</label>
+                                <input id="txtCurso" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtDuracion">Duración</label>
+                                <input id="txtDuracion" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" onclick="GrabarCursoTecnico()" id="BtnGrabarCursoTecnico" class="btn btn-primary"><i class="fa fa-save"></i>Grabar</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<div class="modal fade slide-up" id="modalIdiomas" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-wrapper">
+        <div class="modal-content ">
+            <div class="modal-header clearfix text-left">
+                <h5>Crear / Editar Idiomas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="ik ik-arrow-down bg-blue"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                           <label for="cboIdioma">Idioma</label>
+                            <select id="cboIdioma" class="full-width" data-init-plugin="select2"></select>
+                        </div>
+                        <div class="col-md-6">
+                           <label for="cboDominioIdioma">Dominio Idioma</label>
+                            <select id="cboDominioIdioma" class="full-width" data-init-plugin="select2"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" onclick="GrabarIdioma()" id="BtnGrabarIdioma" class="btn btn-primary"><i class="fa fa-save"></i>Grabar</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<div class="modal fade slide-up" id="modalExperiencia" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-wrapper">
+        <div class="modal-content ">
+            <div class="modal-header clearfix text-left">
+                <h5>Crear / Editar Experiencias</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="ik ik-arrow-down bg-blue"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtTipoTrabajo">Tipo de Trabajo</label>
+                                <input id="txtTipoTrabajo" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtTiempoExperiencia">Tiempo (en meses o años)</label>
+                                <input id="txtTiempoExperiencia" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" onclick="GrabarExperiencia()" id="BtnGrabarExperiencia" class="btn btn-primary"><i class="fa fa-save"></i>Grabar</button>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
 <input id="txtPuestoId" type="text" class="form-control" Style="display:none" >
 <input id="txtAreaId" type="text" class="form-control" Style="display:none">
 <input id="txtTomaDecisionId" type="text" class="form-control"  Style="display:none">
@@ -625,6 +916,19 @@
 <input id="txtllamadaRelacion" type="text" class="form-control" Style="display:none" >
 <input id="txtManejoInfoId" type="text" class="form-control" Style="display:none" >
 <input id="txtllamadaManejoInfo" type="text" class="form-control" Style="display:none" >
+<input id="txtGradoId" type="text" class="form-control" Style="display:none" >
+<input id="txtCarreraId" type="text" class="form-control" Style="display:none" >
+<input id="txtEducacionFormalId" type="text" class="form-control" Style="display:none" >
+<input id="txtImpactoErrorId" type="text" class="form-control" Style="display:none" >
+<input id="txtCursoId" type="text" class="form-control" Style="display:none" >
+<input id="txtllamadaCurso" type="text" class="form-control" Style="display:none" >
+<input id="txtIdiomaId" type="text" class="form-control" Style="display:none" >
+<input id="txtIdomaId" type="text" class="form-control" Style="display:none" >
+<input id="txtDominioIdiomaId" type="text" class="form-control" Style="display:none" >
+<input id="txtllamadaIdioma" type="text" class="form-control" Style="display:none" >
+<input id="txtExperienciaId" type="text" class="form-control" Style="display:none" >
+<input id="txtllamadaExperiencia" type="text" class="form-control" Style="display:none" >
+<input id="txtExperienciaFactorId" type="text" class="form-control" Style="display:none" >
 <script src="../WebScripts/SrcEditPuesto.js" type="text/javascript"></script>
 <script src="../WebScripts/SrcCombos.js" type="text/javascript"></script>
 </asp:Content>

@@ -239,5 +239,96 @@ namespace PerfilEfectividad.Clases
 
         }
 
+        public DataSet GetEstudioFormal(int PuestoId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_GetDetallesEducacionFormal", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+
+        }
+
+        public DataSet GetCursosTecnicos(int PuestoId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_GetCursosTecnicos", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+
+        }
+
+        public DataSet GetIdiomas(int PuestoId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_GetDataIdiomas", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+
+        }
+
+        public DataSet GetExperiencia(int PuestoId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_GetDataExperiencia", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+
+        }
     }
 }

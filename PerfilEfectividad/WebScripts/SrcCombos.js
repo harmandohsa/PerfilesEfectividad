@@ -424,6 +424,99 @@ function ComboEsfuerzoFisico(factor) {
     });
 }
 
+function ComboEducacionFormal(factor) {
+    var sentAjaxData = {
+        "FactorId": factor
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Factor.asmx/GetListaFactor",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(sentAjaxData),
+        success: function (data) {
+            $('#cboEducacionFormal').get(0).options.length = 0;
+            $('#cboEducacionFormal').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['Id'];
+                var name = data.d[i]['Texto'];
+
+                $('#cboEducacionFormal').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboImpactoError(factor) {
+    var sentAjaxData = {
+        "FactorId": factor
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Factor.asmx/GetListaFactor",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(sentAjaxData),
+        success: function (data) {
+            $('#CboImopactoError').get(0).options.length = 0;
+            $('#CboImopactoError').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['Id'];
+                var name = data.d[i]['Texto'];
+
+                $('#CboImopactoError').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboExperiencia(factor) {
+    var sentAjaxData = {
+        "FactorId": factor
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Factor.asmx/GetListaFactor",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(sentAjaxData),
+        success: function (data) {
+            $('#CboExperiencia').get(0).options.length = 0;
+            $('#CboExperiencia').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['Id'];
+                var name = data.d[i]['Texto'];
+
+                $('#CboExperiencia').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
 function ComboTipoSupervision() {
     $.ajax({
         type: "POST",
@@ -496,6 +589,118 @@ function ComboTipoRelacion() {
                 var name = data.d[i]['TipoRelacion'];
 
                 $('#cboTipoRelacion').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboGrados() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_Grado.asmx/GetListaGrados",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $('#cboNivelEducacional').get(0).options.length = 0;
+            //$('#cboTipoAmbienteTrabajo').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['GradoId'];
+                var name = data.d[i]['Grado'];
+
+                $('#cboNivelEducacional').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboCarrera(GradoId) {
+    var sentAjaxData = {
+        "GradoId": GradoId
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_Carreras.asmx/GetListaCarreras",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(sentAjaxData),
+        success: function (data) {
+            $('#cboCarrera').get(0).options.length = 0;
+            $('#cboCarrera').get(0).options[0] = new Option("Seleccione la carrera", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['CarreraId'];
+                var name = data.d[i]['Carrera'];
+
+                $('#cboCarrera').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboIdiomas() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_Idioma.asmx/GetListaIdioma",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $('#cboIdioma').get(0).options.length = 0;
+            $('#cboIdioma').get(0).options[0] = new Option("Seleccione el idioma", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['IdiomaId'];
+                var name = data.d[i]['Idioma'];
+
+                $('#cboIdioma').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboDominioIdiomas() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_DominioIdioma.asmx/GetListaDominioIdioma",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $('#cboDominioIdioma').get(0).options.length = 0;
+            $('#cboDominioIdioma').get(0).options[0] = new Option("Seleccione el dominio", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['DominioIdiomaId'];
+                var name = data.d[i]['DominioIdioma'];
+
+                $('#cboDominioIdioma').append("<option value='" + id + "'>" + name + "</option>");
 
             }
         },

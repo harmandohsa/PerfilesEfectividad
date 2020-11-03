@@ -57,6 +57,7 @@ namespace PerfilEfectividad.WebServices
             public string FuncionTrimestralSemestral { get; set; }
             public string FuncionAnual { get; set; }
             public string FuncionEventual { get; set; }
+            public string OtrosEstudios { get; set; }
         }
 
         [WebMethod]
@@ -79,6 +80,7 @@ namespace PerfilEfectividad.WebServices
                 Registro.FuncionTrimestralSemestral = dr["FuncionTrimestralSemestral"].ToString();
                 Registro.FuncionAnual = dr["FuncionAnual"].ToString();
                 Registro.FuncionEventual = dr["FuncionEventual"].ToString();
+                Registro.OtrosEstudios = dr["OtrosEstudios"].ToString();
                 Datos.Add(Registro);
             }
             return Datos;
@@ -96,6 +98,9 @@ namespace PerfilEfectividad.WebServices
             public int AmbienteTrabajoId { get; set; }
             public int RiesgoOcupacionalId { get; set; }
             public int EsfuerzoFisicoId { get; set; }
+            public int EducacionFormalId { get; set; }
+            public int ImpactoErrorId { get; set; }
+            public int ExperienciaLaboralId { get; set; }
         }
 
         [WebMethod]
@@ -141,6 +146,18 @@ namespace PerfilEfectividad.WebServices
                     Registro.EsfuerzoFisicoId = 0;
                 else
                     Registro.EsfuerzoFisicoId = Convert.ToInt32(dr["EsfuerzoFisicoId"].ToString());
+                if (dr["EducacionFormalId"].ToString() == "")
+                    Registro.EducacionFormalId = 0;
+                else
+                    Registro.EducacionFormalId = Convert.ToInt32(dr["EducacionFormalId"].ToString());
+                if (dr["ImpactoErrorId"].ToString() == "")
+                    Registro.ImpactoErrorId = 0;
+                else
+                    Registro.ImpactoErrorId = Convert.ToInt32(dr["ImpactoErrorId"].ToString());
+                if (dr["ExperienciaLaboralId"].ToString() == "")
+                    Registro.ExperienciaLaboralId = 0;
+                else
+                    Registro.ExperienciaLaboralId = Convert.ToInt32(dr["ExperienciaLaboralId"].ToString());
                 Datos.Add(Registro);
             }
             return Datos;
@@ -356,6 +373,123 @@ namespace PerfilEfectividad.WebServices
                 DataRiesgoOcupacional Registro = new DataRiesgoOcupacional();
                 Registro.PuestoVer = Convert.ToInt32(dr["PuestoVer"].ToString());
                 Registro.Tipos = dr["Tipos"].ToString();
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
+        public class DataEstudioFormal
+        {
+            public int GradoId { get; set; }
+            public int CarreraId { get; set; }
+        }
+
+        [WebMethod]
+        public List<DataEstudioFormal> GetDataEstudioFormal(int PuestoId)
+        {
+            ds.Tables.Clear();
+            Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            ds = clCrudPerfil.GetEstudioFormal(PuestoId);
+            List<DataEstudioFormal> Datos = new List<DataEstudioFormal>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                DataEstudioFormal Registro = new DataEstudioFormal();
+                if (dr["GradoId"].ToString() == "")
+                    Registro.GradoId = 0;
+                else
+                    Registro.GradoId = Convert.ToInt32(dr["GradoId"].ToString());
+                if (dr["CarreraId"].ToString() == "")
+                    Registro.CarreraId = 0;
+                else
+                    Registro.CarreraId = Convert.ToInt32(dr["CarreraId"].ToString());
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
+        public class DataCursosTecnicos
+        {
+            public int CursoId { get; set; }
+            public string Curso { get; set; }
+            public string Duracion { get; set; }
+        }
+
+        [WebMethod]
+        public List<DataCursosTecnicos> GetDataCursosTecnicos(int PuestoId)
+        {
+            ds.Tables.Clear();
+            Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            ds = clCrudPerfil.GetCursosTecnicos(PuestoId);
+            List<DataCursosTecnicos> Datos = new List<DataCursosTecnicos>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                DataCursosTecnicos Registro = new DataCursosTecnicos();
+                Registro.CursoId = Convert.ToInt32(dr["CursoId"].ToString());
+                Registro.Curso = dr["Curso"].ToString();
+                Registro.Duracion = dr["Duracion"].ToString();
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
+
+        public class DataIdomas
+        {
+            public int IdiomaId { get; set; }
+            public int IdomaId { get; set; }
+            public string Idioma { get; set; }
+            public int DominioIdiomaId { get; set; }
+            public string DominioIdioma { get; set; }
+        }
+
+        [WebMethod]
+        public List<DataIdomas> GetDataIdiomas(int PuestoId)
+        {
+            ds.Tables.Clear();
+            Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            ds = clCrudPerfil.GetIdiomas(PuestoId);
+            List<DataIdomas> Datos = new List<DataIdomas>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                DataIdomas Registro = new DataIdomas();
+                Registro.IdiomaId = Convert.ToInt32(dr["IdiomaId"].ToString());
+                Registro.IdomaId = Convert.ToInt32(dr["IdomaId"].ToString());
+                Registro.Idioma = dr["Idioma"].ToString();
+                Registro.DominioIdiomaId = Convert.ToInt32(dr["DominioIdiomaId"].ToString());
+                Registro.DominioIdioma = dr["DominioIdioma"].ToString();
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
+        public class DataExperiencia
+        {
+            public int ExperienciaId { get; set; }
+            public string TipoTrabajo { get; set; }
+            public string Tiempo { get; set; }
+        }
+
+        [WebMethod]
+        public List<DataExperiencia> GetDataExperiencia(int PuestoId)
+        {
+            ds.Tables.Clear();
+            Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            ds = clCrudPerfil.GetExperiencia(PuestoId);
+            List<DataExperiencia> Datos = new List<DataExperiencia>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                DataExperiencia Registro = new DataExperiencia();
+                Registro.ExperienciaId = Convert.ToInt32(dr["ExperienciaId"].ToString());
+                Registro.TipoTrabajo = dr["TipoTrabajo"].ToString();
+                Registro.Tiempo = dr["Tiempo"].ToString();
                 Datos.Add(Registro);
             }
             return Datos;
@@ -761,6 +895,272 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@TipoEsfuerzoFisico", SqlDbType.VarChar, 1000).Value = TipoEsfuerzoFisico;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int UpdateEducacionActual(int PuestoId, int GradoId, int CarreraId, int EducacionFormalId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_UpdateEducacionFormal", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@GradoId", SqlDbType.Int).Value = GradoId;
+                if (CarreraId == 0)
+                    Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = DBNull.Value;
+                else
+                    Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = CarreraId;
+                Comando.Parameters.Add("@EducacionFormalId", SqlDbType.Int).Value = EducacionFormalId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int EditCursoTecnico(int PuestoId, int CursoId, string Curso, string Duracion)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_EditCursosTecnicos", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@CursoId", SqlDbType.Int).Value = CursoId;
+                Comando.Parameters.Add("@Curso", SqlDbType.VarChar, 500).Value = Curso;
+                Comando.Parameters.Add("@Duracion", SqlDbType.VarChar, 500).Value = Duracion;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int Insert_DetalleCursoTecnico(int PuestoId, int PuestoVer, string Curso, string Duracion)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleCursoTecnico", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                Comando.Parameters.Add("@Curso", SqlDbType.VarChar, 900).Value = Curso;
+                Comando.Parameters.Add("@Duracion", SqlDbType.VarChar, 900).Value = Duracion;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int DeleteDetalleCursoTecnico(int PuestoId, int CursoId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Delete_DetalleCursoTecnico", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@CursoId", SqlDbType.Int).Value = CursoId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int UpdateOtrosEstudios(int PuestoId, string OtrosEstudios)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_EditOtrosEstudios", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@OtrosEstudios", SqlDbType.VarChar, 1000).Value = OtrosEstudios;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int EditIdioma(int PuestoId, int IdiomaId, int IdomaId, int DominioIdiomaId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_EditIdioma", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@IdiomaId", SqlDbType.Int).Value = IdiomaId;
+                Comando.Parameters.Add("@IdomaId", SqlDbType.Int).Value = IdomaId;
+                Comando.Parameters.Add("@DominioIdiomaId", SqlDbType.Int).Value = DominioIdiomaId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int Insert_Idioma(int PuestoId, int PuestoVer, int IdomaId, int DominioIdiomaId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleIdioma", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                Comando.Parameters.Add("@IdomaId", SqlDbType.Int).Value = IdomaId;
+                Comando.Parameters.Add("@DominioIdiomaId", SqlDbType.Int).Value = DominioIdiomaId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int DeleteIdioma(int PuestoId, int IdiomaId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_DeleteIdioma", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@IdiomaId", SqlDbType.Int).Value = IdiomaId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+
+        [WebMethod]
+        public int EditExperiencia(int PuestoId, int ExperienciaId, string Trabajo, string Tiempo)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_EditExperiencia", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@ExperienciaId", SqlDbType.Int).Value = ExperienciaId;
+                Comando.Parameters.Add("@TipoTrabajo", SqlDbType.VarChar, 900).Value = Trabajo;
+                Comando.Parameters.Add("@Tiempo", SqlDbType.VarChar, 900).Value = Tiempo;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int Insert_Experiencia(int PuestoId, int PuestoVer, string Trabajo, string Tiempo)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_DetalleExperiencia", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
+                Comando.Parameters.Add("@TipoTrabajo", SqlDbType.VarChar, 900).Value = Trabajo;
+                Comando.Parameters.Add("@Tiempo", SqlDbType.VarChar, 900).Value = Tiempo;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int DeleteExperiencia(int PuestoId, int ExperienciaId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_DeleteExperiencia", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@ExperienciaId", SqlDbType.Int).Value = ExperienciaId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 

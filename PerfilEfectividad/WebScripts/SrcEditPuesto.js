@@ -185,6 +185,98 @@ function OpcionesInicioLocal() {
         $("#txtTipoRelacionId").val($("#cboTipoRelacion").val());
     });
 
+
+    $("#cboNivelEducacional").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtGradoId").val($("#cboNivelEducacional").val());
+        ComboCarrera($("#txtGradoId").val());
+        ComboEducacionFormal(11);
+        if ($("#txtGradoId").val() == 1) 
+            $('#cboEducacionFormal').val(1);
+        else if ($("#txtGradoId").val() == 2)
+            $('#cboEducacionFormal').val(2);
+        else if ($("#txtGradoId").val() == 3)
+            $('#cboEducacionFormal').val(3);
+        else if ($("#txtGradoId").val() == 4)
+            $('#cboEducacionFormal').val(4);
+        else if ($("#txtGradoId").val() == 5)
+            $('#cboEducacionFormal').val(5);
+        else if (($("#txtGradoId").val() == 6) || ($("#txtGradoId").val() == 7))
+            $('#cboEducacionFormal').val(6); 
+        if ($("#txtGradoId").val() < 3)
+            $('#DivCarrera').slideUp();
+        else
+            $('#DivCarrera').slideDown();
+    });
+
+    $("#cboCarrera").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtCarreraId").val($("#cboCarrera").val());
+    });
+
+
+    $("#cboEducacionFormal").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtEducacionFormalId").val($("#cboEducacionFormal").val());
+    });
+
+    $("#CboImopactoError").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtImpactoErrorId").val($("#CboImopactoError").val());
+    });
+
+    $("#cboIdioma").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtIdomaId").val($("#cboIdioma").val());
+    });
+
+    $("#cboDominioIdioma").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtDominioIdiomaId").val($("#cboDominioIdioma").val());
+    });
+
+    $("#CboExperiencia").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtExperienciaFactorId").val($("#CboExperiencia").val());
+    });
+
+
+
     ComboAreas();
     ComboFactorTomaDescion(1);
     ComboFactorEsfuerzoMental(2);
@@ -196,6 +288,9 @@ function OpcionesInicioLocal() {
     ComboAmbienteTrabajo(8);
     ComboRiesgoOcupacional(9);
     ComboEsfuerzoFisico(10);
+    ComboEducacionFormal(11);
+    ComboImpactoError(12);
+    ComboExperiencia(13);
     GetDataGeneral(urlParams.get('PuestoId'));
     GetDataFunciones(urlParams.get('PuestoId'));
     GetDataFactores(urlParams.get('PuestoId'));
@@ -209,7 +304,13 @@ function OpcionesInicioLocal() {
     GetDataRiesgoOcupacional(urlParams.get('PuestoId'))
     ComboTipoEsfuerzoFisico();
     GetDataEsfuerzoFisico(urlParams.get('PuestoId'));
-    
+    ComboGrados();
+    GetDataEducacionFormal(urlParams.get('PuestoId'));
+    GetDataCursosTecnicos(urlParams.get('PuestoId'));
+    GetDataIdiomas(urlParams.get('PuestoId'));
+    ComboIdiomas();
+    ComboDominioIdiomas();
+    GetDataExperiencia(urlParams.get('PuestoId'));
 }
 
 function GetDataGeneral(PuestoId) {
@@ -259,6 +360,7 @@ function GetDataFunciones(PuestoId) {
             $('#txtfunctrimsem').val(data.d[0]['FuncionTrimestralSemestral'])
             $('#txtfuncanual').val(data.d[0]['FuncionAnual'])
             $('#txtfunceventual').val(data.d[0]['FuncionEventual'])
+            $('#txtOtrosEstudios').val(data.d[0]['OtrosEstudios'])
             return false;
         },
         error: function (request, status, error) {
@@ -292,6 +394,9 @@ function GetDataFactores(PuestoId) {
             $('#txtAmbienteTrabajoId').val(data.d[0]['AmbienteTrabajoId'])
             $('#txtRiesgoOcupacionalId').val(data.d[0]['RiesgoOcupacionalId'])
             $('#txtEsfuerzoFisicolId').val(data.d[0]['EsfuerzoFisicoId'])
+            $('#txtEducacionFormalId').val(data.d[0]['EducacionFormalId'])
+            $('#txtImpactoErrorId').val(data.d[0]['ImpactoErrorId'])
+            $('#txtExperienciaFactorId').val(data.d[0]['ExperienciaLaboralId'])
             $('#cboTomaDesicion').val(data.d[0]['TomaDesicionId'])
             $('#cboEsfuerzoMental').val(data.d[0]['EsfuerzoMentalId'])
             $('#cboRelacionInterna').val(data.d[0]['RelacionInternaId'])
@@ -302,6 +407,9 @@ function GetDataFactores(PuestoId) {
             $('#cboAmbienteTrabajo').val(data.d[0]['AmbienteTrabajoId'])
             $('#cboRiesgoOcupacional').val(data.d[0]['RiesgoOcupacionalId'])
             $('#cboEsfuerzoFisico').val(data.d[0]['EsfuerzoFisicoId'])
+            $('#cboEducacionFormal').val(data.d[0]['EducacionFormalId'])
+            $('#CboImopactoError').val(data.d[0]['ImpactoErrorId'])
+            $('#CboExperiencia').val(data.d[0]['ExperienciaLaboralId'])
             return false;
         },
         error: function (request, status, error) {
@@ -341,7 +449,7 @@ function DibujarTablaManejoBienes(PuestoId) {
                         "width": "5%"
                     },
                     {
-                        "title": "Monto",
+                        "title": "Monto US",
                         "data": "ConceptoId",
                         "render": function (data, type, row) {
                             //return '<label class="kt-radio kt-radio--danger" ><input name="Resp' + row['PreguntaId'] + '" value="1" type="radio"><span></span></label>';
@@ -813,6 +921,8 @@ function DibujarTablaManejoInformacion(PuestoId) {
 
 }
 
+
+
 function GetDataAmbienteTrabajo(PuestoId) {
     var sentAjaxData = {
         "PuestoId": PuestoId
@@ -889,6 +999,362 @@ function GetDataEsfuerzoFisico(PuestoId) {
             alert(request.responseText);
         }
     });
+}
+
+
+function GetDataEducacionFormal(PuestoId) {
+    var sentAjaxData = {
+        "PuestoId": PuestoId
+    };
+
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_CrudPerfil.asmx/GetDataEstudioFormal",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            $("#cboNivelEducacional").val(data.d[0]['GradoId']);
+            $("#txtGradoId").val(data.d[0]['GradoId']);
+            ComboCarrera(data.d[0]['GradoId']);
+            $("#cboCarrera").val(data.d[0]['CarreraId']);
+            $("#txtCarreraId").val(data.d[0]['CarreraId']);
+            if (data.d[0]['GradoId'] < 3)
+                $('#DivCarrera').slideUp();
+            else
+                $('#DivCarrera').slideDown();
+            return false;
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+function GetDataCursosTecnicos(PuestoId) {
+
+    $('#kt_table_CursosTecnicos').DataTable().destroy();
+    $('#kt_table_CursosTecnicos').empty();
+
+    var sentAjaxData = {
+        "PuestoId": PuestoId
+    };
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(sentAjaxData),
+        contentType: "application/json; charset=utf-8",
+        url: "../WebServices/WS_CrudPerfil.asmx/GetDataCursosTecnicos",
+        datatype: 'json',
+        success: function (data) {
+            var cantidad = data.d.length
+
+            var table = $("#kt_table_CursosTecnicos").DataTable({
+                data: data.d,
+                columns: [
+                    {
+                        "title": "Código",
+                        "data": "CursoId",
+                        "width": "5%"
+                    },
+                    {
+                        "title": "Curso",
+                        "render": function (data, type, row) {
+                            return '<a data-toggle="modal" onclick="ModificarCurso(' + row['CursoId'] + ',\'' + row['Curso'] + '\',\'' + row['Duracion'] + '\')" data-target="#modalCursosTecnicos" href="">' + row['Curso'] + '</a>'
+                        },
+                        "width": "45%"
+                    },
+                    {
+                        "title": "Duración",
+                        "data": "Duracion",
+                        "width": "50%"
+                    },
+                    {
+                        "title": "Borrar",
+                        "data": "CursoId",
+                        "render": function (data, type, row) {
+                            return '<a onclick="BorrarCursoTecnico(' + row['CursoId'] + ')"><i class="fa fa-trash-alt"></i></a>'
+                        }
+                    },
+                ],
+                oLanguage: {
+
+                    "sUrl": "../DataTable-ES.txt"
+                },
+                buttons: [
+                    {
+                        extend: 'print',
+                        title: 'Cursos Técnicos',
+                        text: 'Imprimir',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Cursos Técnicos',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Cursos Técnicos',
+                        download: 'open',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] },
+                        customize: function (doc) {
+                            doc.content.splice(1, 0, {
+                                margin: [0, 0, 0, 2],
+                                alignment: 'left',
+                                width: 150,
+                                height: 50
+                            });
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Columnas Visibles',
+                        columns: [0, 1, 2],
+                    }
+
+                ],
+                bStateSave: true,
+                orderable: true,
+                responsive: true,
+                dom: `<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>
+			        <'row'<'col-sm-12'tr>>
+			        <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+                lengthMenu: [
+                    [10, 20, -1],
+                    [10, 20, "Todos"]
+                ],
+                pageLength: 10,
+                pagingType: "full_numbers",
+                order: [[0, "asc"]],
+            });
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+
+}
+
+
+
+function GetDataIdiomas(PuestoId) {
+
+    $('#kt_table_Idiomas').DataTable().destroy();
+    $('#kt_table_Idiomas').empty();
+
+    var sentAjaxData = {
+        "PuestoId": PuestoId
+    };
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(sentAjaxData),
+        contentType: "application/json; charset=utf-8",
+        url: "../WebServices/WS_CrudPerfil.asmx/GetDataIdiomas",
+        datatype: 'json',
+        success: function (data) {
+            var cantidad = data.d.length
+
+            var table = $("#kt_table_Idiomas").DataTable({
+                data: data.d,
+                columns: [
+                    {
+                        "title": "Código",
+                        "data": "IdiomaId",
+                        "width": "5%"
+                    },
+                    {
+                        "title": "Idioma",
+                        "render": function (data, type, row) {
+                            return '<a data-toggle="modal" onclick="ModificarIdioma(' + row['IdiomaId'] + ',' + row['IdomaId'] + ',' + row['DominioIdiomaId'] + ')" data-target="#modalIdiomas" href="">' + row['Idioma'] + '</a>'
+                        },
+                        "width": "45%"
+                    },
+                    {
+                        "title": "Dominio Idioma",
+                        "data": "DominioIdioma",
+                        "width": "50%"
+                    },
+                    {
+                        "title": "Borrar",
+                        "data": "IdiomaId",
+                        "render": function (data, type, row) {
+                            return '<a onclick="BorrarIdioma(' + row['IdiomaId'] + ')"><i class="fa fa-trash-alt"></i></a>'
+                        }
+                    },
+                ],
+                oLanguage: {
+
+                    "sUrl": "../DataTable-ES.txt"
+                },
+                buttons: [
+                    {
+                        extend: 'print',
+                        title: 'Idiomas',
+                        text: 'Imprimir',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Idiomas',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Idiomas',
+                        download: 'open',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] },
+                        customize: function (doc) {
+                            doc.content.splice(1, 0, {
+                                margin: [0, 0, 0, 2],
+                                alignment: 'left',
+                                width: 150,
+                                height: 50
+                            });
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Columnas Visibles',
+                        columns: [0, 1, 2],
+                    }
+
+                ],
+                bStateSave: true,
+                orderable: true,
+                responsive: true,
+                dom: `<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>
+			        <'row'<'col-sm-12'tr>>
+			        <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+                lengthMenu: [
+                    [10, 20, -1],
+                    [10, 20, "Todos"]
+                ],
+                pageLength: 10,
+                pagingType: "full_numbers",
+                order: [[0, "asc"]],
+            });
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+
+}
+
+
+function GetDataExperiencia(PuestoId) {
+
+    $('#kt_table_Experiencia').DataTable().destroy();
+    $('#kt_table_Experiencia').empty();
+
+    var sentAjaxData = {
+        "PuestoId": PuestoId
+    };
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(sentAjaxData),
+        contentType: "application/json; charset=utf-8",
+        url: "../WebServices/WS_CrudPerfil.asmx/GetDataExperiencia",
+        datatype: 'json',
+        success: function (data) {
+            var cantidad = data.d.length
+
+            var table = $("#kt_table_Experiencia").DataTable({
+                data: data.d,
+                columns: [
+                    {
+                        "title": "Código",
+                        "data": "ExperienciaId",
+                        "width": "5%"
+                    },
+                    {
+                        "title": "Tipo de Trabajo",
+                        "render": function (data, type, row) {
+                            return '<a data-toggle="modal" onclick="ModificarExperiencia(' + row['ExperienciaId'] + ',\'' + row['TipoTrabajo'] + '\',\'' + row['Tiempo'] + '\')" data-target="#modalExperiencia" href="">' + row['TipoTrabajo'] + '</a>'
+                        },
+                        "width": "45%"
+                    },
+                    {
+                        "title": "Tiempo",
+                        "data": "Tiempo",
+                        "width": "50%"
+                    },
+                    {
+                        "title": "Borrar",
+                        "data": "ExperienciaId",
+                        "render": function (data, type, row) {
+                            return '<a onclick="BorrarExperiencia(' + row['ExperienciaId'] + ')"><i class="fa fa-trash-alt"></i></a>'
+                        }
+                    },
+                ],
+                oLanguage: {
+
+                    "sUrl": "../DataTable-ES.txt"
+                },
+                buttons: [
+                    {
+                        extend: 'print',
+                        title: 'Experiencia',
+                        text: 'Imprimir',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Experiencia',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Experiencia',
+                        download: 'open',
+                        enabled: true,
+                        exportOptions: { columns: [0, 1, 2] },
+                        customize: function (doc) {
+                            doc.content.splice(1, 0, {
+                                margin: [0, 0, 0, 2],
+                                alignment: 'left',
+                                width: 150,
+                                height: 50
+                            });
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Columnas Visibles',
+                        columns: [0, 1, 2],
+                    }
+
+                ],
+                bStateSave: true,
+                orderable: true,
+                responsive: true,
+                dom: `<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'B>>
+			        <'row'<'col-sm-12'tr>>
+			        <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+                lengthMenu: [
+                    [10, 20, -1],
+                    [10, 20, "Todos"]
+                ],
+                pageLength: 10,
+                pagingType: "full_numbers",
+                order: [[0, "asc"]],
+            });
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+
 }
 
 function GrabarInfoGenral() {
@@ -1004,6 +1470,10 @@ function GrabarFactores(factor) {
                 Id = $('#txtRiesgoOcupacionalId').val()
             if (factor == 10)
                 Id = $('#txtEsfuerzoFisicolId').val()
+            if (factor == 12)
+                Id = $('#txtImpactoErrorId').val()
+            if (factor == 13)
+                Id = $('#txtExperienciaFactorId').val()
             var sentAjaxData = {
                 "PuestoId": $('#txtPuestoId').val(),
                 "FactorId": factor,
@@ -1137,6 +1607,7 @@ function LimpiarSupervision() {
     $('#txtPuestoSupervision').val('')
     $('#txtllamadaSupervision').val('')
     $('#txtCantidadSupervision').val('')
+    $('#txtTipoSupervisionId').val('1')
 }
 
 function NuevaSupervision() {
@@ -1640,6 +2111,485 @@ function ActualizaEsfuerzoFisico() {
                 toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
 
             return false;
+        }
+    });
+}
+
+function ActualizaNivelEducacional() {
+    
+    var sentAjaxData = {
+        "PuestoId": $('#txtPuestoId').val(),
+        "GradoId": $('#txtGradoId').val(),
+        "CarreraId": $('#txtCarreraId').val(),
+        "EducacionFormalId": $('#txtEducacionFormalId').val()
+    };
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_CrudPerfil.asmx/UpdateEducacionActual",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            if (data.d == 1) {
+                toastr.success('Educación Formal Modificada');
+                //ComboTipoAmbienteTrabajo($('#txtPuestoId').val());
+                $.unblockUI();
+            }
+            else
+                toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+            return false;
+        }
+    });
+}
+
+
+function ModificarCurso(CursoId, Curso, Duracion) {
+    $('#txtCursoId').val(CursoId)
+    $('#txtCurso').val(Curso)
+    $('#txtllamadaCurso').val(2)
+    $('#txtDuracion').val(Duracion)
+}
+
+function LimpiarCursosTecnicos() {
+    $('#txtCursoId').val('')
+    $('#txtCurso').val('')
+    $('#txtllamadaCurso').val('')
+    $('#txtDuracion').val('')
+}
+
+function NuevaCursoTecnico() {
+    LimpiarCursosTecnicos();
+}
+
+function GrabarCursoTecnico() {
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            var CamposVacios = "<b>" + "Campos Invalidos: " + "</b>" + "<br />";
+            var Error = true;
+            if ($('#txtCurso').val() == "") {
+                CamposVacios = CamposVacios + 'Nombre Curso' + "<br />";
+                Error = false;
+            }
+            if (Error == false) {
+                toastr.error(CamposVacios);
+                $.unblockUI();
+                return Error;
+
+            }
+            else {
+                if ($('#txtllamadaCurso').val() == 2) {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "CursoId": $('#txtCursoId').val(),
+                        "Curso": $('#txtCurso').val(),
+                        "Duracion": $('#txtDuracion').val()
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/EditCursoTecnico",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Curso Técnico Modificado');
+                            GetDataCursosTecnicos($('#txtPuestoId').val());
+                            $('#modalCursosTecnicos').modal('hide');
+                            LimpiarCursosTecnicos();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+                else {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "PuestoVer": 1,
+                        "Curso": $('#txtCurso').val(),
+                        "Duracion": $('#txtDuracion').val()
+
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/Insert_DetalleCursoTecnico",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Curso Técnico Agregado');
+                            GetDataCursosTecnicos($('#txtPuestoId').val());
+                            $('#modalCursosTecnicos').modal('hide');
+                            LimpiarCursosTecnicos();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+function BorrarCursoTecnico(CursoId) {
+    swal.fire({
+        title: 'Eliminar',
+        text: "Esta seguro de eliminar este curso técnico",
+        type: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si'
+    }).then(function (result) {
+        if (result.value) {
+            var sentAjaxData = {
+                "PuestoId": $('#txtPuestoId').val(),
+                "CursoId": CursoId
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleCursoTecnico",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    if (data.d == 1) {
+                        toastr.success('Curso Técnico Eliminado');
+                        GetDataCursosTecnicos($('#txtPuestoId').val());
+                        $.unblockUI();
+                    }
+                    else
+                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+                    return false;
+                }
+            });
+            return retval;
+        }
+    });
+}
+
+function GrabarOtrosEstudios() {
+    var sentAjaxData = {
+        "PuestoId": $('#txtPuestoId').val(),
+        "OtrosEstudios": $('#txtOtrosEstudios').val()
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_CrudPerfil.asmx/UpdateOtrosEstudios",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            $.unblockUI();
+            toastr.success('Otros Estudios Modificados');
+            return false;
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+
+function ModificarIdioma(IdiomaId, IdomaId, DominioIdiomaId) {
+    ComboIdiomas();
+    ComboDominioIdiomas();
+    $('#txtIdiomaId').val(IdiomaId)
+    $('#txtIdomaId').val(IdomaId)
+    $('#txtDominioIdiomaId').val(DominioIdiomaId)
+    $('#cboIdioma').val(IdomaId)
+    $('#cboDominioIdioma').val(DominioIdiomaId)
+    $('#txtllamadaIdioma').val(2)
+}
+
+function LimpiarIdiomas() {
+    $('#txtIdiomaId').val('')
+    $('#txtIdomaId').val('')
+    $('#txtDominioIdiomaId').val('')
+    $('#txtllamadaIdioma').val('')
+}
+
+function NuevaCursoTecnico() {
+    LimpiarIdiomas();
+}
+
+function GrabarIdioma() {
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            var CamposVacios = "<b>" + "Campos Invalidos: " + "</b>" + "<br />";
+            var Error = true;
+            if ($('#txtIdomaId').val() == "") {
+                CamposVacios = CamposVacios + 'Idioma' + "<br />";
+                Error = false;
+            }
+            if ($('#txtDominioIdiomaId').val() == "") {
+                CamposVacios = CamposVacios + 'Dominio Idioma' + "<br />";
+                Error = false;
+            }
+            if (Error == false) {
+                toastr.error(CamposVacios);
+                $.unblockUI();
+                return Error;
+
+            }
+            else {
+                if ($('#txtllamadaIdioma').val() == 2) {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "IdiomaId": $('#txtIdiomaId').val(),
+                        "IdomaId": $('#txtIdomaId').val(),
+                        "DominioIdiomaId": $('#txtDominioIdiomaId').val()
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/EditIdioma",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Idioma Modificado');
+                            GetDataIdiomas($('#txtPuestoId').val());
+                            $('#modalIdiomas').modal('hide');
+                            LimpiarIdiomas();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+                else {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "PuestoVer": 1,
+                        "IdomaId": $('#txtIdomaId').val(),
+                        "DominioIdiomaId": $('#txtDominioIdiomaId').val()
+
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/Insert_Idioma",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Idioma Agregado');
+                            GetDataIdiomas($('#txtPuestoId').val());
+                            $('#modalIdiomas').modal('hide');
+                            LimpiarIdiomas();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+function BorrarIdioma(IdiomaId) {
+    swal.fire({
+        title: 'Eliminar',
+        text: "Esta seguro de eliminar este idioma",
+        type: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si'
+    }).then(function (result) {
+        if (result.value) {
+            var sentAjaxData = {
+                "PuestoId": $('#txtPuestoId').val(),
+                "IdiomaId": IdiomaId
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteIdioma",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    if (data.d == 1) {
+                        toastr.success('Idioma Eliminado');
+                        GetDataIdiomas($('#txtPuestoId').val());
+                        $.unblockUI();
+                    }
+                    else
+                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+                    return false;
+                }
+            });
+            return retval;
+        }
+    });
+}
+
+function ModificarExperiencia(ExperienciaId, TipoTrabajo, Trabajo) {
+    $('#txtExperienciaId').val(ExperienciaId)
+    $('#txtTipoTrabajo').val(TipoTrabajo)
+    $('#txtTiempoExperiencia').val(Trabajo)
+    $('#txtllamadaExperiencia').val(2)
+}
+
+function LimpiarExperiencia() {
+    $('#txtExperienciaId').val('')
+    $('#txtTipoTrabajo').val('')
+    $('#txtTiempoExperiencia').val('')
+    $('#txtllamadaExperiencia').val('')
+}
+
+function NuevaExperiencia() {
+    LimpiarExperiencia();
+}
+
+function GrabarExperiencia() {
+    $.blockUI({
+        message: 'Cargando Datos',
+        css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
+        onBlock: function () {
+            var CamposVacios = "<b>" + "Campos Invalidos: " + "</b>" + "<br />";
+            var Error = true;
+            if ($('#txtTipoTrabajo').val() == "") {
+                CamposVacios = CamposVacios + 'Tipo Trabajo' + "<br />";
+                Error = false;
+            }
+            if ($('#txtTiempoExperiencia').val() == "") {
+                CamposVacios = CamposVacios + 'Tiempo' + "<br />";
+                Error = false;
+            }
+            if (Error == false) {
+                toastr.error(CamposVacios);
+                $.unblockUI();
+                return Error;
+
+            }
+            else {
+                if ($('#txtllamadaExperiencia').val() == 2) {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "ExperienciaId": $('#txtExperienciaId').val(),
+                        "Trabajo": $('#txtTipoTrabajo').val(),
+                        "Tiempo": $('#txtTiempoExperiencia').val()
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/EditExperiencia",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Experiencia Modificada');
+                            GetDataExperiencia($('#txtPuestoId').val());
+                            $('#modalExperiencia').modal('hide');
+                            LimpiarExperiencia();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+                else {
+                    var sentAjaxData = {
+                        "PuestoId": $('#txtPuestoId').val(),
+                        "PuestoVer": 1,
+                        "Trabajo": $('#txtTipoTrabajo').val(),
+                        "Tiempo": $('#txtTiempoExperiencia').val()
+
+                    };
+                    var retval;
+                    $.ajax({
+                        type: "POST",
+                        url: "../WebServices/Ws_CrudPerfil.asmx/Insert_Experiencia",
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(sentAjaxData),
+                        async: false,
+                        success: function (data) {
+                            $.unblockUI();
+                            toastr.success('Experiencia Agregada');
+                            GetDataExperiencia($('#txtPuestoId').val());
+                            $('#modalExperiencia').modal('hide');
+                            LimpiarExperiencia();
+                            return false;
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+function BorrarExperiencia(ExperienciaId) {
+    swal.fire({
+        title: 'Eliminar',
+        text: "Esta seguro de eliminar esta Experiencia",
+        type: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si'
+    }).then(function (result) {
+        if (result.value) {
+            var sentAjaxData = {
+                "PuestoId": $('#txtPuestoId').val(),
+                "ExperienciaId": ExperienciaId
+            };
+            var retval;
+            $.ajax({
+                type: "POST",
+                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteExperiencia",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(sentAjaxData),
+                async: false,
+                success: function (data) {
+                    if (data.d == 1) {
+                        toastr.success('Experiencia Eliminada');
+                        GetDataExperiencia($('#txtPuestoId').val());
+                        $.unblockUI();
+                    }
+                    else
+                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+
+                    return false;
+                }
+            });
+            return retval;
         }
     });
 }
