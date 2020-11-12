@@ -45,5 +45,153 @@ namespace PerfilEfectividad.WebServices
             return Datos;
         }
 
+        [WebMethod]
+        public int EditPuesto(int PuestoId, string NombrePuesto)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_EditaNombrePuesto", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 900).Value = NombrePuesto;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int ExistePuestoNoActual(int PuestoId, string Puesto)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_ExistePuestoActual", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 500).Value = Puesto;
+                Comando.Parameters.Add("@Existe", SqlDbType.Int).Direction = ParameterDirection.Output;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                int Resultado = Convert.ToInt32(Comando.Parameters["@Existe"].Value.ToString());
+                cn.Close();
+
+                return Resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int EditNomprePuesto(int PuestoId, string Puesto)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_EditNombrePuesto", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 500).Value = Puesto;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int DeletePuesto(int PuestoId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_DeletePuesto", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int Insert_Puesto(string Puesto)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_Puesto_New", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@Puesto", SqlDbType.VarChar, 500).Value = Puesto;
+                Comando.Parameters.Add("@Resul", SqlDbType.Int).Direction = ParameterDirection.Output;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                int Resultado = Convert.ToInt32(Comando.Parameters["@Resul"].Value.ToString());
+                cn.Close();
+
+                return Resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int ExistePuesto(string Puesto)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_ExistePuesto", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@Puesto", SqlDbType.VarChar, 500).Value = Puesto;
+                Comando.Parameters.Add("@Resul", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                int Resultado = Convert.ToInt32(Comando.Parameters["@Resul"].Value.ToString());
+                cn.Close();
+
+                return Resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
     }
 }

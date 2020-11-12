@@ -330,5 +330,28 @@ namespace PerfilEfectividad.Clases
             }
 
         }
+
+        public DataSet GetCarreras(int PuestoId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_GetDetalleCarrera", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+
+        }
     }
 }

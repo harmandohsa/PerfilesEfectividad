@@ -9,45 +9,54 @@ function OpcionesInicioLocal() {
     //    $("#BtnGrabarDepartamento").css('display', 'none');
     //Editar = Datos[0]['Editar'];
     //Imprimir = Datos[0]['Imprimir'];
-    DibujarTablaPuesto();
+    $("#cboArea").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtAreaId").val($("#cboArea").val());
+    });
+
+    DibujarTabla();
+    ComboAreas();
 }
 
-function DibujarTablaPuesto() {
+function DibujarTabla() {
 
-    $('#kt_table_Puestos').DataTable().destroy();
-    $('#kt_table_Puestos').empty();
+    $('#kt_table_Data').DataTable().destroy();
+    $('#kt_table_Data').empty();
 
     $.ajax({
         type: 'POST',
         data: JSON.stringify(),
         contentType: "application/json; charset=utf-8",
-        url: "../WebServices/Ws_Puestos.asmx/GetListaPuestos",
+        url: "../WebServices/Ws_SubAreas.asmx/GetListaSubAreas",
         datatype: 'json',
         success: function (data) {
             var cantidad = data.d.length
 
-            var table = $("#kt_table_Puestos").DataTable({
+            var table = $("#kt_table_Data").DataTable({
                 data: data.d,
                 columns: [
                     {
                         "title": "Código",
-                        "data": "PuestoId",
+                        "data": "SubareaId",
                         "width": "5%"
                     },
                     {
-                        "title": "Puesto",
-                        "render": function (data, type, row) {
-                            return '<a href="../WebForms/Wfrm_EditPuestos.aspx?PuestoId=' + row['PuestoId'] + '&Puesto=' + row['Puesto'] + '">' + row['Puesto'] + '</a>'
-                        },
-                        "width": "50%"
+                        "title": "Área",
+                        "data": "Area",
+                        "width": "30%"
                     },
                     {
-                        "title": "Editar",
-                        "data": "PuestoId",
+                        "title": "Sub área",
                         "render": function (data, type, row) {
-                            return '<a data-toggle="modal" onclick="ModificarPuesto(' + row['PuestoId'] + ',\'' + row['Puesto'] + '\')" data-target="#modalEditPuesto" href=""> <i class="fa fa-edit"></i></a > '
-                        }
-                    },
+                            return '<a data-toggle="modal" onclick="Modificar(' + row['SubareaId'] + ',\'' + row['SubArea'] + '\',' + row['AreaId'] + ',\'' + row['Area'] + '\')" data-target="#modalDatos" href="">' + row['SubArea'] + '</a>'
+                        },
+                        "width": "50%"
+                    }
                 ],
                 oLanguage: {
 
@@ -56,23 +65,23 @@ function DibujarTablaPuesto() {
                 buttons: [
                     {
                         extend: 'print',
-                        title: 'Puestos',
+                        title: 'Sub áreas',
                         text: 'Imprimir',
                         enabled: true,
-                        exportOptions: { columns: [0, 1] }
+                        exportOptions: { columns: [0, 1, 2] }
                     },
                     {
                         extend: 'excelHtml5',
-                        title: 'Puestos',
+                        title: 'Sub áreas',
                         enabled: true,
-                        exportOptions: { columns: [0, 1] }
+                        exportOptions: { columns: [0, 1, 2] }
                     },
                     {
                         extend: 'pdfHtml5',
-                        title: 'Puestos',
+                        title: 'Sub áreas',
                         download: 'open',
                         enabled: true,
-                        exportOptions: { columns: [0, 1] },
+                        exportOptions: { columns: [0, 1, 2] },
                         customize: function (doc) {
                             doc.content.splice(1, 0, {
                                 margin: [0, 0, 0, 2],
@@ -111,41 +120,37 @@ function DibujarTablaPuesto() {
 
 }
 
-function NuevoPuesto() {
-    $('#BtnBorrarPuesto').slideUp();
-    $('#txtllamada').val('');
-    $('#txtDepartamento').val('');
-}
-
-function ModificarPuesto(Id, Dato) {
-    $('#BtnBorrarPuesto').slideDown();
-    $('#txtPuestoId').val(Id);
-    $('#txtNombrePuesto').val(Dato);
+function Modificar(Id, Dato, AreaId, Area) {
+    $('#BtnBorrar').slideDown();
+    $('#txtDatoId').val(Id);
+    $('#txtNombre').val(Dato);
     $('#txtllamada').val('2');
+    $('#txtAreaId').val(AreaId);
+    ComboAreas();
+    $('#cboArea').val(AreaId);
 }
 
-function GrabarPuesto() {
+function Nuevo() {
+    $('#BtnBorrar').slideUp();
+    $('#txtllamada').val('');
+    $('#txtNombre').val('');
+    $('#txtDatoId').val('');
+}
+
+function Grabar() {
     $.blockUI({
         message: 'Cargando Datos',
         css: { border: 'none', padding: '15px', backgroundColor: '#000', '-webkit-border-radius': '10px', '-moz-border-radius': '10px', opacity: .5, color: '#fff' },
         onBlock: function () {
             var CamposVacios = "<b>" + "Campos Invalidos: " + "</b>" + "<br />";
             var Error = true;
-            if ($('#txtNombrePuesto').val() == "") {
-                CamposVacios = CamposVacios + 'Nombre Puesto' + "<br />";
+            if ($('#txtNombre').val() == "") {
+                CamposVacios = CamposVacios + 'Nombre Sub área' + "<br />";
                 Error = false;
             }
-            if ($('#txtllamadaCurso').val() == 2) {
-                if (ValidaExistePuestoNoActual() >= 1) {
-                    CamposVacios = CamposVacios + 'Nombre de puesto ya existe' + "<br />";
-                    Error = false;
-                }
-            }
-            else {
-                if (ValidaExistePuesto() >= 1) {
-                    CamposVacios = CamposVacios + 'Nombre de puesto ya existe' + "<br />";
-                    Error = false;
-                }
+            if ($('#txtAreaId').val() == "") {
+                CamposVacios = CamposVacios + 'Área' + "<br />";
+                Error = false;
             }
             if (Error == false) {
                 toastr.error(CamposVacios);
@@ -154,27 +159,26 @@ function GrabarPuesto() {
 
             }
             else {
-                if ($('#txtllamadaCurso').val() == 2) {
+                if ($('#txtllamada').val() == 2) {
                     var sentAjaxData = {
-                        "PuestoId": $('#txtPuestoId').val(),
-                        "Puesto": $('#txtNombrePuesto').val()
+                        "AreaId": $('#txtAreaId').val(),
+                        "SubAreaId": $('#txtDatoId').val(),
+                        "Subarea": $('#txtNombre').val(),
                     };
                     var retval;
                     $.ajax({
                         type: "POST",
-                        url: "../WebServices/WS_Puestos.asmx/EditNomprePuesto",
+                        url: "../WebServices/WS_SubAreas.asmx/EditSubArea",
                         dataType: "json",
                         contentType: "application/json",
                         data: JSON.stringify(sentAjaxData),
                         async: false,
                         success: function (data) {
-                            DibujarTablaPuesto()
+                            DibujarTabla()
                             $.unblockUI();
-                            $('#modalEditPuesto').modal('hide');
-                            toastr.success('Puesto Modificado');
-                            $('#txtllamada').val('')
-                            $('#txtPuestoId').val('')
-                            $('#txtNombrePuesto').val('')
+                            $('#modalDatos').modal('hide');
+                            toastr.success('Subárea Modificada');
+                            Nuevo();
                             return false;
                         },
                         error: function (request, status, error) {
@@ -184,24 +188,23 @@ function GrabarPuesto() {
                 }
                 else {
                     var sentAjaxData = {
-                        "Puesto": $('#txtNombrePuesto').val()
+                        "Subarea": $('#txtNombre').val(),
+                        "AreaId": $('#txtAreaId').val()
                     };
                     var retval;
                     $.ajax({
                         type: "POST",
-                        url: "../WebServices/WS_Puestos.asmx/Insert_Puesto",
+                        url: "../WebServices/WS_SubAreas.asmx/Insert_SubArea",
                         dataType: "json",
                         contentType: "application/json",
                         data: JSON.stringify(sentAjaxData),
                         async: false,
                         success: function (data) {
-                            DibujarTablaPuesto()
+                            DibujarTabla()
                             $.unblockUI();
-                            $('#modalEditPuesto').modal('hide');
-                            toastr.success('Puesto Agregado');
-                            $('#txtllamada').val('')
-                            $('#txtPuestoId').val('')
-                            $('#txtNombrePuesto').val('')
+                            $('#modalDatos').modal('hide');
+                            toastr.success('Subárea Agregada');
+                            Nuevo();
                             return false;
                         },
                         error: function (request, status, error) {
@@ -209,64 +212,16 @@ function GrabarPuesto() {
                         }
                     });
                 }
-                
+
             }
         }
     });
 }
 
-function ValidaExistePuestoNoActual() {
-    var sentAjaxData = {
-        "PuestoId": $('#txtPuestoId').val(),
-        "Puesto": $('#txtNombrePuesto').val()
-    };
-    var retval;
-    $.ajax({
-        type: "POST",
-        url: "../WebServices/WS_Puestos.asmx/ExistePuestoNoActual",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(sentAjaxData),
-        async: false,
-        success: function (data) {
-            retval = data.d;
-            return false;
-        },
-        error: function (request, status, error) {
-            alert(request.responseText);
-        }
-    });
-    return retval;
-}
-
-function ValidaExistePuesto() {
-    var sentAjaxData = {
-        "Puesto": $('#txtNombrePuesto').val()
-    };
-    var retval;
-    $.ajax({
-        type: "POST",
-        url: "../WebServices/WS_Puestos.asmx/ExistePuesto",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(sentAjaxData),
-        async: false,
-        success: function (data) {
-            retval = data.d;
-            return false;
-        },
-        error: function (request, status, error) {
-            alert(request.responseText);
-        }
-    });
-    return retval;
-}
-
-
-function BorrarPuesto() {
+function Borrar() {
     swal.fire({
         title: 'Eliminar',
-        text: "Esta seguro de eliminar este puesto, esto es irreversible",
+        text: "Esta seguro de eliminar esta sub-área, esto es irreversible",
         type: 'info',
         showCancelButton: true,
         cancelButtonText: 'No',
@@ -274,28 +229,31 @@ function BorrarPuesto() {
     }).then(function (result) {
         if (result.value) {
             var sentAjaxData = {
-                "PuestoId": $('#txtPuestoId').val()
+                "SubAreaId": $('#txtDatoId').val()
             };
             var retval;
             $.ajax({
                 type: "POST",
-                url: "../WebServices/Ws_Puestos.asmx/DeletePuesto",
+                url: "../WebServices/WS_SubAreas.asmx/DeleteSubArea",
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(sentAjaxData),
                 async: false,
                 success: function (data) {
                     if (data.d == 1) {
-                        toastr.success('Puesto Eliminado');
-                        $('#modalEditPuesto').modal('hide');
-                        DibujarTablaPuesto();
-                        $('#txtNombrePuesto').val('')
-                        $('#txtllamada').val('')
-                        $('#txtPuestoId').val('')
+                        toastr.success('Sub área Eliminada');
+                        $('#modalDatos').modal('hide');
+                        DibujarTabla();
+                        Nuevo();
                         $.unblockUI();
                     }
-                    else
-                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+                    else {
+                        toastr.error('Esta sub área no se puede eliminar ya que esta asociado a algún puesto');
+                        $('#modalDatos').modal('hide');
+                        Nuevo();
+                        $.unblockUI();
+                    }
+
 
                     return false;
                 }

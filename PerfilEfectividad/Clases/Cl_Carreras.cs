@@ -31,5 +31,27 @@ namespace PerfilEfectividad.Clases
             }
 
         }
+
+        public DataSet GetListaCarrerasTodas()
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_GetCarreras", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+
+        }
     }
 }

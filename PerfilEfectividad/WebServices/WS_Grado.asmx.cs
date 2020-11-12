@@ -46,5 +46,24 @@ namespace PerfilEfectividad.WebServices
             return Datos;
         }
 
+        [WebMethod]
+        public List<ListaGrados> GetListaGradosCombo()
+        {
+            ds.Tables.Clear();
+            Cl_Grado clGrado = new Cl_Grado();
+            ds = clGrado.GetListaGradosCombo();
+            List<ListaGrados> Datos = new List<ListaGrados>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                ListaGrados Registro = new ListaGrados();
+                Registro.GradoId = Convert.ToInt32(dr["GradoId"]);
+                Registro.Grado = dr["Grado"].ToString();
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
     }
 }

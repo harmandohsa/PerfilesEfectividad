@@ -25,6 +25,8 @@ namespace PerfilEfectividad.WebServices
             public int AreaId { get; set; }
             public string Area { get; set; }
             public string PuestoSuperior { get; set; }
+            public int SubAreaId { get; set; }
+            public string CodigoPuesto { get; set; }
         }
 
         [WebMethod]
@@ -42,6 +44,14 @@ namespace PerfilEfectividad.WebServices
                 Registro.AreaId = Convert.ToInt32(dr["AreaId"]);
                 Registro.Area = dr["Area"].ToString();
                 Registro.PuestoSuperior = dr["PuestoSuperior"].ToString();
+                if (dr["SubAreaId"].ToString() == "")
+                    Registro.SubAreaId = 0;
+                else
+                    Registro.SubAreaId = Convert.ToInt32(dr["SubAreaId"]);
+                if (dr["CodigoPuesto"].ToString() == "")
+                    Registro.CodigoPuesto = "";
+                else
+                    Registro.CodigoPuesto = dr["CodigoPuesto"].ToString();
                 Datos.Add(Registro);
             }
             return Datos;
@@ -131,9 +141,18 @@ namespace PerfilEfectividad.WebServices
                     Registro.SupervisionId = 0;
                 else
                     Registro.SupervisionId = Convert.ToInt32(dr["SupervisionId"].ToString());
-                Registro.RelacionInternaId = Convert.ToInt32(dr["RelacionInternaId"].ToString());
-                Registro.RelacionExternaId = Convert.ToInt32(dr["RelacionExternaId"].ToString());
-                Registro.ManejoInformacionId = Convert.ToInt32(dr["ManejoInformacionId"].ToString());
+                if (dr["RelacionInternaId"].ToString() == "")
+                    Registro.RelacionInternaId = 0;
+                else
+                    Registro.RelacionInternaId = Convert.ToInt32(dr["RelacionInternaId"].ToString());
+                if (dr["RelacionExternaId"].ToString() == "")
+                    Registro.RelacionExternaId = 0;
+                else
+                    Registro.RelacionExternaId = Convert.ToInt32(dr["RelacionExternaId"].ToString());
+                if (dr["ManejoInformacionId"].ToString() == "")
+                    Registro.ManejoInformacionId = 0;
+                else
+                    Registro.ManejoInformacionId = Convert.ToInt32(dr["ManejoInformacionId"].ToString());
                 if (dr["AmbienteTrabajoId"].ToString() == "")
                     Registro.AmbienteTrabajoId = 0;
                 else
@@ -202,8 +221,6 @@ namespace PerfilEfectividad.WebServices
             public int PuestoVer { get; set; }
             public string NombrePuesto { get; set; }
             public int Cantidad { get; set; }
-            public string TipoSupervision { get; set; }
-            public int TipoSupervisionId { get; set; }
         }
 
         [WebMethod]
@@ -222,8 +239,6 @@ namespace PerfilEfectividad.WebServices
                 Registro.PuestoVer = Convert.ToInt32(dr["PuestoVer"].ToString());
                 Registro.NombrePuesto = dr["NombrePuesto"].ToString();
                 Registro.Cantidad = Convert.ToInt32(dr["Cantidad"].ToString());
-                Registro.TipoSupervision = dr["TipoSupervision"].ToString();
-                Registro.TipoSupervisionId = Convert.ToInt32(dr["TipoSupervisionId"].ToString());
                 Datos.Add(Registro);
             }
             return Datos;
@@ -381,7 +396,6 @@ namespace PerfilEfectividad.WebServices
         public class DataEstudioFormal
         {
             public int GradoId { get; set; }
-            public int CarreraId { get; set; }
         }
 
         [WebMethod]
@@ -400,10 +414,6 @@ namespace PerfilEfectividad.WebServices
                     Registro.GradoId = 0;
                 else
                     Registro.GradoId = Convert.ToInt32(dr["GradoId"].ToString());
-                if (dr["CarreraId"].ToString() == "")
-                    Registro.CarreraId = 0;
-                else
-                    Registro.CarreraId = Convert.ToInt32(dr["CarreraId"].ToString());
                 Datos.Add(Registro);
             }
             return Datos;
@@ -496,7 +506,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int UpdateInfoGeneral(int AreaId, string PuestoJefe, int PuestoId)
+        public int UpdateInfoGeneral(int AreaId, string PuestoJefe, int PuestoId, string SubAreaId, string CodigoPuesto)
         {
             try
             {
@@ -508,6 +518,11 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@AreaId", SqlDbType.Int).Value = AreaId;
                 Comando.Parameters.Add("@PuestoJefe", SqlDbType.VarChar, 900).Value = PuestoJefe;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                if (SubAreaId == "")
+                    Comando.Parameters.Add("@SubAreaId", SqlDbType.Int).Value = DBNull.Value;
+                else
+                    Comando.Parameters.Add("@SubAreaId", SqlDbType.Int).Value = SubAreaId;
+                Comando.Parameters.Add("@CodigoPuesto", SqlDbType.VarChar, 900).Value = CodigoPuesto;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -628,7 +643,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int EditDetalleSupervision(int PuestoId, int SupervisionId, string Puesto, int Cantidad, int TipoSupervision)
+        public int EditDetalleSupervision(int PuestoId, int SupervisionId, string Puesto, int Cantidad)
         {
             try
             {
@@ -639,7 +654,6 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@SupervisionId", SqlDbType.Int).Value = SupervisionId;
                 Comando.Parameters.Add("@Puesto", SqlDbType.VarChar, 500).Value = Puesto;
                 Comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Cantidad;
-                Comando.Parameters.Add("@TipoSupervision", SqlDbType.Int).Value = TipoSupervision;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -653,7 +667,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int Insert_DetalleSupervisiones(int PuestoId, int PuestoVer, int TipoSupervisionId, string NombrePuesto, int Cantidad)
+        public int Insert_DetalleSupervisiones(int PuestoId, int PuestoVer, string NombrePuesto, int Cantidad)
         {
             try
             {
@@ -664,7 +678,6 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
-                Comando.Parameters.Add("@TipoSupervisionId", SqlDbType.Int).Value = TipoSupervisionId;
                 Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 900).Value = NombrePuesto;
                 Comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Cantidad;
 
@@ -908,7 +921,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int UpdateEducacionActual(int PuestoId, int GradoId, int CarreraId, int EducacionFormalId)
+        public int UpdateEducacionActual(int PuestoId, int GradoId, int EducacionFormalId, string Carreras)
         {
             try
             {
@@ -917,11 +930,11 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@GradoId", SqlDbType.Int).Value = GradoId;
-                if (CarreraId == 0)
-                    Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = DBNull.Value;
-                else
-                    Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = CarreraId;
                 Comando.Parameters.Add("@EducacionFormalId", SqlDbType.Int).Value = EducacionFormalId;
+                if (Carreras == "")
+                    Comando.Parameters.Add("@Carreras", SqlDbType.VarChar, 8000).Value = DBNull.Value;
+                else
+                    Comando.Parameters.Add("@Carreras", SqlDbType.VarChar, 8000).Value = Carreras;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1171,6 +1184,31 @@ namespace PerfilEfectividad.WebServices
                 return 0;
             }
 
+        }
+
+        public class DataCarreras
+        {
+            public int PuestoVer { get; set; }
+            public string Carreras { get; set; }
+        }
+
+        [WebMethod]
+        public List<DataCarreras> GetDataCarreras(int PuestoId)
+        {
+            ds.Tables.Clear();
+            Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            ds = clCrudPerfil.GetCarreras(PuestoId);
+            List<DataCarreras> Datos = new List<DataCarreras>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                DataCarreras Registro = new DataCarreras();
+                Registro.PuestoVer = Convert.ToInt32(dr["PuestoVer"].ToString());
+                Registro.Carreras = dr["Carreras"].ToString();
+                Datos.Add(Registro);
+            }
+            return Datos;
         }
     }
 }

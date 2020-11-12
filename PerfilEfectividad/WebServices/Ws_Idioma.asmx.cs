@@ -45,5 +45,71 @@ namespace PerfilEfectividad.WebServices
             return Datos;
         }
 
+        [WebMethod]
+        public int EditIdioma(int IdiomaId, string Idioma)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Edit_Idioma", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@IdiomaId", SqlDbType.Int).Value = IdiomaId;
+                Comando.Parameters.Add("@Idioma", SqlDbType.VarChar, 500).Value = Idioma;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int Insert_Idioma(string Idioma)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Insert_Idioma", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@Idioma", SqlDbType.VarChar, 500).Value = Idioma;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        [WebMethod]
+        public int DeleteIdioma(int IdiomaId)
+        {
+            try
+            {
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_Delete_Idioma", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@IdiomaId", SqlDbType.Int).Value = IdiomaId;
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
     }
 }

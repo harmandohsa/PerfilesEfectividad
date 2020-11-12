@@ -1,7 +1,7 @@
 ﻿function ComboAreas() {
     $.ajax({
         type: "POST",
-        url: "../WebServices/Ws_Areas.asmx/GetListaPuestos",
+        url: "../WebServices/Ws_Areas.asmx/GetListaAreas",
         dataType: "json",
         contentType: "application/json",
         async: false,
@@ -16,6 +16,36 @@
                 var name = data.d[i]['Area'];
 
                 $("#cboArea").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboSubAreas(AreaId) {
+    var sentAjaxData = {
+        "AreaId": AreaId
+    };
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_SubAreas.asmx/GetListaSubAreasArea",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(sentAjaxData),
+        success: function (data) {
+            $("#cboSubArea").get(0).options.length = 0;
+            $("#cboSubArea").get(0).options[0] = new Option("Seleccione el sub área", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['SubareaId'];
+                var name = data.d[i]['SubArea'];
+
+                $("#cboSubArea").append("<option value='" + id + "'>" + name + "</option>");
 
             }
         },
@@ -602,6 +632,33 @@ function ComboGrados() {
     $.ajax({
         type: "POST",
         url: "../WebServices/WS_Grado.asmx/GetListaGrados",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $('#cboNivelEducacional').get(0).options.length = 0;
+            //$('#cboTipoAmbienteTrabajo').get(0).options[0] = new Option("Seleccione el factor", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['GradoId'];
+                var name = data.d[i]['Grado'];
+
+                $('#cboNivelEducacional').append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboGradosCat() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_Grado.asmx/GetListaGradosCombo",
         dataType: "json",
         contentType: "application/json",
         async: false,

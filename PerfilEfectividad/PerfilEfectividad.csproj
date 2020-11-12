@@ -12613,10 +12613,14 @@
     <Content Include="assets\vendors\general\wnumb\bower.json" />
     <Content Include="assets\vendors\general\wnumb\package.json" />
     <Content Include="assets\vendors\general\wnumb\README.md" />
+    <Content Include="WebForms\Wfm_Idiomas.aspx" />
+    <Content Include="WebForms\Wfrm_Areas.aspx" />
     <Content Include="WebForms\Wfrm_CargaPerfil.aspx" />
+    <Content Include="WebForms\Wfrm_Carreras.aspx" />
     <Content Include="WebForms\Wfrm_EditPuestos.aspx" />
     <Content Include="WebForms\Wfrm_Inicio.aspx" />
     <Content Include="WebForms\Wfrm_Puestos.aspx" />
+    <Content Include="WebForms\Wfrm_SubAreas.aspx" />
     <Content Include="WebScripts\SrcCargaPerfil.js" />
     <Content Include="WebScripts\SrcCombos.js" />
     <Content Include="WebScripts\SrcEditPuesto.js" />
@@ -12624,6 +12628,10 @@
     <Content Include="WebScripts\SrcInicio.js" />
     <Content Include="WebScripts\SrcLogin.js" />
     <Content Include="WebScripts\SrcPuesto.js" />
+    <Content Include="WebScripts\Src_Areas.js" />
+    <Content Include="WebScripts\Src_Carreras.js" />
+    <Content Include="WebScripts\Src_Idiomas.js" />
+    <Content Include="WebScripts\Src_SubAreas.js" />
     <Content Include="WebServices\Ws_Areas.asmx" />
     <Content Include="WebServices\Ws_CargaPerfil.asmx" />
     <Content Include="WebServices\WS_Carreras.asmx" />
@@ -12636,6 +12644,7 @@
     <Content Include="WebServices\Ws_Idioma.asmx" />
     <Content Include="WebServices\Ws_Login.asmx" />
     <Content Include="WebServices\Ws_Puestos.asmx" />
+    <Content Include="WebServices\WS_SubAreas.asmx" />
     <Content Include="WebServices\Ws_TipoAmbienteTrabajo.asmx" />
     <Content Include="WebServices\Ws_TipoEsfuerzoFisico.asmx" />
     <Content Include="WebServices\Ws_TipoRelacion.asmx" />
@@ -12696,6 +12705,7 @@
     <Compile Include="Clases\Cl_Grado.cs" />
     <Compile Include="Clases\Cl_Idiomas.cs" />
     <Compile Include="Clases\Cl_Puestos.cs" />
+    <Compile Include="Clases\CL_SubAreas.cs" />
     <Compile Include="Clases\Cl_TipoAmbienteTrabajo.cs" />
     <Compile Include="Clases\Cl_TipoEsfuerzoFisico.cs" />
     <Compile Include="Clases\Cl_TipoRelacion.cs" />
@@ -12733,12 +12743,33 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfm_Idiomas.aspx.cs">
+      <DependentUpon>Wfm_Idiomas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfm_Idiomas.aspx.designer.cs">
+      <DependentUpon>Wfm_Idiomas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Areas.aspx.cs">
+      <DependentUpon>Wfrm_Areas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Areas.aspx.designer.cs">
+      <DependentUpon>Wfrm_Areas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_CargaPerfil.aspx.cs">
       <DependentUpon>Wfrm_CargaPerfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebForms\Wfrm_CargaPerfil.aspx.designer.cs">
       <DependentUpon>Wfrm_CargaPerfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Carreras.aspx.cs">
+      <DependentUpon>Wfrm_Carreras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Carreras.aspx.designer.cs">
+      <DependentUpon>Wfrm_Carreras.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForms\Wfrm_EditPuestos.aspx.cs">
       <DependentUpon>Wfrm_EditPuestos.aspx</DependentUpon>
@@ -12760,6 +12791,13 @@
     </Compile>
     <Compile Include="WebForms\Wfrm_Puestos.aspx.designer.cs">
       <DependentUpon>Wfrm_Puestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_SubAreas.aspx.cs">
+      <DependentUpon>Wfrm_SubAreas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_SubAreas.aspx.designer.cs">
+      <DependentUpon>Wfrm_SubAreas.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\Ws_Areas.asmx.cs">
       <DependentUpon>Ws_Areas.asmx</DependentUpon>
@@ -12807,6 +12845,10 @@
     </Compile>
     <Compile Include="WebServices\Ws_Puestos.asmx.cs">
       <DependentUpon>Ws_Puestos.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_SubAreas.asmx.cs">
+      <DependentUpon>WS_SubAreas.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebServices\Ws_TipoAmbienteTrabajo.asmx.cs">

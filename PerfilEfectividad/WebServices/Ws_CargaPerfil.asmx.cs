@@ -27,7 +27,6 @@ namespace PerfilEfectividad.WebServices
         {
             public string Puesto { get; set; }
             public int Cantidad { get; set; }
-            public int TipoSupervision { get; set; }
         }
 
         public class Relaciones
@@ -503,7 +502,6 @@ namespace PerfilEfectividad.WebServices
                                                     Supervisiones Registro = new Supervisiones();
                                                     Registro.Puesto = excelPackage.Workbook.Worksheets[i].Cells[j, 1].Text;
                                                     Registro.Cantidad = Convert.ToInt32(excelPackage.Workbook.Worksheets[i].Cells[j, 10].Text);
-                                                    Registro.TipoSupervision = 1;
                                                     Datos.Add(Registro);
                                                 }
                                                 else
@@ -541,7 +539,6 @@ namespace PerfilEfectividad.WebServices
                                                     Supervisiones Registro = new Supervisiones();
                                                     Registro.Puesto = excelPackage.Workbook.Worksheets[i].Cells[k, 1].Text;
                                                     Registro.Cantidad = Convert.ToInt32(excelPackage.Workbook.Worksheets[i].Cells[k, 10].Text);
-                                                    Registro.TipoSupervision = 2;
                                                     Datos.Add(Registro);
                                                 }
                                                 else
@@ -807,7 +804,7 @@ namespace PerfilEfectividad.WebServices
                                         string Fecha = Mes.ToString() + "/" + Dia.ToString() + "/" + Anis.ToString();
                                         int PuestoVer = clPerfil.Insert_Perfil(PuestoId, Fecha, AreaId, FuncionPrincipal, FuncionesPrincipales, FuncionesQuinSem, FuncionesMen, FuncionesTri, FuncionesAnual,
                                             FuncionEventual, TomaDecisiones, EsfuerzoMental, RelacionInterna, RelacionExterna, ManejoInf, UsuarioId, PuestoSuperior, NombreColaborador, Jefe, FuncionesDiareas, 
-                                            ImpactoErrorId, ImpactoErrorId, OtrosEstudios, GradoId, CarrraId);
+                                            ImpactoErrorId, ImpactoErrorId, OtrosEstudios, GradoId);
                                         if (DineroEfectivo != "")
                                         {
                                             string[] words = ResponDineroEfectivo.Split(',');
@@ -846,7 +843,7 @@ namespace PerfilEfectividad.WebServices
                                         }
                                         for (int j = 0; j < Datos.Count; j++)
                                         {
-                                            clPerfil.Insert_DetalleSupervisiones(PuestoId, PuestoVer, Datos[j].TipoSupervision, Datos[j].Puesto, Datos[j].Cantidad);
+                                            clPerfil.Insert_DetalleSupervisiones(PuestoId, PuestoVer, Datos[j].Puesto, Datos[j].Cantidad);
                                         }
                                         for (int j = 0; j < DatosRel.Count; j++)
                                         {
@@ -868,6 +865,7 @@ namespace PerfilEfectividad.WebServices
                                         {
                                             clPerfil.Insert_DetalleEsfuerzoFisico(PuestoId, PuestoVer, EsfuerzoFisicoDatos[j].EsfuerzoFisicoId);
                                         }
+                                        
 
                                         //HayError = true;
                                         if (Error == "")
@@ -1255,7 +1253,6 @@ namespace PerfilEfectividad.WebServices
                                                     Supervisiones Registro = new Supervisiones();
                                                     Registro.Puesto = excelPackage.Workbook.Worksheets[i].Cells[j, 1].Text;
                                                     Registro.Cantidad = Convert.ToInt32(excelPackage.Workbook.Worksheets[i].Cells[j, 10].Text);
-                                                    Registro.TipoSupervision = 1;
                                                     Datos.Add(Registro);
                                                 }
                                                 else
@@ -1293,7 +1290,6 @@ namespace PerfilEfectividad.WebServices
                                                     Supervisiones Registro = new Supervisiones();
                                                     Registro.Puesto = excelPackage.Workbook.Worksheets[i].Cells[k, 1].Text;
                                                     Registro.Cantidad = Convert.ToInt32(excelPackage.Workbook.Worksheets[i].Cells[k, 10].Text);
-                                                    Registro.TipoSupervision = 2;
                                                     Datos.Add(Registro);
                                                 }
                                                 else
@@ -1689,7 +1685,7 @@ namespace PerfilEfectividad.WebServices
                                         string Fecha = Mes.ToString() + "/" + Dia.ToString() + "/" + Anis.ToString();
                                         int PuestoVer = clPerfil.Insert_Perfil(PuestoId, Fecha, AreaId, FuncionPrincipal, FuncionesPrincipales, FuncionesQuinSem, FuncionesMen, FuncionesTri, FuncionesAnual,
                                             FuncionEventual, TomaDecisiones, EsfuerzoMental, RelacionInterna, RelacionExterna, ManejoInf, UsuarioId, PuestoSuperior, NombreColaborador, Jefe, FuncionesDiareas, EducacionFormalId,
-                                            ImpactoErrorId, OtrosEstudios, GradoId, CarrraId);
+                                            ImpactoErrorId, OtrosEstudios, GradoId);
                                         if (DineroEfectivo != "")
                                         {
                                             string[] words = ResponDineroEfectivo.Split(',');
@@ -1728,7 +1724,7 @@ namespace PerfilEfectividad.WebServices
                                         }
                                         for (int j = 0; j < Datos.Count; j++)
                                         {
-                                            clPerfil.Insert_DetalleSupervisiones(PuestoId, PuestoVer, Datos[j].TipoSupervision, Datos[j].Puesto, Datos[j].Cantidad);
+                                            clPerfil.Insert_DetalleSupervisiones(PuestoId, PuestoVer, Datos[j].Puesto, Datos[j].Cantidad);
                                         }
                                         for (int j = 0; j < DatosRel.Count; j++)
                                         {
@@ -1761,6 +1757,10 @@ namespace PerfilEfectividad.WebServices
                                         for (int j = 0; j < DataExperiencia.Count; j++)
                                         {
                                             clPerfil.Insert_DetalleExperiencia(PuestoId, PuestoVer, DataExperiencia[j].TipoTrabajo, DataExperiencia[j].Tiempo);
+                                        }
+                                        if (CarrraId != 0)
+                                        {
+                                            clPerfil.Insert_DetalleCarrera(PuestoId, 1, CarrraId);
                                         }
 
                                         //HayError = true;

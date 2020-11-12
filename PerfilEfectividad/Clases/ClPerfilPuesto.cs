@@ -41,6 +41,8 @@ namespace PerfilEfectividad.Clases
             {
                 if (ds.Tables["DATOS"] != null)
                     ds.Tables.Remove("DATOS");
+                if (cn.State == ConnectionState.Open)
+                    cn.Close(); 
                 cn.Open();
                 SqlCommand Comando = new SqlCommand("Sp_Existe_Area", cn);
                 Comando.CommandType = CommandType.StoredProcedure;
@@ -88,7 +90,7 @@ namespace PerfilEfectividad.Clases
         public int Insert_Perfil(int PuestoId, string Fecha, int AreaId, string FuncPrincipal, string Principales, string FuncSemQuin, string FuncMenual, string FuncTriMen, string FuncAnual, 
             string FuncEventual, int TomaDesicionId, int EsfuerzoMentalId, int RelacionInternaId, int RelacionExternaId, int ManejoInformacionId, int UsuarioId, string PuestoSuperior, 
             string NombrePersona, string Superior, string FuncionesDiarias, int EducacionFormalId,
-            int ImpcatoErrorId, string OtrosEstudios, int GradoId, int CarreraId)
+            int ImpcatoErrorId, string OtrosEstudios, int GradoId)
         {
             try
             {
@@ -127,11 +129,10 @@ namespace PerfilEfectividad.Clases
                     Comando.Parameters.Add("@ImpcatoErrorId", SqlDbType.Int).Value = ImpcatoErrorId;
                 Comando.Parameters.Add("@OtrosEstudios", SqlDbType.VarChar, 500).Value = OtrosEstudios;
                 Comando.Parameters.Add("@PuestoVerId", SqlDbType.Int).Direction = ParameterDirection.Output;
-                Comando.Parameters.Add("@GradoId", SqlDbType.Int).Value = GradoId;
-                if (CarreraId == 0)
-                    Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = DBNull.Value;
+                if (GradoId == 0)
+                    Comando.Parameters.Add("@GradoId", SqlDbType.Int).Value = DBNull.Value;
                 else
-                    Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = CarreraId;
+                    Comando.Parameters.Add("@GradoId", SqlDbType.Int).Value = GradoId;
 
                 SqlDataAdapter adp = new SqlDataAdapter(Comando);
                 adp.Fill(ds, "DATOS");
@@ -176,7 +177,7 @@ namespace PerfilEfectividad.Clases
 
         }
 
-        public int Insert_DetalleSupervisiones(int PuestoId, int PuestoVer, int TipoSupervisionId, string NombrePuesto, int Cantidad)
+        public int Insert_DetalleSupervisiones(int PuestoId, int PuestoVer, string NombrePuesto, int Cantidad)
         {
             try
             {
@@ -187,7 +188,6 @@ namespace PerfilEfectividad.Clases
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
-                Comando.Parameters.Add("@TipoSupervisionId", SqlDbType.Int).Value = TipoSupervisionId;
                 Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 900).Value = NombrePuesto;
                 Comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Cantidad;
 
@@ -454,6 +454,30 @@ namespace PerfilEfectividad.Clases
                 cn.Close();
 
                 return Resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        public int Insert_DetalleCarrera(int PuestoId, int PuestoVer, int CarreraId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_InsertCarrera", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@CarreraId", SqlDbType.Int).Value = CarreraId;
+
+                Comando.ExecuteNonQuery();
+                cn.Close();
+
+                return 1;
             }
             catch (Exception ex)
             {

@@ -22,6 +22,17 @@ function OpcionesInicioLocal() {
         //dropdownParent: $("#modalNuevaPregunta")
     }).on("change", function () {
         $("#txtAreaId").val($("#cboArea").val());
+        ComboSubAreas($("#txtAreaId").val())
+    });
+
+    $("#cboSubArea").select2({
+        width: '100%',
+        placeholder: "",
+        allowClear: true,
+        modal: true,
+        //dropdownParent: $("#modalNuevaPregunta")
+    }).on("change", function () {
+        $("#txtSubAreaId").val($("#cboSubArea").val());
     });
 
     $("#cboTomaDesicion").select2({
@@ -196,18 +207,31 @@ function OpcionesInicioLocal() {
         $("#txtGradoId").val($("#cboNivelEducacional").val());
         ComboCarrera($("#txtGradoId").val());
         ComboEducacionFormal(11);
-        if ($("#txtGradoId").val() == 1) 
+        if ($("#txtGradoId").val() == 1) {
             $('#cboEducacionFormal').val(1);
-        else if ($("#txtGradoId").val() == 2)
+            $('#txtEducacionFormalId').val(1);
+        }
+        else if ($("#txtGradoId").val() == 2) {
             $('#cboEducacionFormal').val(2);
-        else if ($("#txtGradoId").val() == 3)
+            $('#txtEducacionFormalId').val(2);
+        }
+        else if ($("#txtGradoId").val() == 3) {
             $('#cboEducacionFormal').val(3);
-        else if ($("#txtGradoId").val() == 4)
+            $('#txtEducacionFormalId').val(3);
+        }
+        else if ($("#txtGradoId").val() == 4) {
             $('#cboEducacionFormal').val(4);
-        else if ($("#txtGradoId").val() == 5)
+            $('#txtEducacionFormalId').val(4);
+        }
+        else if ($("#txtGradoId").val() == 5) {
             $('#cboEducacionFormal').val(5);
-        else if (($("#txtGradoId").val() == 6) || ($("#txtGradoId").val() == 7))
-            $('#cboEducacionFormal').val(6); 
+            $('#txtEducacionFormalId').val(5);
+        }
+        else if (($("#txtGradoId").val() == 6) || ($("#txtGradoId").val() == 7)) {
+            $('#cboEducacionFormal').val(6);
+            $('#txtEducacionFormalId').val(6);
+        }
+            
         if ($("#txtGradoId").val() < 3)
             $('#DivCarrera').slideUp();
         else
@@ -311,6 +335,7 @@ function OpcionesInicioLocal() {
     ComboIdiomas();
     ComboDominioIdiomas();
     GetDataExperiencia(urlParams.get('PuestoId'));
+    GetDataCarreras(urlParams.get('PuestoId'))
 }
 
 function GetDataGeneral(PuestoId) {
@@ -330,6 +355,9 @@ function GetDataGeneral(PuestoId) {
             $('#txtpuestojefe').val(data.d[0]['PuestoSuperior'])
             $('#txtAreaId').val(data.d[0]['AreaId'])
             $('#cboArea').val(data.d[0]['AreaId'])
+            ComboSubAreas(data.d[0]['AreaId'])
+            $('#cboSubArea').val(data.d[0]['SubAreaId'])
+            $('#txtcodigopuesto').val(data.d[0]['CodigoPuesto'])
             return false;
         },
         error: function (request, status, error) {
@@ -576,14 +604,9 @@ function DibujarTablaSupervision(PuestoId) {
                         "width": "5%"
                     },
                     {
-                        "title": "Tipo Supervision",
-                        "data": "TipoSupervision",
-                        "width": "25%"
-                    },
-                    {
                         "title": "Puesto",
                         "render": function (data, type, row) {
-                            return '<a data-toggle="modal" onclick="ModificarSupervision(' + row['SupervisionId'] + ',\'' + row['NombrePuesto'] + '\', ' + row['TipoSupervisionId'] + ',' + row['Cantidad'] + ')" data-target="#modalSupervisiones" href="">' + row['NombrePuesto'] + '</a>'
+                            return '<a data-toggle="modal" onclick="ModificarSupervision(' + row['SupervisionId'] + ',\'' + row['NombrePuesto'] + '\',' + row['Cantidad'] + ')" data-target="#modalSupervisiones" href="">' + row['NombrePuesto'] + '</a>'
                         },
                         "width": "25%"
                     },
@@ -610,20 +633,20 @@ function DibujarTablaSupervision(PuestoId) {
                         title: 'Supervisiones',
                         text: 'Imprimir',
                         enabled: true,
-                        exportOptions: { columns: [0, 1, 2, 3] }
+                        exportOptions: { columns: [0, 1, 2] }
                     },
                     {
                         extend: 'excelHtml5',
                         title: 'Supervisiones',
                         enabled: true,
-                        exportOptions: { columns: [0, 1, 2, 3] }
+                        exportOptions: { columns: [0, 1, 2] }
                     },
                     {
                         extend: 'pdfHtml5',
                         title: 'Supervisiones',
                         download: 'open',
                         enabled: true,
-                        exportOptions: { columns: [0, 1, 2, 3] },
+                        exportOptions: { columns: [0, 1, 2] },
                         customize: function (doc) {
                             doc.content.splice(1, 0, {
                                 margin: [0, 0, 0, 2],
@@ -1018,9 +1041,6 @@ function GetDataEducacionFormal(PuestoId) {
         success: function (data) {
             $("#cboNivelEducacional").val(data.d[0]['GradoId']);
             $("#txtGradoId").val(data.d[0]['GradoId']);
-            ComboCarrera(data.d[0]['GradoId']);
-            $("#cboCarrera").val(data.d[0]['CarreraId']);
-            $("#txtCarreraId").val(data.d[0]['CarreraId']);
             if (data.d[0]['GradoId'] < 3)
                 $('#DivCarrera').slideUp();
             else
@@ -1382,7 +1402,9 @@ function GrabarInfoGenral() {
                 var sentAjaxData = {
                     "AreaId": $('#txtAreaId').val(),
                     "PuestoJefe": $('#txtpuestojefe').val(),
-                    "PuestoId": $('#txtPuestoId').val()
+                    "PuestoId": $('#txtPuestoId').val(),
+                    "SubAreaId": $('#txtSubAreaId').val(),
+                    "CodigoPuesto": $('#txtcodigopuesto').val()
                 };
                 var retval;
                 $.ajax({
@@ -1592,14 +1614,11 @@ function BorrarSupervision(SupervisionId) {
     });
 }
 
-function ModificarSupervision(SupervisionId, Puesto, TipoSupervisionId, Cantidad) {
+function ModificarSupervision(SupervisionId, Puesto, Cantidad) {
     $('#txtIdSupervision').val(SupervisionId)
     $('#txtPuestoSupervision').val(Puesto)
     $('#txtllamadaSupervision').val(2)
     $('#txtCantidadSupervision').val(Cantidad)
-    ComboTipoSupervision();
-    $('#cboTipoSupervision').val(TipoSupervisionId)
-    $('#txtTipoSupervisionId').val(TipoSupervisionId)
 }
 
 function LimpiarSupervision() {
@@ -1607,7 +1626,6 @@ function LimpiarSupervision() {
     $('#txtPuestoSupervision').val('')
     $('#txtllamadaSupervision').val('')
     $('#txtCantidadSupervision').val('')
-    $('#txtTipoSupervisionId').val('1')
 }
 
 function NuevaSupervision() {
@@ -1643,7 +1661,6 @@ function GrabarSupervision() {
                         "SupervisionId": $('#txtIdSupervision').val(),
                         "Puesto": $('#txtPuestoSupervision').val(),
                         "Cantidad": $('#txtCantidadSupervision').val(),
-                        "TipoSupervision": $('#txtTipoSupervisionId').val(),
                     };
                     var retval;
                     $.ajax({
@@ -1670,9 +1687,8 @@ function GrabarSupervision() {
                     var sentAjaxData = {
                         "PuestoId": $('#txtPuestoId').val(),
                         "PuestoVer": 1,
-                        "TipoSupervisionId": $('#txtTipoSupervisionId').val(),
                         "NombrePuesto": $('#txtPuestoSupervision').val(),
-                        "Cantidad": $('#txtCantidadSupervision').val(),
+                        "Cantidad": $('#txtCantidadSupervision').val()
                         
                     };
                     var retval;
@@ -2120,8 +2136,8 @@ function ActualizaNivelEducacional() {
     var sentAjaxData = {
         "PuestoId": $('#txtPuestoId').val(),
         "GradoId": $('#txtGradoId').val(),
-        "CarreraId": $('#txtCarreraId').val(),
-        "EducacionFormalId": $('#txtEducacionFormalId').val()
+        "EducacionFormalId": $('#txtEducacionFormalId').val(),
+        "Carreras": $('#txtCarreraId').val()
     };
     var retval;
     $.ajax({
@@ -2590,6 +2606,32 @@ function BorrarExperiencia(ExperienciaId) {
                 }
             });
             return retval;
+        }
+    });
+}
+
+function GetDataCarreras(PuestoId) {
+    var sentAjaxData = {
+        "PuestoId": PuestoId
+    };
+    ComboCarrera($("#txtGradoId").val())
+    var retval;
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/WS_CrudPerfil.asmx/GetDataCarreras",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(sentAjaxData),
+        async: false,
+        success: function (data) {
+            console.log(data.d);
+            $('#txtCarreraId').val(data.d[0]['Carreras'])
+            var str = data.d[0]['Carreras'].trim();
+            $("#cboCarrera").val(str.split(",")).trigger("change");
+            return false;
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
         }
     });
 }

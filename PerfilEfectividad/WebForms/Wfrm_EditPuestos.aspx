@@ -56,8 +56,20 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
+                                        <label for="cboSubArea">Sub área</label>
+                                        <select id="cboSubArea" class="full-width" data-init-plugin="select2"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
                                         <label for="txtpuestojefe">Puesto del jefe inmediato superior</label>
                                         <input id="txtpuestojefe" type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="txtcodigopuesto">Código Puesto</label>
+                                        <input id="txtcodigopuesto" type="text" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -459,7 +471,7 @@
                                 <div class="col-md-4" id="DivCarrera">
                                     <div class="form-group">
                                         <label for="cboCarrera">Carrera específica</label>
-                                        <select id="cboCarrera" class="full-width" data-init-plugin="select2"></select>
+                                        <select id="cboCarrera" class="full-width" data-init-plugin="select2" multiple></select>
                                     </div>
                                 </div>
                                 
@@ -655,12 +667,6 @@
                             <div class="form-group required" >
                                 <label for="txtCantidadSupervision">Cantidad</label>
                                 <input id="txtCantidadSupervision" type="number" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group required" >
-                                <label for="cboTipoSupervision">Tipo Supervisión</label>
-                                <select id="cboTipoSupervision" class="full-width" data-init-plugin="select2"></select>
                             </div>
                         </div>
                     </div>
@@ -929,6 +935,7 @@
 <input id="txtExperienciaId" type="text" class="form-control" Style="display:none" >
 <input id="txtllamadaExperiencia" type="text" class="form-control" Style="display:none" >
 <input id="txtExperienciaFactorId" type="text" class="form-control" Style="display:none" >
+<input id="txtSubAreaId" type="text" class="form-control" Style="display:none" >
 <script src="../WebScripts/SrcEditPuesto.js" type="text/javascript"></script>
 <script src="../WebScripts/SrcCombos.js" type="text/javascript"></script>
 </asp:Content>
