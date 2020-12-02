@@ -100,6 +100,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!--begin::Action-->
                         <div class="text-center pt-2">
                             <button onclick="login()" class="btn btn-dark font-weight-bolder font-size-h6 px-8 py-4 my-3">Ingresar</button>
+                            <button data-toggle="modal" data-target="#modalDatos" class="btn btn-dark font-weight-bolder font-size-h6 px-8 py-4 my-3">Olvido su Clave</button>
                         </div>
                         <!--end::Action-->
                     </div>
@@ -164,6 +165,35 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--end::Login-->
 	</div>
 <!--end::Main-->
+
+    <div class="modal fade slide-up" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content-wrapper">
+            <div class="modal-content ">
+                <div class="modal-header clearfix text-left">
+                    <h5>Envío de Clave</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="ik ik-arrow-down bg-blue"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="col-md-6">
+                            <div class="form-group required" >
+                                <label for="txtUsuarioRecup">Usuario</label>
+                                <input id="txtUsuarioRecup" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="Recuperar()" id="BtnGrabar" class="btn btn-primary"><i class="fa fa-save"></i>Recuperar</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
 
 
         <script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>

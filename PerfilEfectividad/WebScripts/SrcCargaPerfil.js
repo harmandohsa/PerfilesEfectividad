@@ -1,4 +1,10 @@
 ﻿function OpcionesInicioLocal() {
+    Datos = GetPermisosUsuarioPagina(Desencriptar(Cookies.get('UsuarioId')), 6);
+    if (Datos[0]['Insertar'] == '0')
+        $("#FileUpload").css('display', 'none');
+    Editar = Datos[0]['Editar'];
+    Imprimir = Datos[0]['Imprimir'];
+
     $("#FileUpload").change(function () {
         $.blockUI({
             message: '<h1><i class="fa fa-spinner fa-spin"></i></h1>',

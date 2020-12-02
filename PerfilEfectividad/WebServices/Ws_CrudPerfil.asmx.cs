@@ -506,7 +506,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int UpdateInfoGeneral(int AreaId, string PuestoJefe, int PuestoId, string SubAreaId, string CodigoPuesto)
+        public int UpdateInfoGeneral(int AreaId, string PuestoJefe, int PuestoId, string SubAreaId, string CodigoPuesto, int UsuarioId)
         {
             try
             {
@@ -523,6 +523,7 @@ namespace PerfilEfectividad.WebServices
                 else
                     Comando.Parameters.Add("@SubAreaId", SqlDbType.Int).Value = SubAreaId;
                 Comando.Parameters.Add("@CodigoPuesto", SqlDbType.VarChar, 900).Value = CodigoPuesto;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -538,7 +539,7 @@ namespace PerfilEfectividad.WebServices
         [WebMethod]
         public int UpdateFunciones(int PuestoId, string FuncPrincipal, string FuncPrincipales, 
             string FuncDiarias, string FuncSemanalQuin, string FuncMensual, string FuncTrimSemestre, 
-            string FuncAnual, string FuncEventual)
+            string FuncAnual, string FuncEventual, int UsuarioId)
         {
             try
             {
@@ -556,6 +557,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@FuncTrimSemestre", SqlDbType.Text).Value = FuncTrimSemestre;
                 Comando.Parameters.Add("@FuncAnual", SqlDbType.Text).Value = FuncAnual;
                 Comando.Parameters.Add("@FuncEventual", SqlDbType.Text).Value = FuncEventual;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -569,7 +571,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int UpdateFactores(int PuestoId, int FactorId, string Id)
+        public int UpdateFactores(int PuestoId, int FactorId, string Id, int UsuarioId)
         {
             try
             {
@@ -582,6 +584,7 @@ namespace PerfilEfectividad.WebServices
                     Comando.Parameters.Add("@Id", SqlDbType.VarChar, 2).Value = Id;
                 else
                     Comando.Parameters.Add("@Id", SqlDbType.VarChar, 2).Value = DBNull.Value;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -595,7 +598,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int UpdateDetalleManejoBientes(int PuestoId, int ConceptoId, string Monto, int Indirecta, int Directa, int Compartida)
+        public int UpdateDetalleManejoBientes(int PuestoId, int ConceptoId, string Monto, int Indirecta, int Directa, int Compartida, int UsuarioId)
         {
             try
             {
@@ -608,6 +611,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@Indirecta", SqlDbType.Int).Value = Indirecta;
                 Comando.Parameters.Add("@Directa", SqlDbType.Int).Value = Directa;
                 Comando.Parameters.Add("@Compartida", SqlDbType.Int).Value = Compartida;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -621,7 +625,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int DeleteDetalleSupervision(int PuestoId, int SupervisionId)
+        public int DeleteDetalleSupervision(int PuestoId, int SupervisionId, int UsuarioId)
         {
             try
             {
@@ -630,6 +634,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@SupervisionId", SqlDbType.Int).Value = SupervisionId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -643,7 +648,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int EditDetalleSupervision(int PuestoId, int SupervisionId, string Puesto, int Cantidad)
+        public int EditDetalleSupervision(int PuestoId, int SupervisionId, string Puesto, int Cantidad, int UsuarioId)
         {
             try
             {
@@ -654,6 +659,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@SupervisionId", SqlDbType.Int).Value = SupervisionId;
                 Comando.Parameters.Add("@Puesto", SqlDbType.VarChar, 500).Value = Puesto;
                 Comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Cantidad;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -667,7 +673,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int Insert_DetalleSupervisiones(int PuestoId, int PuestoVer, string NombrePuesto, int Cantidad)
+        public int Insert_DetalleSupervisiones(int PuestoId, int PuestoVer, string NombrePuesto, int Cantidad, int UsuarioId)
         {
             try
             {
@@ -680,6 +686,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
                 Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 900).Value = NombrePuesto;
                 Comando.Parameters.Add("@Cantidad", SqlDbType.Int).Value = Cantidad;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
 
                 Comando.ExecuteNonQuery();
                 cn.Close();
@@ -695,7 +702,7 @@ namespace PerfilEfectividad.WebServices
 
         [WebMethod]
         public int EditDetalleRelaciones(int PuestoId, int RelacionId, string Puesto, 
-            string Proposito, int FrecuenciaId, int TipoRelacionId)
+            string Proposito, int FrecuenciaId, int TipoRelacionId, int UsuarioId)
         {
             try
             {
@@ -708,6 +715,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@Proposito", SqlDbType.VarChar, 500).Value = Proposito;
                 Comando.Parameters.Add("@FrecuenciaId", SqlDbType.Int).Value = FrecuenciaId;
                 Comando.Parameters.Add("@TipoRelacionId", SqlDbType.Int).Value = TipoRelacionId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -722,7 +730,7 @@ namespace PerfilEfectividad.WebServices
 
         [WebMethod]
         public int Insert_DetalleRelaciones(int PuestoId, int PuestoVer, string NombrePuesto, 
-            string Proposito, int FrecuenciaId, int TipoRelacionId)
+            string Proposito, int FrecuenciaId, int TipoRelacionId, int UsuarioId)
         {
             try
             {
@@ -737,6 +745,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@Proposito", SqlDbType.VarChar, 900).Value = Proposito;
                 Comando.Parameters.Add("@FrecuenciaId", SqlDbType.Int).Value = FrecuenciaId;
                 Comando.Parameters.Add("@TipoRelacionId", SqlDbType.Int).Value = TipoRelacionId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
 
                 Comando.ExecuteNonQuery();
                 cn.Close();
@@ -751,7 +760,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int DeleteDetalleRelacion(int PuestoId, int RelacionId)
+        public int DeleteDetalleRelacion(int PuestoId, int RelacionId, int UsuarioId)
         {
             try
             {
@@ -760,6 +769,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@RelacionId", SqlDbType.Int).Value = RelacionId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -774,7 +784,7 @@ namespace PerfilEfectividad.WebServices
 
         [WebMethod]
         public int EditManjeoInfo(int PuestoId, int ManejoInformacionId, string Docuemento,
-            string AccionDocumento, string TipoInformacion, int Jefe, int AuditoriaInt, int AuditoriaExt)
+            string AccionDocumento, string TipoInformacion, int Jefe, int AuditoriaInt, int AuditoriaExt, int UsuarioId)
         {
             try
             {
@@ -789,6 +799,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@Jefe", SqlDbType.Int).Value = Jefe;
                 Comando.Parameters.Add("@AuditoriaInt", SqlDbType.Int).Value = AuditoriaInt;
                 Comando.Parameters.Add("@AuditoriaExt", SqlDbType.Int).Value = AuditoriaExt;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -802,7 +813,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int Insert_DetalleManejoInfo(int PuestoId, int PuestoVer, string Documento, string Accion, string TipoInformacion, int Jefe, int AuditoriaInt, int AuditoriaExt)
+        public int Insert_DetalleManejoInfo(int PuestoId, int PuestoVer, string Documento, string Accion, string TipoInformacion, int Jefe, int AuditoriaInt, int AuditoriaExt, int UsuarioId)
         {
             try
             {
@@ -819,6 +830,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@Jefe", SqlDbType.Int).Value = Jefe;
                 Comando.Parameters.Add("@AuditoriaInt", SqlDbType.Int).Value = AuditoriaInt;
                 Comando.Parameters.Add("@AuditoriaExt", SqlDbType.Int).Value = AuditoriaExt;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
 
                 Comando.ExecuteNonQuery();
                 cn.Close();
@@ -833,7 +845,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int DeleteDetalleManejoInfo(int PuestoId, int ManejoInformacionId)
+        public int DeleteDetalleManejoInfo(int PuestoId, int ManejoInformacionId, int UsuarioId)
         {
             try
             {
@@ -842,6 +854,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@ManejoInformacionId", SqlDbType.Int).Value = ManejoInformacionId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -855,7 +868,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int AddAmbienteTrabajo(int PuestoId, string TipoAmbienteTrabajo)
+        public int AddAmbienteTrabajo(int PuestoId, string TipoAmbienteTrabajo, int UsuarioId)
         {
             try
             {
@@ -864,6 +877,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@TipoAmbienteTrabajo", SqlDbType.VarChar, 1000).Value = TipoAmbienteTrabajo;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -877,7 +891,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int AddRiesgoOcupacional(int PuestoId, string TipoRiesgoOcupacional)
+        public int AddRiesgoOcupacional(int PuestoId, string TipoRiesgoOcupacional, int UsuarioId)
         {
             try
             {
@@ -886,6 +900,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@TipoRiesgoOcupacional", SqlDbType.VarChar, 1000).Value = TipoRiesgoOcupacional;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -899,7 +914,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int AddEsfuerzoFisico(int PuestoId, string TipoEsfuerzoFisico)
+        public int AddEsfuerzoFisico(int PuestoId, string TipoEsfuerzoFisico, int UsuarioId)
         {
             try
             {
@@ -908,6 +923,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@TipoEsfuerzoFisico", SqlDbType.VarChar, 1000).Value = TipoEsfuerzoFisico;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -921,7 +937,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int UpdateEducacionActual(int PuestoId, int GradoId, int EducacionFormalId, string Carreras)
+        public int UpdateEducacionActual(int PuestoId, int GradoId, int EducacionFormalId, string Carreras, int UsuarioId)
         {
             try
             {
@@ -935,6 +951,7 @@ namespace PerfilEfectividad.WebServices
                     Comando.Parameters.Add("@Carreras", SqlDbType.VarChar, 8000).Value = DBNull.Value;
                 else
                     Comando.Parameters.Add("@Carreras", SqlDbType.VarChar, 8000).Value = Carreras;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -948,7 +965,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int EditCursoTecnico(int PuestoId, int CursoId, string Curso, string Duracion)
+        public int EditCursoTecnico(int PuestoId, int CursoId, string Curso, string Duracion, int UsuarioId)
         {
             try
             {
@@ -959,6 +976,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@CursoId", SqlDbType.Int).Value = CursoId;
                 Comando.Parameters.Add("@Curso", SqlDbType.VarChar, 500).Value = Curso;
                 Comando.Parameters.Add("@Duracion", SqlDbType.VarChar, 500).Value = Duracion;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -972,7 +990,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int Insert_DetalleCursoTecnico(int PuestoId, int PuestoVer, string Curso, string Duracion)
+        public int Insert_DetalleCursoTecnico(int PuestoId, int PuestoVer, string Curso, string Duracion, int UsuarioId)
         {
             try
             {
@@ -985,6 +1003,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
                 Comando.Parameters.Add("@Curso", SqlDbType.VarChar, 900).Value = Curso;
                 Comando.Parameters.Add("@Duracion", SqlDbType.VarChar, 900).Value = Duracion;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -998,7 +1017,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int DeleteDetalleCursoTecnico(int PuestoId, int CursoId)
+        public int DeleteDetalleCursoTecnico(int PuestoId, int CursoId, int UsuarioId)
         {
             try
             {
@@ -1007,6 +1026,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@CursoId", SqlDbType.Int).Value = CursoId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1020,7 +1040,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int UpdateOtrosEstudios(int PuestoId, string OtrosEstudios)
+        public int UpdateOtrosEstudios(int PuestoId, string OtrosEstudios, int UsuarioId)
         {
             try
             {
@@ -1029,6 +1049,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@OtrosEstudios", SqlDbType.VarChar, 1000).Value = OtrosEstudios;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1042,7 +1063,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int EditIdioma(int PuestoId, int IdiomaId, int IdomaId, int DominioIdiomaId)
+        public int EditIdioma(int PuestoId, int IdiomaId, int IdomaId, int DominioIdiomaId, int UsuarioId)
         {
             try
             {
@@ -1053,6 +1074,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@IdiomaId", SqlDbType.Int).Value = IdiomaId;
                 Comando.Parameters.Add("@IdomaId", SqlDbType.Int).Value = IdomaId;
                 Comando.Parameters.Add("@DominioIdiomaId", SqlDbType.Int).Value = DominioIdiomaId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1066,7 +1088,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int Insert_Idioma(int PuestoId, int PuestoVer, int IdomaId, int DominioIdiomaId)
+        public int Insert_Idioma(int PuestoId, int PuestoVer, int IdomaId, int DominioIdiomaId, int UsuarioId)
         {
             try
             {
@@ -1079,6 +1101,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
                 Comando.Parameters.Add("@IdomaId", SqlDbType.Int).Value = IdomaId;
                 Comando.Parameters.Add("@DominioIdiomaId", SqlDbType.Int).Value = DominioIdiomaId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1092,7 +1115,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int DeleteIdioma(int PuestoId, int IdiomaId)
+        public int DeleteIdioma(int PuestoId, int IdiomaId, int UsuarioId)
         {
             try
             {
@@ -1101,6 +1124,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@IdiomaId", SqlDbType.Int).Value = IdiomaId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1115,7 +1139,7 @@ namespace PerfilEfectividad.WebServices
 
 
         [WebMethod]
-        public int EditExperiencia(int PuestoId, int ExperienciaId, string Trabajo, string Tiempo)
+        public int EditExperiencia(int PuestoId, int ExperienciaId, string Trabajo, string Tiempo, int UsuarioId)
         {
             try
             {
@@ -1126,6 +1150,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@ExperienciaId", SqlDbType.Int).Value = ExperienciaId;
                 Comando.Parameters.Add("@TipoTrabajo", SqlDbType.VarChar, 900).Value = Trabajo;
                 Comando.Parameters.Add("@Tiempo", SqlDbType.VarChar, 900).Value = Tiempo;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1139,7 +1164,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int Insert_Experiencia(int PuestoId, int PuestoVer, string Trabajo, string Tiempo)
+        public int Insert_Experiencia(int PuestoId, int PuestoVer, string Trabajo, string Tiempo, int UsuarioId)
         {
             try
             {
@@ -1152,6 +1177,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.Parameters.Add("@PuestoVer", SqlDbType.Int).Value = PuestoVer;
                 Comando.Parameters.Add("@TipoTrabajo", SqlDbType.VarChar, 900).Value = Trabajo;
                 Comando.Parameters.Add("@Tiempo", SqlDbType.VarChar, 900).Value = Tiempo;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1165,7 +1191,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int DeleteExperiencia(int PuestoId, int ExperienciaId)
+        public int DeleteExperiencia(int PuestoId, int ExperienciaId, int UsuarioId)
         {
             try
             {
@@ -1174,6 +1200,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@ExperienciaId", SqlDbType.Int).Value = ExperienciaId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -1210,5 +1237,7 @@ namespace PerfilEfectividad.WebServices
             }
             return Datos;
         }
+
+        
     }
 }

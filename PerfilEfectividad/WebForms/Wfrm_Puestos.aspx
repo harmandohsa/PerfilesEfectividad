@@ -69,7 +69,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" onclick="GrabarPuesto()" id="BtnGrabarPuesto" class="btn btn-primary"><i class="fa fa-save"></i>Grabar</button>
-                    <button type="button" onclick="BorrarPuesto()" id="BtnBorrarPuesto" class="btn btn-danger"><i class="fa fa-trash"></i>Borrar</button>
+                    <button type="button" onclick="BorrarPuesto()" id="BtnBorrarPuesto" class="btn btn-danger"><i class="fa fa-trash"></i>Inactivar</button>
                 </div>
             </div>
         </div>

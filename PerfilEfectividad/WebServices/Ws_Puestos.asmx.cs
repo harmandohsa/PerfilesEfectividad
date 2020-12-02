@@ -46,6 +46,25 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
+        public List<ListaPuesots> GetListaPuestosInactivos()
+        {
+            ds.Tables.Clear();
+            Cl_Puestos clPuestos = new Cl_Puestos();
+            ds = clPuestos.GetListaPuestosInactivos();
+            List<ListaPuesots> Datos = new List<ListaPuesots>();
+
+
+            foreach (DataRow dr in ds.Tables["DATOS"].Rows)
+            {
+                ListaPuesots Registro = new ListaPuesots();
+                Registro.PuestoId = Convert.ToInt32(dr["PuestoId"]);
+                Registro.Puesto = dr["NombrePuesto"].ToString();
+                Datos.Add(Registro);
+            }
+            return Datos;
+        }
+
+        [WebMethod]
         public int EditPuesto(int PuestoId, string NombrePuesto)
         {
             try
@@ -95,7 +114,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int EditNomprePuesto(int PuestoId, string Puesto)
+        public int EditNomprePuesto(int PuestoId, string Puesto, int UsuarioId)
         {
             try
             {
@@ -106,6 +125,7 @@ namespace PerfilEfectividad.WebServices
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@NombrePuesto", SqlDbType.VarChar, 500).Value = Puesto;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -119,7 +139,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int DeletePuesto(int PuestoId)
+        public int DeletePuesto(int PuestoId, int Estatus, int UsuarioId)
         {
             try
             {
@@ -129,6 +149,8 @@ namespace PerfilEfectividad.WebServices
                 SqlCommand Comando = new SqlCommand("Sp_DeletePuesto", cn);
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@Estatus", SqlDbType.Int).Value = Estatus;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.ExecuteNonQuery();
                 cn.Close();
 
@@ -142,7 +164,7 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public int Insert_Puesto(string Puesto)
+        public int Insert_Puesto(string Puesto, int UsuarioId)
         {
             try
             {
@@ -152,6 +174,7 @@ namespace PerfilEfectividad.WebServices
                 SqlCommand Comando = new SqlCommand("Sp_Insert_Puesto_New", cn);
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@Puesto", SqlDbType.VarChar, 500).Value = Puesto;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 Comando.Parameters.Add("@Resul", SqlDbType.Int).Direction = ParameterDirection.Output;
                 SqlDataAdapter adp = new SqlDataAdapter(Comando);
                 adp.Fill(ds, "DATOS");

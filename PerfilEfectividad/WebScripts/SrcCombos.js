@@ -766,3 +766,87 @@ function ComboDominioIdiomas() {
         }
     });
 }
+
+function ComboPerfiles() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Perfil.asmx/GetListaPerfiles",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $("#cboPerfil").get(0).options.length = 0;
+            $("#cboPerfil").get(0).options[0] = new Option("Seleccione el perfil", "-1");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['PerfilId'];
+                var name = data.d[i]['Perfil'];
+
+                $("#cboPerfil").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboPais() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Pais.asmx/GetListaPais",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $("#cboPais").get(0).options.length = 0;
+            $("#cboPais").get(0).options[0] = new Option("Seleccione el país", "-1");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['PaisId'];
+                var name = data.d[i]['Pais'];
+
+                $("#cboPais").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboSedes(PaisId) {
+    var sentAjaxData = {
+        "PaisId": PaisId
+    };
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Sedes.asmx/GetListaSedePais",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(sentAjaxData),
+        success: function (data) {
+            $("#cboSede").get(0).options.length = 0;
+            $("#cboSede").get(0).options[0] = new Option("Seleccione la sede", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['SedeId'];
+                var name = data.d[i]['Sede'];
+
+                $("#cboSede").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}

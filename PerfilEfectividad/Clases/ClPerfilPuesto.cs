@@ -97,7 +97,7 @@ namespace PerfilEfectividad.Clases
                 if (ds.Tables["DATOS"] != null)
                     ds.Tables.Remove("DATOS");
                 cn.Open();
-                SqlCommand Comando = new SqlCommand("Sp_Insert_Perfil", cn);
+                SqlCommand Comando = new SqlCommand("Sp_Insert_Perfil_Puesto", cn);
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
                 Comando.Parameters.Add("@Fecha", SqlDbType.VarChar, 10).Value = Fecha;

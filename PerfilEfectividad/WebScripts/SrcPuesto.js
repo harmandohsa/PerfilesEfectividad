@@ -1,14 +1,23 @@
 ﻿var Editar = '';
 var Imprimir = '';
+var Borrar = '';
 
 function OpcionesInicioLocal() {
-    //Datos = GetPermisosUsuarioPagina(Desencriptar(Cookies.get('UsuarioId')), 8);
-    //if (Datos[0]['Insertar'] == '0')
-    //    $("#BtnNuevo").css('display', 'none');
-    //if (Datos[0]['Editar'] == '0')
-    //    $("#BtnGrabarDepartamento").css('display', 'none');
-    //Editar = Datos[0]['Editar'];
-    //Imprimir = Datos[0]['Imprimir'];
+    Datos = GetPermisosUsuarioPagina(Desencriptar(Cookies.get('UsuarioId')), 5);
+    if (Datos[0]['Insertar'] == '0') {
+        $("#BtnGrabarPuesto").css('display', 'none');
+        $("#BtnNuevo").css('display', 'none');
+    }
+    if (Datos[0]['Editar'] == '0') {
+        $("#BtnGrabarPuesto").css('display', 'none');
+        $("#BtnNuevo").css('display', 'none');
+    }
+    if (Datos[0]['Eliminar'] == '0') {
+        $("#BtnBorrarPuesto").css('display', 'none');
+    }
+    Editar = Datos[0]['Editar'];
+    Imprimir = Datos[0]['Imprimir'];
+    Borrar = Datos[0]['Eliminar'];
     DibujarTablaPuesto();
 }
 
@@ -118,7 +127,8 @@ function NuevoPuesto() {
 }
 
 function ModificarPuesto(Id, Dato) {
-    $('#BtnBorrarPuesto').slideDown();
+    if (Borrar == 1)
+        $('#BtnBorrarPuesto').slideDown();
     $('#txtPuestoId').val(Id);
     $('#txtNombrePuesto').val(Dato);
     $('#txtllamada').val('2');
@@ -154,10 +164,11 @@ function GrabarPuesto() {
 
             }
             else {
-                if ($('#txtllamadaCurso').val() == 2) {
+                if ($('#txtllamada').val() == 2) {
                     var sentAjaxData = {
                         "PuestoId": $('#txtPuestoId').val(),
-                        "Puesto": $('#txtNombrePuesto').val()
+                        "Puesto": $('#txtNombrePuesto').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -184,7 +195,8 @@ function GrabarPuesto() {
                 }
                 else {
                     var sentAjaxData = {
-                        "Puesto": $('#txtNombrePuesto').val()
+                        "Puesto": $('#txtNombrePuesto').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -265,8 +277,8 @@ function ValidaExistePuesto() {
 
 function BorrarPuesto() {
     swal.fire({
-        title: 'Eliminar',
-        text: "Esta seguro de eliminar este puesto, esto es irreversible",
+        title: 'Inactivar',
+        text: "Esta seguro de inactivar este puesto",
         type: 'info',
         showCancelButton: true,
         cancelButtonText: 'No',
@@ -274,7 +286,9 @@ function BorrarPuesto() {
     }).then(function (result) {
         if (result.value) {
             var sentAjaxData = {
-                "PuestoId": $('#txtPuestoId').val()
+                "PuestoId": $('#txtPuestoId').val(),
+                "Estatus": 2,
+                "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
             };
             var retval;
             $.ajax({

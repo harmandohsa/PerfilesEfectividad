@@ -1,15 +1,54 @@
 ﻿var Editar = '';
 var Imprimir = '';
+var Borrar = '';
 
 function OpcionesInicioLocal() {
-    //Datos = GetPermisosUsuarioPagina(Desencriptar(Cookies.get('UsuarioId')), 8);
-    //if (Datos[0]['Insertar'] == '0')
-    //    $("#BtnNuevo").css('display', 'none');
-    //if (Datos[0]['Editar'] == '0')
-    //    $("#BtnGrabarDepartamento").css('display', 'none');
-    //Editar = Datos[0]['Editar'];
-    //Imprimir = Datos[0]['Imprimir'];
-    //DibujarTablaDepartamento();
+    Datos = GetPermisosUsuarioPagina(Desencriptar(Cookies.get('UsuarioId')), 5);
+    //alert(Datos[0]['Editar']);
+    if (Datos[0]['Editar'] == '0'){
+        $("#BtnActualizaInfoGeneral").css('display', 'none');
+        $("#BtnActualizaFunciones").css('display', 'none');
+        $('#cboTomaDesicion').prop('disabled', 'disabled');
+        $('#cboEsfuerzoMental').prop('disabled', 'disabled');
+        $("#BtnActualizaBienes").css('display', 'none');
+        $('#cboManejoBienes').prop('disabled', 'disabled');
+        $("#BtnNuevaSupervision").css('display', 'none');
+        $('#cboSupervion').prop('disabled', 'disabled');
+        $("#BtnNuevaRelacion").css('display', 'none');
+        $("#BtnGrabarRelacion").css('display', 'none');
+        $('#cboRelacionInterna').prop('disabled', 'disabled');
+        $('#cboRelacionExterna').prop('disabled', 'disabled');
+        $("#BtnNuevaManejoInfo").css('display', 'none');
+        $("#BtnGrabarManejoInfo").css('display', 'none');
+        $('#cboManejoInformacion').prop('disabled', 'disabled');
+        $('#cboTipoAmbienteTrabajo').prop('disabled', 'disabled');
+        $("#BtnUpdateAmbiente").css('display', 'none');
+        $('#cboAmbienteTrabajo').prop('disabled', 'disabled');
+        $('#cboTipoRiesgoOcupacional').prop('disabled', 'disabled');
+        $("#BtnUpdateRiesgo").css('display', 'none');
+        $('#cboRiesgoOcupacional').prop('disabled', 'disabled');
+        $('#cboTipoEsfuerzoFisico').prop('disabled', 'disabled');
+        $("#BtnUpdateEsfuerzo").css('display', 'none');
+        $('#cboEsfuerzoFisico').prop('disabled', 'disabled');
+        $('#cboNivelEducacional').prop('disabled', 'disabled');
+        $('#cboCarrera').prop('disabled', 'disabled');
+        $("#BtnUpdateNivelEducacional").css('display', 'none');
+        $('#CboImopactoError').prop('disabled', 'disabled');
+        $("#BtnNuevaCursoTecnico").css('display', 'none');
+        $("#BtnGrabarCursoTecnico").css('display', 'none');
+        $("#BtnActualizaEstudios").css('display', 'none');
+        $("#BtnNuevoIdioma").css('display', 'none');
+        $("#BtnGrabarIdioma").css('display', 'none');
+        $("#BtnNuevaExperiencia").css('display', 'none');
+        $("#BtnGrabarExperiencia").css('display', 'none');
+        $('#CboExperiencia').prop('disabled', 'disabled');
+    }
+    if (Datos[0]['Eliminar'] == '0') {
+        //$("#BtnBorrarPuesto").css('display', 'none');
+    }
+    Editar = Datos[0]['Editar'];
+    Imprimir = Datos[0]['Imprimir'];
+    Borrar = Datos[0]['Eliminar'];
     const urlParams = new URLSearchParams(window.location.search);
     $('#lblPuesto').text(urlParams.get('Puesto'));
     $('#txtPuestoId').val(urlParams.get('PuestoId'));
@@ -1404,7 +1443,8 @@ function GrabarInfoGenral() {
                     "PuestoJefe": $('#txtpuestojefe').val(),
                     "PuestoId": $('#txtPuestoId').val(),
                     "SubAreaId": $('#txtSubAreaId').val(),
-                    "CodigoPuesto": $('#txtcodigopuesto').val()
+                    "CodigoPuesto": $('#txtcodigopuesto').val(),
+                    "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                 };
                 var retval;
                 $.ajax({
@@ -1442,7 +1482,8 @@ function GrabarFunciones() {
                 "FuncTrimSemestre": $('#txtfunctrimsem').val(),
                 "FuncAnual": $('#txtfuncanual').val(),
                 "FuncEventual": $('#txtfunceventual').val(),
-                "PuestoId": $('#txtPuestoId').val()
+                "PuestoId": $('#txtPuestoId').val(),
+                "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
             };
             var retval;
             $.ajax({
@@ -1499,7 +1540,8 @@ function GrabarFactores(factor) {
             var sentAjaxData = {
                 "PuestoId": $('#txtPuestoId').val(),
                 "FactorId": factor,
-                "Id": Id
+                "Id": Id,
+                "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
             };
             var retval;
             $.ajax({
@@ -1521,6 +1563,8 @@ function GrabarFactores(factor) {
         }
     });
 }
+
+
 
 function GrabarManejoBienes() {
     var table = $('#kt_table_ManejoBienes').DataTable();
@@ -1548,7 +1592,8 @@ function GrabarManejoBienes() {
                 "Monto": Monto,
                 "Indirecta": Indirecta,
                 "Directa": Directa,
-                "Compartida": Compartida
+                "Compartida": Compartida,
+                "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
             };
             var retval;
             $.ajax({
@@ -1572,46 +1617,55 @@ function GrabarManejoBienes() {
             Directa = 0;
             Compartida = 0;
         });
+        GrabaBitacoraActividad(9, $('#txtPuestoId').val(), Desencriptar(Cookies.get('UsuarioId')))
         toastr.success('Manejo de Bienes y Valores Económicos Modificados');
 }
 
 function BorrarSupervision(SupervisionId) {
-    swal.fire({
-        title: 'Eliminar',
-        text: "Esta seguro de eliminar esta supervisión",
-        type: 'info',
-        showCancelButton: true,
-        cancelButtonText: 'No',
-        confirmButtonText: 'Si'
-    }).then(function (result) {
-        if (result.value) {
-            var sentAjaxData = {
-                "PuestoId": $('#txtPuestoId').val(),
-                "SupervisionId": SupervisionId
-            };
-            var retval;
-            $.ajax({
-                type: "POST",
-                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleSupervision",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(sentAjaxData),
-                async: false,
-                success: function (data) {
-                    if (data.d == 1) {
-                        toastr.success('Supervisión Eliminada');
-                        DibujarTablaSupervision($('#txtPuestoId').val());
-                        $.unblockUI();
-                    }
-                    else
-                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+    if (Borrar == 0) {
+        toastr.success('No tiene permisos para eliminar');
+    }
+    else {
+        swal.fire({
+            title: 'Eliminar',
+            text: "Esta seguro de eliminar esta supervisión",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si'
+        }).then(function (result) {
+            if (result.value) {
+                var sentAjaxData = {
+                    "PuestoId": $('#txtPuestoId').val(),
+                    "SupervisionId": SupervisionId,
+                    "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
+                };
+                var retval;
+                $.ajax({
+                    type: "POST",
+                    url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleSupervision",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(sentAjaxData),
+                    async: false,
+                    success: function (data) {
+                        if (data.d == 1) {
+                            toastr.success('Supervisión Eliminada');
+                            DibujarTablaSupervision($('#txtPuestoId').val());
+                            $.unblockUI();
+                        }
+                        else
+                            toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
 
-                    return false;
-                }
-            });
-            return retval;
-        }
-    });
+                        return false;
+                    }
+                });
+                return retval;
+            }
+        });
+    }
+
+    
 }
 
 function ModificarSupervision(SupervisionId, Puesto, Cantidad) {
@@ -1661,6 +1715,7 @@ function GrabarSupervision() {
                         "SupervisionId": $('#txtIdSupervision').val(),
                         "Puesto": $('#txtPuestoSupervision').val(),
                         "Cantidad": $('#txtCantidadSupervision').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -1688,7 +1743,8 @@ function GrabarSupervision() {
                         "PuestoId": $('#txtPuestoId').val(),
                         "PuestoVer": 1,
                         "NombrePuesto": $('#txtPuestoSupervision').val(),
-                        "Cantidad": $('#txtCantidadSupervision').val()
+                        "Cantidad": $('#txtCantidadSupervision').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                         
                     };
                     var retval;
@@ -1771,6 +1827,7 @@ function GrabarRelacion() {
                         "Proposito": $('#txtProposito').val(),
                         "FrecuenciaId": $('#txtFrecuenciaId').val(),
                         "TipoRelacionId": $('#txtTipoRelacionId').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -1801,7 +1858,7 @@ function GrabarRelacion() {
                         "Proposito": $('#txtProposito').val(),
                         "FrecuenciaId": $('#txtFrecuenciaId').val(),
                         "TipoRelacionId": $('#txtTipoRelacionId').val(),
-
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -1830,42 +1887,49 @@ function GrabarRelacion() {
 }
 
 function BorrarRelacion(RelacionId) {
-    swal.fire({
-        title: 'Eliminar',
-        text: "Esta seguro de eliminar esta relación de trabajo",
-        type: 'info',
-        showCancelButton: true,
-        cancelButtonText: 'No',
-        confirmButtonText: 'Si'
-    }).then(function (result) {
-        if (result.value) {
-            var sentAjaxData = {
-                "PuestoId": $('#txtPuestoId').val(),
-                "RelacionId": RelacionId
-            };
-            var retval;
-            $.ajax({
-                type: "POST",
-                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleRelacion",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(sentAjaxData),
-                async: false,
-                success: function (data) {
-                    if (data.d == 1) {
-                        toastr.success('Relación de Trabajo Eliminada');
-                        DibujarTablaRelacionesTrabajo($('#txtPuestoId').val());
-                        $.unblockUI();
-                    }
-                    else
-                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+    if (Borrar == 0) {
+        toastr.success('No tiene permiso para eliminar');
+    }
+    else {
+        swal.fire({
+            title: 'Eliminar',
+            text: "Esta seguro de eliminar esta relación de trabajo",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si'
+        }).then(function (result) {
+            if (result.value) {
+                var sentAjaxData = {
+                    "PuestoId": $('#txtPuestoId').val(),
+                    "RelacionId": RelacionId,
+                    "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
+                };
+                var retval;
+                $.ajax({
+                    type: "POST",
+                    url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleRelacion",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(sentAjaxData),
+                    async: false,
+                    success: function (data) {
+                        if (data.d == 1) {
+                            toastr.success('Relación de Trabajo Eliminada');
+                            DibujarTablaRelacionesTrabajo($('#txtPuestoId').val());
+                            $.unblockUI();
+                        }
+                        else
+                            toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
 
-                    return false;
-                }
-            });
-            return retval;
-        }
-    });
+                        return false;
+                    }
+                });
+                return retval;
+            }
+        });
+    }
+    
 }
 
 function ModificarManejoInfo(ManejoInformacionId, Documento, AccionDocumento, TipoInformacion, Jefe, AuditoriaInt, AuditoriaExterna) {
@@ -1935,7 +1999,8 @@ function GrabarmanejoInfo() {
                         "TipoInformacion": $('#txtTipoInfo').val(),
                         "Jefe": Jefe,
                         "AuditoriaInt": AuditoriaInt,
-                        "AuditoriaExt": AuditoriaExt
+                        "AuditoriaExt": AuditoriaExt,
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -1967,8 +2032,8 @@ function GrabarmanejoInfo() {
                         "TipoInformacion": $('#txtTipoInfo').val(),
                         "Jefe": Jefe,
                         "AuditoriaInt": AuditoriaInt,
-                        "AuditoriaExt": AuditoriaExt
-
+                        "AuditoriaExt": AuditoriaExt,
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -2012,48 +2077,56 @@ function NuevaManejoInfo() {
 }
 
 function BorrarManejoInfo(ManejoInformacionId) {
-    swal.fire({
-        title: 'Eliminar',
-        text: "Esta seguro de eliminar el manejo de información",
-        type: 'info',
-        showCancelButton: true,
-        cancelButtonText: 'No',
-        confirmButtonText: 'Si'
-    }).then(function (result) {
-        if (result.value) {
-            var sentAjaxData = {
-                "PuestoId": $('#txtPuestoId').val(),
-                "ManejoInformacionId": ManejoInformacionId
-            };
-            var retval;
-            $.ajax({
-                type: "POST",
-                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleManejoInfo",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(sentAjaxData),
-                async: false,
-                success: function (data) {
-                    if (data.d == 1) {
-                        toastr.success('Manejo de Información Eliminada');
-                        DibujarTablaManejoInformacion($('#txtPuestoId').val());
-                        $.unblockUI();
-                    }
-                    else
-                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+    if (Borrar == 0) {
+        toastr.success('No tiene permisos para eliminar');
+    }
+    else {
+        swal.fire({
+            title: 'Eliminar',
+            text: "Esta seguro de eliminar el manejo de información",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si'
+        }).then(function (result) {
+            if (result.value) {
+                var sentAjaxData = {
+                    "PuestoId": $('#txtPuestoId').val(),
+                    "ManejoInformacionId": ManejoInformacionId,
+                    "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
+                };
+                var retval;
+                $.ajax({
+                    type: "POST",
+                    url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleManejoInfo",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(sentAjaxData),
+                    async: false,
+                    success: function (data) {
+                        if (data.d == 1) {
+                            toastr.success('Manejo de Información Eliminada');
+                            DibujarTablaManejoInformacion($('#txtPuestoId').val());
+                            $.unblockUI();
+                        }
+                        else
+                            toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
 
-                    return false;
-                }
-            });
-            return retval;
-        }
-    });
+                        return false;
+                    }
+                });
+                return retval;
+            }
+        });
+    }
+    
 }
 
 function ActualizaAmiente() {
     var sentAjaxData = {
         "PuestoId": $('#txtPuestoId').val(),
-        "TipoAmbienteTrabajo": $('#txtTipoAmbienteTrabajoId').val()
+        "TipoAmbienteTrabajo": $('#txtTipoAmbienteTrabajoId').val(),
+        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
     };
     var retval;
     $.ajax({
@@ -2080,7 +2153,8 @@ function ActualizaAmiente() {
 function ActualizaRiesgo() {
     var sentAjaxData = {
         "PuestoId": $('#txtPuestoId').val(),
-        "TipoRiesgoOcupacional": $('#txtTipoRiesgoOcupacionalId').val()
+        "TipoRiesgoOcupacional": $('#txtTipoRiesgoOcupacionalId').val(),
+        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
     };
     var retval;
     $.ajax({
@@ -2107,7 +2181,8 @@ function ActualizaRiesgo() {
 function ActualizaEsfuerzoFisico() {
     var sentAjaxData = {
         "PuestoId": $('#txtPuestoId').val(),
-        "TipoEsfuerzoFisico": $('#txtTipoEsfueroFisicolId').val()
+        "TipoEsfuerzoFisico": $('#txtTipoEsfueroFisicolId').val(),
+        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
     };
     var retval;
     $.ajax({
@@ -2137,7 +2212,8 @@ function ActualizaNivelEducacional() {
         "PuestoId": $('#txtPuestoId').val(),
         "GradoId": $('#txtGradoId').val(),
         "EducacionFormalId": $('#txtEducacionFormalId').val(),
-        "Carreras": $('#txtCarreraId').val()
+        "Carreras": $('#txtCarreraId').val(),
+        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
     };
     var retval;
     $.ajax({
@@ -2203,7 +2279,8 @@ function GrabarCursoTecnico() {
                         "PuestoId": $('#txtPuestoId').val(),
                         "CursoId": $('#txtCursoId').val(),
                         "Curso": $('#txtCurso').val(),
-                        "Duracion": $('#txtDuracion').val()
+                        "Duracion": $('#txtDuracion').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -2231,8 +2308,8 @@ function GrabarCursoTecnico() {
                         "PuestoId": $('#txtPuestoId').val(),
                         "PuestoVer": 1,
                         "Curso": $('#txtCurso').val(),
-                        "Duracion": $('#txtDuracion').val()
-
+                        "Duracion": $('#txtDuracion').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -2261,48 +2338,56 @@ function GrabarCursoTecnico() {
 }
 
 function BorrarCursoTecnico(CursoId) {
-    swal.fire({
-        title: 'Eliminar',
-        text: "Esta seguro de eliminar este curso técnico",
-        type: 'info',
-        showCancelButton: true,
-        cancelButtonText: 'No',
-        confirmButtonText: 'Si'
-    }).then(function (result) {
-        if (result.value) {
-            var sentAjaxData = {
-                "PuestoId": $('#txtPuestoId').val(),
-                "CursoId": CursoId
-            };
-            var retval;
-            $.ajax({
-                type: "POST",
-                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleCursoTecnico",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(sentAjaxData),
-                async: false,
-                success: function (data) {
-                    if (data.d == 1) {
-                        toastr.success('Curso Técnico Eliminado');
-                        GetDataCursosTecnicos($('#txtPuestoId').val());
-                        $.unblockUI();
-                    }
-                    else
-                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+    if (Borrar == 0) {
+        toastr.success('No tiene permisos para eliminar');
+    }
+    else {
+        swal.fire({
+            title: 'Eliminar',
+            text: "Esta seguro de eliminar este curso técnico",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si'
+        }).then(function (result) {
+            if (result.value) {
+                var sentAjaxData = {
+                    "PuestoId": $('#txtPuestoId').val(),
+                    "CursoId": CursoId,
+                    "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
+                };
+                var retval;
+                $.ajax({
+                    type: "POST",
+                    url: "../WebServices/Ws_CrudPerfil.asmx/DeleteDetalleCursoTecnico",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(sentAjaxData),
+                    async: false,
+                    success: function (data) {
+                        if (data.d == 1) {
+                            toastr.success('Curso Técnico Eliminado');
+                            GetDataCursosTecnicos($('#txtPuestoId').val());
+                            $.unblockUI();
+                        }
+                        else
+                            toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
 
-                    return false;
-                }
-            });
-            return retval;
-        }
-    });
+                        return false;
+                    }
+                });
+                return retval;
+            }
+        });
+    }
+    
 }
 
 function GrabarOtrosEstudios() {
     var sentAjaxData = {
         "PuestoId": $('#txtPuestoId').val(),
-        "OtrosEstudios": $('#txtOtrosEstudios').val()
+        "OtrosEstudios": $('#txtOtrosEstudios').val(),
+        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
     };
 
     $.ajax({
@@ -2373,7 +2458,8 @@ function GrabarIdioma() {
                         "PuestoId": $('#txtPuestoId').val(),
                         "IdiomaId": $('#txtIdiomaId').val(),
                         "IdomaId": $('#txtIdomaId').val(),
-                        "DominioIdiomaId": $('#txtDominioIdiomaId').val()
+                        "DominioIdiomaId": $('#txtDominioIdiomaId').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -2401,8 +2487,8 @@ function GrabarIdioma() {
                         "PuestoId": $('#txtPuestoId').val(),
                         "PuestoVer": 1,
                         "IdomaId": $('#txtIdomaId').val(),
-                        "DominioIdiomaId": $('#txtDominioIdiomaId').val()
-
+                        "DominioIdiomaId": $('#txtDominioIdiomaId').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -2431,42 +2517,49 @@ function GrabarIdioma() {
 }
 
 function BorrarIdioma(IdiomaId) {
-    swal.fire({
-        title: 'Eliminar',
-        text: "Esta seguro de eliminar este idioma",
-        type: 'info',
-        showCancelButton: true,
-        cancelButtonText: 'No',
-        confirmButtonText: 'Si'
-    }).then(function (result) {
-        if (result.value) {
-            var sentAjaxData = {
-                "PuestoId": $('#txtPuestoId').val(),
-                "IdiomaId": IdiomaId
-            };
-            var retval;
-            $.ajax({
-                type: "POST",
-                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteIdioma",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(sentAjaxData),
-                async: false,
-                success: function (data) {
-                    if (data.d == 1) {
-                        toastr.success('Idioma Eliminado');
-                        GetDataIdiomas($('#txtPuestoId').val());
-                        $.unblockUI();
-                    }
-                    else
-                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+    if (Borrar == 0) {
+        toastr.success('No tiene permisos para eliminar');
+    }
+    else {
+        swal.fire({
+            title: 'Eliminar',
+            text: "Esta seguro de eliminar este idioma",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si'
+        }).then(function (result) {
+            if (result.value) {
+                var sentAjaxData = {
+                    "PuestoId": $('#txtPuestoId').val(),
+                    "IdiomaId": IdiomaId,
+                    "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
+                };
+                var retval;
+                $.ajax({
+                    type: "POST",
+                    url: "../WebServices/Ws_CrudPerfil.asmx/DeleteIdioma",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(sentAjaxData),
+                    async: false,
+                    success: function (data) {
+                        if (data.d == 1) {
+                            toastr.success('Idioma Eliminado');
+                            GetDataIdiomas($('#txtPuestoId').val());
+                            $.unblockUI();
+                        }
+                        else
+                            toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
 
-                    return false;
-                }
-            });
-            return retval;
-        }
-    });
+                        return false;
+                    }
+                });
+                return retval;
+            }
+        });
+    }
+    
 }
 
 function ModificarExperiencia(ExperienciaId, TipoTrabajo, Trabajo) {
@@ -2514,7 +2607,8 @@ function GrabarExperiencia() {
                         "PuestoId": $('#txtPuestoId').val(),
                         "ExperienciaId": $('#txtExperienciaId').val(),
                         "Trabajo": $('#txtTipoTrabajo').val(),
-                        "Tiempo": $('#txtTiempoExperiencia').val()
+                        "Tiempo": $('#txtTiempoExperiencia').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -2542,8 +2636,8 @@ function GrabarExperiencia() {
                         "PuestoId": $('#txtPuestoId').val(),
                         "PuestoVer": 1,
                         "Trabajo": $('#txtTipoTrabajo').val(),
-                        "Tiempo": $('#txtTiempoExperiencia').val()
-
+                        "Tiempo": $('#txtTiempoExperiencia').val(),
+                        "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
                     };
                     var retval;
                     $.ajax({
@@ -2572,42 +2666,49 @@ function GrabarExperiencia() {
 }
 
 function BorrarExperiencia(ExperienciaId) {
-    swal.fire({
-        title: 'Eliminar',
-        text: "Esta seguro de eliminar esta Experiencia",
-        type: 'info',
-        showCancelButton: true,
-        cancelButtonText: 'No',
-        confirmButtonText: 'Si'
-    }).then(function (result) {
-        if (result.value) {
-            var sentAjaxData = {
-                "PuestoId": $('#txtPuestoId').val(),
-                "ExperienciaId": ExperienciaId
-            };
-            var retval;
-            $.ajax({
-                type: "POST",
-                url: "../WebServices/Ws_CrudPerfil.asmx/DeleteExperiencia",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(sentAjaxData),
-                async: false,
-                success: function (data) {
-                    if (data.d == 1) {
-                        toastr.success('Experiencia Eliminada');
-                        GetDataExperiencia($('#txtPuestoId').val());
-                        $.unblockUI();
-                    }
-                    else
-                        toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
+    if (Borrar == 0) {
+        toastr.success('No tiene permisos para eliminar');
+    }
+    else {
+        swal.fire({
+            title: 'Eliminar',
+            text: "Esta seguro de eliminar esta Experiencia",
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si'
+        }).then(function (result) {
+            if (result.value) {
+                var sentAjaxData = {
+                    "PuestoId": $('#txtPuestoId').val(),
+                    "ExperienciaId": ExperienciaId,
+                    "UsuarioId": Desencriptar(Cookies.get('UsuarioId'))
+                };
+                var retval;
+                $.ajax({
+                    type: "POST",
+                    url: "../WebServices/Ws_CrudPerfil.asmx/DeleteExperiencia",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(sentAjaxData),
+                    async: false,
+                    success: function (data) {
+                        if (data.d == 1) {
+                            toastr.success('Experiencia Eliminada');
+                            GetDataExperiencia($('#txtPuestoId').val());
+                            $.unblockUI();
+                        }
+                        else
+                            toastr.error('Este Item no se puede eliminar ya que esta asociado a algún proceso');
 
-                    return false;
-                }
-            });
-            return retval;
-        }
-    });
+                        return false;
+                    }
+                });
+                return retval;
+            }
+        });
+    }
+    
 }
 
 function GetDataCarreras(PuestoId) {

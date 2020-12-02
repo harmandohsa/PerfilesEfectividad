@@ -12615,20 +12615,36 @@
     <Content Include="assets\vendors\general\wnumb\README.md" />
     <Content Include="WebForms\Wfm_Idiomas.aspx" />
     <Content Include="WebForms\Wfrm_Areas.aspx" />
+    <Content Include="WebForms\Wfrm_CambioClave.aspx" />
     <Content Include="WebForms\Wfrm_CargaPerfil.aspx" />
     <Content Include="WebForms\Wfrm_Carreras.aspx" />
     <Content Include="WebForms\Wfrm_EditPuestos.aspx" />
+    <Content Include="WebForms\Wfrm_FotoUsuario.aspx" />
+    <Content Include="WebForms\Wfrm_FotoUsuarioCat.aspx" />
     <Content Include="WebForms\Wfrm_Inicio.aspx" />
+    <Content Include="WebForms\Wfrm_Pais.aspx" />
+    <Content Include="WebForms\Wfrm_Perfil.aspx" />
+    <Content Include="WebForms\Wfrm_PerfilUsuario.aspx" />
     <Content Include="WebForms\Wfrm_Puestos.aspx" />
+    <Content Include="WebForms\Wfrm_Puestos_Inactivos.aspx" />
+    <Content Include="WebForms\Wfrm_Sede.aspx" />
     <Content Include="WebForms\Wfrm_SubAreas.aspx" />
+    <Content Include="WebForms\Wfrm_Usuarios.aspx" />
     <Content Include="WebScripts\SrcCargaPerfil.js" />
     <Content Include="WebScripts\SrcCombos.js" />
     <Content Include="WebScripts\SrcEditPuesto.js" />
     <Content Include="WebScripts\SrcGenerales.js" />
     <Content Include="WebScripts\SrcInicio.js" />
     <Content Include="WebScripts\SrcLogin.js" />
+    <Content Include="WebScripts\SrcPais.js" />
+    <Content Include="WebScripts\SrcPerfil.js" />
+    <Content Include="WebScripts\SrcPerfilUsuario.js" />
     <Content Include="WebScripts\SrcPuesto.js" />
+    <Content Include="WebScripts\SrcPuestoActivar.js" />
+    <Content Include="WebScripts\SrcSedes.js" />
+    <Content Include="WebScripts\SrcUsuarios.js" />
     <Content Include="WebScripts\Src_Areas.js" />
+    <Content Include="WebScripts\Src_CambioClave.js" />
     <Content Include="WebScripts\Src_Carreras.js" />
     <Content Include="WebScripts\Src_Idiomas.js" />
     <Content Include="WebScripts\Src_SubAreas.js" />
@@ -12643,13 +12659,20 @@
     <Content Include="WebServices\WS_Grado.asmx" />
     <Content Include="WebServices\Ws_Idioma.asmx" />
     <Content Include="WebServices\Ws_Login.asmx" />
+    <Content Include="WebServices\WS_Pais.asmx" />
+    <Content Include="WebServices\WS_Perfil.asmx" />
+    <Content Include="WebServices\WS_PerfilUsuario.asmx" />
+    <Content Include="WebServices\WS_PermisosPerfil.asmx" />
+    <Content Include="WebServices\WS_PermisosUsuario.asmx" />
     <Content Include="WebServices\Ws_Puestos.asmx" />
+    <Content Include="WebServices\WS_Sedes.asmx" />
     <Content Include="WebServices\WS_SubAreas.asmx" />
     <Content Include="WebServices\Ws_TipoAmbienteTrabajo.asmx" />
     <Content Include="WebServices\Ws_TipoEsfuerzoFisico.asmx" />
     <Content Include="WebServices\Ws_TipoRelacion.asmx" />
     <Content Include="WebServices\Ws_TipoRiesgoOcupacional.asmx" />
     <Content Include="WebServices\WS_TipoSupervision.asmx" />
+    <Content Include="WebServices\WS_Usuarios.asmx" />
     <Content Include="Wfrm_Login.aspx" />
     <Content Include="MasterPage\Site.Master" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -12702,15 +12725,24 @@
     <Compile Include="Clases\Cl_DominioIdioma.cs" />
     <Compile Include="Clases\Cl_Factor.cs" />
     <Compile Include="Clases\Cl_Frecuencia.cs" />
+    <Compile Include="Clases\Cl_Generales.cs" />
     <Compile Include="Clases\Cl_Grado.cs" />
     <Compile Include="Clases\Cl_Idiomas.cs" />
+    <Compile Include="Clases\Cl_Login.cs" />
+    <Compile Include="Clases\Cl_Pais.cs" />
+    <Compile Include="Clases\CL_Perfil.cs" />
+    <Compile Include="Clases\CL_PerfilUsuario.cs" />
+    <Compile Include="Clases\CL_PermisosPerfil.cs" />
+    <Compile Include="Clases\Cl_PermisosUsuario.cs" />
     <Compile Include="Clases\Cl_Puestos.cs" />
+    <Compile Include="Clases\CL_Sede.cs" />
     <Compile Include="Clases\CL_SubAreas.cs" />
     <Compile Include="Clases\Cl_TipoAmbienteTrabajo.cs" />
     <Compile Include="Clases\Cl_TipoEsfuerzoFisico.cs" />
     <Compile Include="Clases\Cl_TipoRelacion.cs" />
     <Compile Include="Clases\CL_TipoRiesgoOcupacional.cs" />
     <Compile Include="Clases\Cl_TipoSupervision.cs" />
+    <Compile Include="Clases\Cl_Usuarios.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -12757,6 +12789,13 @@
     <Compile Include="WebForms\Wfrm_Areas.aspx.designer.cs">
       <DependentUpon>Wfrm_Areas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfrm_CambioClave.aspx.cs">
+      <DependentUpon>Wfrm_CambioClave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_CambioClave.aspx.designer.cs">
+      <DependentUpon>Wfrm_CambioClave.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_CargaPerfil.aspx.cs">
       <DependentUpon>Wfrm_CargaPerfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -12778,12 +12817,47 @@
     <Compile Include="WebForms\Wfrm_EditPuestos.aspx.designer.cs">
       <DependentUpon>Wfrm_EditPuestos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfrm_FotoUsuario.aspx.cs">
+      <DependentUpon>Wfrm_FotoUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_FotoUsuario.aspx.designer.cs">
+      <DependentUpon>Wfrm_FotoUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_FotoUsuarioCat.aspx.cs">
+      <DependentUpon>Wfrm_FotoUsuarioCat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_FotoUsuarioCat.aspx.designer.cs">
+      <DependentUpon>Wfrm_FotoUsuarioCat.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_Inicio.aspx.cs">
       <DependentUpon>Wfrm_Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebForms\Wfrm_Inicio.aspx.designer.cs">
       <DependentUpon>Wfrm_Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Pais.aspx.cs">
+      <DependentUpon>Wfrm_Pais.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Pais.aspx.designer.cs">
+      <DependentUpon>Wfrm_Pais.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Perfil.aspx.cs">
+      <DependentUpon>Wfrm_Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Perfil.aspx.designer.cs">
+      <DependentUpon>Wfrm_Perfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_PerfilUsuario.aspx.cs">
+      <DependentUpon>Wfrm_PerfilUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_PerfilUsuario.aspx.designer.cs">
+      <DependentUpon>Wfrm_PerfilUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForms\Wfrm_Puestos.aspx.cs">
       <DependentUpon>Wfrm_Puestos.aspx</DependentUpon>
@@ -12792,12 +12866,33 @@
     <Compile Include="WebForms\Wfrm_Puestos.aspx.designer.cs">
       <DependentUpon>Wfrm_Puestos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfrm_Puestos_Inactivos.aspx.cs">
+      <DependentUpon>Wfrm_Puestos_Inactivos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Puestos_Inactivos.aspx.designer.cs">
+      <DependentUpon>Wfrm_Puestos_Inactivos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Sede.aspx.cs">
+      <DependentUpon>Wfrm_Sede.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Sede.aspx.designer.cs">
+      <DependentUpon>Wfrm_Sede.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_SubAreas.aspx.cs">
       <DependentUpon>Wfrm_SubAreas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WebForms\Wfrm_SubAreas.aspx.designer.cs">
       <DependentUpon>Wfrm_SubAreas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Usuarios.aspx.cs">
+      <DependentUpon>Wfrm_Usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_Usuarios.aspx.designer.cs">
+      <DependentUpon>Wfrm_Usuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\Ws_Areas.asmx.cs">
       <DependentUpon>Ws_Areas.asmx</DependentUpon>
@@ -12843,8 +12938,32 @@
       <DependentUpon>Ws_Login.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WebServices\WS_Pais.asmx.cs">
+      <DependentUpon>WS_Pais.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_Perfil.asmx.cs">
+      <DependentUpon>WS_Perfil.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_PerfilUsuario.asmx.cs">
+      <DependentUpon>WS_PerfilUsuario.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_PermisosPerfil.asmx.cs">
+      <DependentUpon>WS_PermisosPerfil.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_PermisosUsuario.asmx.cs">
+      <DependentUpon>WS_PermisosUsuario.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebServices\Ws_Puestos.asmx.cs">
       <DependentUpon>Ws_Puestos.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_Sedes.asmx.cs">
+      <DependentUpon>WS_Sedes.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebServices\WS_SubAreas.asmx.cs">
@@ -12869,6 +12988,10 @@
     </Compile>
     <Compile Include="WebServices\WS_TipoSupervision.asmx.cs">
       <DependentUpon>WS_TipoSupervision.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\WS_Usuarios.asmx.cs">
+      <DependentUpon>WS_Usuarios.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Wfrm_Login.aspx.cs">

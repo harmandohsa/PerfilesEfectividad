@@ -29,5 +29,26 @@ namespace PerfilEfectividad.Clases
             }
 
         }
+
+        public DataSet GetListaPuestosInactivos()
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_CatalogoPuestosInactivos", cn);
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                cn.Close();
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+
+        }
     }
 }

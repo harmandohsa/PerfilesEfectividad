@@ -2,13 +2,14 @@
 var Imprimir = '';
 
 function OpcionesInicioLocal() {
-    //Datos = GetPermisosUsuarioPagina(Desencriptar(Cookies.get('UsuarioId')), 8);
-    //if (Datos[0]['Insertar'] == '0')
-    //    $("#BtnNuevo").css('display', 'none');
-    //if (Datos[0]['Editar'] == '0')
-    //    $("#BtnGrabarDepartamento").css('display', 'none');
-    //Editar = Datos[0]['Editar'];
-    //Imprimir = Datos[0]['Imprimir'];
+    Datos = GetPermisosUsuarioPagina(Desencriptar(Cookies.get('UsuarioId')), 4);
+    if (Datos[0]['Insertar'] == '0')
+        $("#BtnNuevo").css('display', 'none');
+    Editar = Datos[0]['Editar'];
+    Imprimir = Datos[0]['Imprimir'];
+    Borrar = Datos[0]['Eliminar'];
+
+
     $("#cboNivelEducacional").select2({
         width: '100%',
         placeholder: "",
@@ -121,7 +122,11 @@ function DibujarTabla() {
 }
 
 function Modificar(Id, Dato, GradoId, Grado) {
+    if (Editar == 0)
+        $('#BtnGrabar').slideUp();
     $('#BtnBorrar').slideDown();
+    if (Borrar == 0)
+        $('#BtnBorrar').slideUp();
     $('#txtDatoId').val(Id);
     $('#txtNombre').val(Dato);
     $('#txtllamada').val('2');

@@ -938,4 +938,5 @@
 <input id="txtSubAreaId" type="text" class="form-control" Style="display:none" >
 <script src="../WebScripts/SrcEditPuesto.js" type="text/javascript"></script>
 <script src="../WebScripts/SrcCombos.js" type="text/javascript"></script>
+ <script src="../WebScripts/SrcGenerales.js" type="text/javascript"></script>
 </asp:Content>

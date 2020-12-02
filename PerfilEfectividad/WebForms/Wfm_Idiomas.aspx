@@ -77,6 +77,7 @@
             <!-- /.modal-content -->
         </div>
     </div>
+    
 <input id="txtDatoId" type="text" class="form-control" Style="display:none" >
 <input id="txtllamada" type="text" class="form-control" Style="display:none" >
 <script src="../WebScripts/Src_Idiomas.js" type="text/javascript"></script>
