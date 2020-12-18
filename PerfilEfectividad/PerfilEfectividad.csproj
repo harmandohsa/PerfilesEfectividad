@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EPPlus, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\TerraEnergia\TerraEnergia\TerraEnergia\bin\EPPlus.dll</HintPath>
@@ -12618,6 +12621,7 @@
     <Content Include="WebForms\Wfrm_CambioClave.aspx" />
     <Content Include="WebForms\Wfrm_CargaPerfil.aspx" />
     <Content Include="WebForms\Wfrm_Carreras.aspx" />
+    <Content Include="WebForms\Wfrm_ConfReportePerfil.aspx" />
     <Content Include="WebForms\Wfrm_EditPuestos.aspx" />
     <Content Include="WebForms\Wfrm_FotoUsuario.aspx" />
     <Content Include="WebForms\Wfrm_FotoUsuarioCat.aspx" />
@@ -12630,8 +12634,10 @@
     <Content Include="WebForms\Wfrm_Sede.aspx" />
     <Content Include="WebForms\Wfrm_SubAreas.aspx" />
     <Content Include="WebForms\Wfrm_Usuarios.aspx" />
+    <Content Include="WebForms_Reportes\WfrmRep_PerfilPuesto.aspx" />
     <Content Include="WebScripts\SrcCargaPerfil.js" />
     <Content Include="WebScripts\SrcCombos.js" />
+    <Content Include="WebScripts\SrcConfReporte.js" />
     <Content Include="WebScripts\SrcEditPuesto.js" />
     <Content Include="WebScripts\SrcGenerales.js" />
     <Content Include="WebScripts\SrcInicio.js" />
@@ -12651,6 +12657,7 @@
     <Content Include="WebServices\Ws_Areas.asmx" />
     <Content Include="WebServices\Ws_CargaPerfil.asmx" />
     <Content Include="WebServices\WS_Carreras.asmx" />
+    <Content Include="WebServices\Ws_ConfReportes.asmx" />
     <Content Include="WebServices\Ws_CrudPerfil.asmx" />
     <Content Include="WebServices\Ws_DominioIdioma.asmx" />
     <Content Include="WebServices\Ws_Factor.asmx" />
@@ -12675,6 +12682,17 @@
     <Content Include="WebServices\WS_Usuarios.asmx" />
     <Content Include="Wfrm_Login.aspx" />
     <Content Include="MasterPage\Site.Master" />
+    <Content Include="DataSets\Ds_PerfilEfectividad.xsc">
+      <DependentUpon>Ds_PerfilEfectividad.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSets\Ds_PerfilEfectividad.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Ds_PerfilEfectividad.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSets\Ds_PerfilEfectividad.xss">
+      <DependentUpon>Ds_PerfilEfectividad.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -12705,7 +12723,9 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
@@ -12721,6 +12741,7 @@
     <Compile Include="Clases\ClPerfilPuesto.cs" />
     <Compile Include="Clases\Cl_Areas.cs" />
     <Compile Include="Clases\Cl_Carreras.cs" />
+    <Compile Include="Clases\Cl_ConfReportes.cs" />
     <Compile Include="Clases\Cl_CrudPerfil.cs" />
     <Compile Include="Clases\Cl_DominioIdioma.cs" />
     <Compile Include="Clases\Cl_Factor.cs" />
@@ -12750,6 +12771,11 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DataSets\Ds_PerfilEfectividad.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ds_PerfilEfectividad.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -12768,6 +12794,54 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes\Rpt_Det_Cursos.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Det_Cursos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Det_Experiencia.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Det_Experiencia.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Det_Idiomas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Det_Idiomas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Det_ManejoBienes.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Det_ManejoBienes.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Det_ManejoInfo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Det_ManejoInfo.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Det_RelacionesInternas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Det_RelacionesInternas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Det_Supervision.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Det_Supervision.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Rpt_Perfil.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rpt_Perfil.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -12809,6 +12883,13 @@
     </Compile>
     <Compile Include="WebForms\Wfrm_Carreras.aspx.designer.cs">
       <DependentUpon>Wfrm_Carreras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_ConfReportePerfil.aspx.cs">
+      <DependentUpon>Wfrm_ConfReportePerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_ConfReportePerfil.aspx.designer.cs">
+      <DependentUpon>Wfrm_ConfReportePerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForms\Wfrm_EditPuestos.aspx.cs">
       <DependentUpon>Wfrm_EditPuestos.aspx</DependentUpon>
@@ -12894,6 +12975,13 @@
     <Compile Include="WebForms\Wfrm_Usuarios.aspx.designer.cs">
       <DependentUpon>Wfrm_Usuarios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms_Reportes\WfrmRep_PerfilPuesto.aspx.cs">
+      <DependentUpon>WfrmRep_PerfilPuesto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms_Reportes\WfrmRep_PerfilPuesto.aspx.designer.cs">
+      <DependentUpon>WfrmRep_PerfilPuesto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebServices\Ws_Areas.asmx.cs">
       <DependentUpon>Ws_Areas.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -12904,6 +12992,10 @@
     </Compile>
     <Compile Include="WebServices\WS_Carreras.asmx.cs">
       <DependentUpon>WS_Carreras.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_ConfReportes.asmx.cs">
+      <DependentUpon>Ws_ConfReportes.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebServices\Ws_CrudPerfil.asmx.cs">
@@ -13027,9 +13119,44 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reportes\Rpt_Det_Cursos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Det_Cursos.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Det_Experiencia.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Det_Experiencia.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Det_Idiomas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Det_Idiomas.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Det_ManejoBienes.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Det_ManejoBienes.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Det_ManejoInfo.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Det_ManejoInfo.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Det_RelacionesInternas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Det_RelacionesInternas.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Det_Supervision.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Det_Supervision.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Rpt_Perfil.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Rpt_Perfil.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

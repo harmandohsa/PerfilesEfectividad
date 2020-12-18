@@ -57,6 +57,13 @@ function DibujarTablaPuesto() {
                             return '<a data-toggle="modal" onclick="ModificarPuesto(' + row['PuestoId'] + ',\'' + row['Puesto'] + '\')" data-target="#modalEditPuesto" href=""> <i class="fa fa-edit"></i></a > '
                         }
                     },
+                    {
+                        "title": "Imprimir Perfil",
+                        "data": "PuestoId",
+                        "render": function (data, type, row) {
+                            return '<a data-toggle="modal" onclick="PrintPerfil(' + row['PuestoId'] + ',\'' + row['Puesto'] + '\')" data-target="#modalPrintPerfil" href=""> <i class="fa fa-print"></i></a > '
+                        }
+                    }
                 ],
                 oLanguage: {
 
@@ -317,4 +324,18 @@ function BorrarPuesto() {
             return retval;
         }
     });
+}
+
+function PrintPerfil(PuestoId, Puesto) {
+    if (Imprimir == 0) {
+        toastr.error('No tiene permosos para imprimir');
+    }
+    else {
+        var TituloRep = "";
+        TituloRep = 'Perfil de Efectividad';
+        //alert(TituloRep);
+        $('#modalPrintPerfil').modal('show');
+        var url = "../WebForms_Reportes/WfrmRep_PerfilPuesto.aspx?PuestoId=" + PuestoId + "&Puesto=" + Puesto + "&Titulo=" + TituloRep + ""
+        $('#frameRep').attr('src', url)
+    }
 }

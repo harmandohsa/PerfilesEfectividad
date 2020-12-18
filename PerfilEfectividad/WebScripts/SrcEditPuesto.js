@@ -730,7 +730,8 @@ function DibujarTablaRelacionesTrabajo(PuestoId) {
     $('#kt_table_RelacionesTrabajo').empty();
 
     var sentAjaxData = {
-        "PuestoId": PuestoId
+        "PuestoId": PuestoId,
+        "Tipo": "1,2"
     };
     $.ajax({
         type: 'POST',

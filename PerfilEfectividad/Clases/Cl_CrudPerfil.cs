@@ -124,7 +124,7 @@ namespace PerfilEfectividad.Clases
 
         }
 
-        public DataSet GetRelacionesTrabajo(int PuestoId)
+        public DataSet GetRelacionesTrabajo(int PuestoId, string Tipo)
         {
             try
             {
@@ -134,6 +134,7 @@ namespace PerfilEfectividad.Clases
                 SqlCommand Comando = new SqlCommand("Sp_GetRelacionesTrabajo", cn);
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@Tipo", SqlDbType.VarChar, 100).Value = Tipo;
                 SqlDataAdapter adp = new SqlDataAdapter(Comando);
                 adp.Fill(ds, "DATOS");
                 cn.Close();

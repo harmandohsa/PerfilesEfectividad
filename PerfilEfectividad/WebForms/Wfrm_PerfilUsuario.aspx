@@ -28,7 +28,7 @@
 		<div class="kt-portlet__head-toolbar">
 			<div class="kt-portlet__head-wrapper">
 				<div class="kt-portlet__head-actions">
-					<button type="button" id="BtnNuevo" onclick="NuevoUsuario()" data-toggle="modal" data-target="#modalNuevaUsuario" class="btn btn-primary"><i class="fa fa-plus-circle"></i>Nuevo Usuario</button>
+					<%--<button type="button" id="BtnNuevo" onclick="NuevoUsuario()" data-toggle="modal" data-target="#modalNuevaUsuario" class="btn btn-primary"><i class="fa fa-plus-circle"></i>Nuevo Usuario</button>--%>
                     
                        
 				</div>

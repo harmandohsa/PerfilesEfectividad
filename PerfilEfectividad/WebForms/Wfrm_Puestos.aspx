@@ -77,6 +77,31 @@
         <!-- /.modal-content -->
     </div>
 </div>
+<div class="modal fade slide-up"  id="modalPrintPerfil" tabindex="-1" role="dialog" aria-labelledby="modalSlideUpLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content-wrapper">
+            <div class="modal-content ">
+                <div class="modal-header clearfix text-left">
+                    <h5>Reporte</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="ik ik-arrow-down bg-blue"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <iframe id="frameRep" width="1000px" height="800px"></iframe>
+                            <a id="Documento"></a>
+                        </div>    
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+</div>
 <input id="txtPuestoId" type="text" class="form-control" Style="display:none" >
 <input id="txtllamada" type="text" class="form-control" Style="display:none" >
 <script src="../WebScripts/SrcPuesto.js" type="text/javascript"></script>

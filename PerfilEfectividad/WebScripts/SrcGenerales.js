@@ -162,6 +162,9 @@ function GetPermisosUsuario() {
                     case 12:
                         $('#MnuActPuestos').show();
                         break;
+                    case 13:
+                        $('#MnuConfReportes').show();
+                        break;
                     default:
                         break
                 }

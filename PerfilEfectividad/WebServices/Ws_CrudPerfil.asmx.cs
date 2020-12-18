@@ -257,11 +257,11 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public List<DataRelaciones> GetDataRelaciones(int PuestoId)
+        public List<DataRelaciones> GetDataRelaciones(int PuestoId, string Tipo)
         {
             ds.Tables.Clear();
             Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
-            ds = clCrudPerfil.GetRelacionesTrabajo(PuestoId);
+            ds = clCrudPerfil.GetRelacionesTrabajo(PuestoId, Tipo);
             List<DataRelaciones> Datos = new List<DataRelaciones>();
 
 
