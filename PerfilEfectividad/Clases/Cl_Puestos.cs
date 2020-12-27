@@ -51,7 +51,7 @@ namespace PerfilEfectividad.Clases
 
         }
 
-        public DataSet GetDataPuestoPerfil(int PuestoId)
+        public DataSet GetDataPuestoPerfil(int PuestoId, int UsuarioId)
         {
             try
             {
@@ -61,6 +61,7 @@ namespace PerfilEfectividad.Clases
                 SqlCommand Comando = new SqlCommand("Sp_GetDataPuestoReporte", cn);
                 Comando.CommandType = CommandType.StoredProcedure;
                 Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@UsuarioId", SqlDbType.Int).Value = UsuarioId;
                 SqlDataAdapter adp = new SqlDataAdapter(Comando);
                 adp.Fill(ds, "DATOS");
                 cn.Close();

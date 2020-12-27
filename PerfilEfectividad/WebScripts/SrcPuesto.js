@@ -335,7 +335,7 @@ function PrintPerfil(PuestoId, Puesto) {
         TituloRep = 'Perfil de Efectividad';
         //alert(TituloRep);
         $('#modalPrintPerfil').modal('show');
-        var url = "../WebForms_Reportes/WfrmRep_PerfilPuesto.aspx?PuestoId=" + PuestoId + "&Puesto=" + Puesto + "&Titulo=" + TituloRep + ""
+        var url = "../WebForms_Reportes/WfrmRep_PerfilPuesto.aspx?UsuarioId=" + Desencriptar(Cookies.get('UsuarioId')) + "&PuestoId=" + PuestoId + "&Puesto=" + Puesto + "&Titulo=" + TituloRep + ""
         $('#frameRep').attr('src', url)
     }
 }

@@ -53,6 +53,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\TerraEnergia\TerraEnergia\TerraEnergia\bin\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -12618,11 +12622,13 @@
     <Content Include="assets\vendors\general\wnumb\README.md" />
     <Content Include="WebForms\Wfm_Idiomas.aspx" />
     <Content Include="WebForms\Wfrm_Areas.aspx" />
+    <Content Include="WebForms\Wfrm_BitacoraActividad.aspx" />
     <Content Include="WebForms\Wfrm_CambioClave.aspx" />
     <Content Include="WebForms\Wfrm_CargaPerfil.aspx" />
     <Content Include="WebForms\Wfrm_Carreras.aspx" />
     <Content Include="WebForms\Wfrm_ConfReportePerfil.aspx" />
     <Content Include="WebForms\Wfrm_EditPuestos.aspx" />
+    <Content Include="WebForms\Wfrm_ExportPerfil.aspx" />
     <Content Include="WebForms\Wfrm_FotoUsuario.aspx" />
     <Content Include="WebForms\Wfrm_FotoUsuarioCat.aspx" />
     <Content Include="WebForms\Wfrm_Inicio.aspx" />
@@ -12639,6 +12645,7 @@
     <Content Include="WebScripts\SrcCombos.js" />
     <Content Include="WebScripts\SrcConfReporte.js" />
     <Content Include="WebScripts\SrcEditPuesto.js" />
+    <Content Include="WebScripts\SrcExportFiles.js" />
     <Content Include="WebScripts\SrcGenerales.js" />
     <Content Include="WebScripts\SrcInicio.js" />
     <Content Include="WebScripts\SrcLogin.js" />
@@ -12647,6 +12654,7 @@
     <Content Include="WebScripts\SrcPerfilUsuario.js" />
     <Content Include="WebScripts\SrcPuesto.js" />
     <Content Include="WebScripts\SrcPuestoActivar.js" />
+    <Content Include="WebScripts\SrcRepBitacora.js" />
     <Content Include="WebScripts\SrcSedes.js" />
     <Content Include="WebScripts\SrcUsuarios.js" />
     <Content Include="WebScripts\Src_Areas.js" />
@@ -12654,12 +12662,15 @@
     <Content Include="WebScripts\Src_Carreras.js" />
     <Content Include="WebScripts\Src_Idiomas.js" />
     <Content Include="WebScripts\Src_SubAreas.js" />
+    <Content Include="WebServices\Ws_Actividad.asmx" />
     <Content Include="WebServices\Ws_Areas.asmx" />
+    <Content Include="WebServices\Ws_Bitacoras.asmx" />
     <Content Include="WebServices\Ws_CargaPerfil.asmx" />
     <Content Include="WebServices\WS_Carreras.asmx" />
     <Content Include="WebServices\Ws_ConfReportes.asmx" />
     <Content Include="WebServices\Ws_CrudPerfil.asmx" />
     <Content Include="WebServices\Ws_DominioIdioma.asmx" />
+    <Content Include="WebServices\Ws_ExportPerfil.asmx" />
     <Content Include="WebServices\Ws_Factor.asmx" />
     <Content Include="WebServices\WS_Frecuencia.asmx" />
     <Content Include="WebServices\Ws_Generales.asmx" />
@@ -12739,7 +12750,9 @@
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Clases\ClPerfilPuesto.cs" />
+    <Compile Include="Clases\Cl_Actividad.cs" />
     <Compile Include="Clases\Cl_Areas.cs" />
+    <Compile Include="Clases\Cl_BitacoraActividad.cs" />
     <Compile Include="Clases\Cl_Carreras.cs" />
     <Compile Include="Clases\Cl_ConfReportes.cs" />
     <Compile Include="Clases\Cl_CrudPerfil.cs" />
@@ -12863,6 +12876,13 @@
     <Compile Include="WebForms\Wfrm_Areas.aspx.designer.cs">
       <DependentUpon>Wfrm_Areas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebForms\Wfrm_BitacoraActividad.aspx.cs">
+      <DependentUpon>Wfrm_BitacoraActividad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_BitacoraActividad.aspx.designer.cs">
+      <DependentUpon>Wfrm_BitacoraActividad.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebForms\Wfrm_CambioClave.aspx.cs">
       <DependentUpon>Wfrm_CambioClave.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -12897,6 +12917,13 @@
     </Compile>
     <Compile Include="WebForms\Wfrm_EditPuestos.aspx.designer.cs">
       <DependentUpon>Wfrm_EditPuestos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_ExportPerfil.aspx.cs">
+      <DependentUpon>Wfrm_ExportPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\Wfrm_ExportPerfil.aspx.designer.cs">
+      <DependentUpon>Wfrm_ExportPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForms\Wfrm_FotoUsuario.aspx.cs">
       <DependentUpon>Wfrm_FotoUsuario.aspx</DependentUpon>
@@ -12982,8 +13009,16 @@
     <Compile Include="WebForms_Reportes\WfrmRep_PerfilPuesto.aspx.designer.cs">
       <DependentUpon>WfrmRep_PerfilPuesto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebServices\Ws_Actividad.asmx.cs">
+      <DependentUpon>Ws_Actividad.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebServices\Ws_Areas.asmx.cs">
       <DependentUpon>Ws_Areas.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_Bitacoras.asmx.cs">
+      <DependentUpon>Ws_Bitacoras.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebServices\Ws_CargaPerfil.asmx.cs">
@@ -13004,6 +13039,10 @@
     </Compile>
     <Compile Include="WebServices\Ws_DominioIdioma.asmx.cs">
       <DependentUpon>Ws_DominioIdioma.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebServices\Ws_ExportPerfil.asmx.cs">
+      <DependentUpon>Ws_ExportPerfil.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WebServices\Ws_Factor.asmx.cs">

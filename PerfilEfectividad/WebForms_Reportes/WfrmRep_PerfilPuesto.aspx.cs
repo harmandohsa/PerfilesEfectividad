@@ -21,6 +21,7 @@ namespace PerfilEfectividad.WebForms_Reportes
         protected void Page_Load(object sender, EventArgs e)
         {
             int PuestoId = Convert.ToInt32(Request.QueryString["PuestoId"]);
+            int UsuarioId = Convert.ToInt32(Request.QueryString["UsuarioId"]);
             string Puesto = Request.QueryString["Puesto"];
             string Titulo = Request.QueryString["Titulo"];
             wsConfReportes = new Ws_ConfReportes();
@@ -31,7 +32,7 @@ namespace PerfilEfectividad.WebForms_Reportes
             dsPerfil.Tables["DtDatosPuesto"].Clear();
 
             var Logo = wsConfReportes.GetLogoaByte();
-            var ResInfoPuesto = wsPuestos.GetDataPuestoPerfil(PuestoId);
+            var ResInfoPuesto = wsPuestos.GetDataPuestoPerfil(PuestoId, UsuarioId);
             for (int i = 0; i < ResInfoPuesto.Count; i++)
             {
                 DataRow row = dsPerfil.Tables["DtDatosPuesto"].NewRow();

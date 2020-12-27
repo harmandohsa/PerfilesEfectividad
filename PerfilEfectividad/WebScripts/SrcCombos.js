@@ -850,3 +850,84 @@ function ComboSedes(PaisId) {
         }
     });
 }
+
+function ComboUsuarios() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Usuarios.asmx/GetListaUsuarios",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $("#cboUsuario").get(0).options.length = 0;
+            $("#cboUsuario").get(0).options[0] = new Option("Seleccione algún usuario", "-1");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['UsuarioId'];
+                var name = data.d[i]['Nombres'];
+
+                $("#cboUsuario").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboActividades() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Actividad.asmx/GetListaActividades",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $("#cboActividad").get(0).options.length = 0;
+            $("#cboActividad").get(0).options[0] = new Option("Seleccione algúna actividad", "-1");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['ActividadId'];
+                var name = data.d[i]['Actividad'];
+
+                $("#cboActividad").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}
+
+function ComboPuestos() {
+    $.ajax({
+        type: "POST",
+        url: "../WebServices/Ws_Puestos.asmx/GetListaPuestos",
+        dataType: "json",
+        contentType: "application/json",
+        async: false,
+        data: JSON.stringify(),
+        success: function (data) {
+            $("#cboPuesto").get(0).options.length = 0;
+            $("#cboPuesto").get(0).options[0] = new Option("Seleccione algún puesto", "0");
+            var len = data.d.length;
+
+            for (var i = 0; i < len; i++) {
+                var id = data.d[i]['PuestoId'];
+                var name = data.d[i]['Puesto'];
+
+                $("#cboPuesto").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+}

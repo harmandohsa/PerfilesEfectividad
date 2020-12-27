@@ -260,11 +260,11 @@ namespace PerfilEfectividad.WebServices
         }
 
         [WebMethod]
-        public List<PerfilPuesto> GetDataPuestoPerfil(int PuestoId)
+        public List<PerfilPuesto> GetDataPuestoPerfil(int PuestoId, int UsuarioId)
         {
             ds.Tables.Clear();
             Cl_Puestos clPuestos = new Cl_Puestos();
-            ds = clPuestos.GetDataPuestoPerfil(PuestoId);
+            ds = clPuestos.GetDataPuestoPerfil(PuestoId, UsuarioId);
             List<PerfilPuesto> Datos = new List<PerfilPuesto>();
 
 

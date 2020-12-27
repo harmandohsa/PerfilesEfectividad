@@ -165,6 +165,12 @@ function GetPermisosUsuario() {
                     case 13:
                         $('#MnuConfReportes').show();
                         break;
+                    case 14:
+                        $('#MnuBitacoraAct').show();
+                        break;
+                    case 15:
+                        $('#MnuPerfilesExport').show();
+                        break;
                     default:
                         break
                 }
