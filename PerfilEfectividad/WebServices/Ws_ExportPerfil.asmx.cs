@@ -97,11 +97,11 @@ namespace PerfilEfectividad.WebServices
                         row["FactorRelacionInterna"] = ResInfoPuesto[i].RelacionInterna;
                         row["FactorRelacionExterna"] = ResInfoPuesto[i].RelacionExterna;
                         row["FactorManejoInfo"] = ResInfoPuesto[i].ManejoInfo;
-                        row["RiesgoOcupacional"] = ResInfoPuesto[i].RiesgoOcupacional;
+                        row["RiesgoOcupacional"] = ResInfoPuesto[i].RiesgoOcupacional.ToString().Trim();
                         row["FactorRiesgoOcupacional"] = ResInfoPuesto[i].Riesgo;
-                        row["EsfuerzoFisico"] = ResInfoPuesto[i].EsfuerzoFisico;
+                        row["EsfuerzoFisico"] = ResInfoPuesto[i].EsfuerzoFisico.ToString().Trim();
                         row["FactorEsfuerzoFisico"] = ResInfoPuesto[i].Esfuerzo;
-                        row["AmbienteTrabajo"] = ResInfoPuesto[i].AmbienteTrabajo;
+                        row["AmbienteTrabajo"] = ResInfoPuesto[i].AmbienteTrabajo.ToString().Trim();
                         row["FactorAmbienteTrabajo"] = ResInfoPuesto[i].Ambiente;
                         row["FactorEducacionFormal"] = ResInfoPuesto[i].EducacionFormal;
                         row["NivelEducacional"] = ResInfoPuesto[i].NivEduc;
@@ -116,6 +116,7 @@ namespace PerfilEfectividad.WebServices
                         row["Cntcursos"] = ResInfoPuesto[i].Cntcursos;
                         row["CntIdiomas"] = ResInfoPuesto[i].CntIdiomas;
                         row["CntExperiencia"] = ResInfoPuesto[i].CntExperiencia;
+                        row["Categoria"] = wsPuestos.GetCategoriaPuesto(Convert.ToInt32(dsPuesto.Tables["DATOS"].Rows[Pue]["PuestoId"]));
                         dsPerfil.Tables["DtDatosPuesto"].Rows.Add(row);
                     }
 
@@ -179,7 +180,7 @@ namespace PerfilEfectividad.WebServices
                         row["TipoRelacion"] = Relaciones[i].TipoRelacion;
                         row["Puesto"] = Relaciones[i].Puesto;
                         row["Proposito"] = Relaciones[i].Proposito;
-                        row["Frecuencia"] = Relaciones[i].Puesto;
+                        row["Frecuencia"] = Relaciones[i].Frecuencia;
                         dsPerfil.Tables["DtRelacionesInternas"].Rows.Add(row);
                     }
 

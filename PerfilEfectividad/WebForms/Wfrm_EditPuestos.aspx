@@ -72,6 +72,12 @@
                                         <input id="txtcodigopuesto" type="text" class="form-control" required>
                                     </div>
                                 </div>
+                                 <div class="col-md-1">
+                                    <div class="form-group">
+                                        <label for="txtcategoria">Categoría Puesto</label>
+                                        <input id="txtcategoria" type="text" class="form-control" disabled required>
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <button type="button" onclick="GrabarInfoGenral()" id="BtnActualizaInfoGeneral" class="btn btn-primary"><i class="fa fa-save"></i>Actualizar</button>

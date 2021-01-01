@@ -639,6 +639,8 @@ namespace PerfilEfectividad.DataSets {
             
             private global::System.Data.DataColumn columnCntExperiencia;
             
+            private global::System.Data.DataColumn columnCategoria;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public DtDatosPuestoDataTable() {
@@ -994,6 +996,14 @@ namespace PerfilEfectividad.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn CategoriaColumn {
+                get {
+                    return this.columnCategoria;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1069,7 +1079,8 @@ namespace PerfilEfectividad.DataSets {
                         int NivEducId, 
                         int Cntcursos, 
                         int CntIdiomas, 
-                        int CntExperiencia) {
+                        int CntExperiencia, 
+                        string Categoria) {
                 DtDatosPuestoRow rowDtDatosPuestoRow = ((DtDatosPuestoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         NombrePuesto,
@@ -1111,7 +1122,8 @@ namespace PerfilEfectividad.DataSets {
                         NivEducId,
                         Cntcursos,
                         CntIdiomas,
-                        CntExperiencia};
+                        CntExperiencia,
+                        Categoria};
                 rowDtDatosPuestoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDtDatosPuestoRow);
                 return rowDtDatosPuestoRow;
@@ -1174,6 +1186,7 @@ namespace PerfilEfectividad.DataSets {
                 this.columnCntcursos = base.Columns["Cntcursos"];
                 this.columnCntIdiomas = base.Columns["CntIdiomas"];
                 this.columnCntExperiencia = base.Columns["CntExperiencia"];
+                this.columnCategoria = base.Columns["Categoria"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1259,6 +1272,8 @@ namespace PerfilEfectividad.DataSets {
                 base.Columns.Add(this.columnCntIdiomas);
                 this.columnCntExperiencia = new global::System.Data.DataColumn("CntExperiencia", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCntExperiencia);
+                this.columnCategoria = new global::System.Data.DataColumn("Categoria", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoria);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4483,6 +4498,22 @@ namespace PerfilEfectividad.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Categoria {
+                get {
+                    try {
+                        return ((string)(this[this.tableDtDatosPuesto.CategoriaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Categoria\' in table \'DtDatosPuesto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDtDatosPuesto.CategoriaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsNombrePuestoNull() {
                 return this.IsNull(this.tableDtDatosPuesto.NombrePuestoColumn);
             }
@@ -4959,6 +4990,18 @@ namespace PerfilEfectividad.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetCntExperienciaNull() {
                 this[this.tableDtDatosPuesto.CntExperienciaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsCategoriaNull() {
+                return this.IsNull(this.tableDtDatosPuesto.CategoriaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetCategoriaNull() {
+                this[this.tableDtDatosPuesto.CategoriaColumn] = global::System.Convert.DBNull;
             }
         }
         

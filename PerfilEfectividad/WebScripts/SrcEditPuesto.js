@@ -397,6 +397,7 @@ function GetDataGeneral(PuestoId) {
             ComboSubAreas(data.d[0]['AreaId'])
             $('#cboSubArea').val(data.d[0]['SubAreaId'])
             $('#txtcodigopuesto').val(data.d[0]['CodigoPuesto'])
+            $('#txtcategoria').val(data.d[0]['CategoriaPuesto'])
             return false;
         },
         error: function (request, status, error) {
@@ -1561,6 +1562,7 @@ function GrabarFactores(factor) {
                     alert(request.responseText);
                 }
             });
+            GetDataGeneral($('#txtPuestoId').val());
         }
     });
 }

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Services;
 using PerfilEfectividad.Clases;
+using PerfilEfectividad.WebServices;
 
 namespace PerfilEfectividad.WebServices
 {
@@ -27,6 +28,7 @@ namespace PerfilEfectividad.WebServices
             public string PuestoSuperior { get; set; }
             public int SubAreaId { get; set; }
             public string CodigoPuesto { get; set; }
+            public string CategoriaPuesto { get; set; }
         }
 
         [WebMethod]
@@ -34,6 +36,7 @@ namespace PerfilEfectividad.WebServices
         {
             ds.Tables.Clear();
             Cl_CrudPerfil clCrudPerfil = new Cl_CrudPerfil();
+            Ws_Puestos wsPuesto = new Ws_Puestos();
             ds = clCrudPerfil.GetDataGeneral(PuestoId);
             List<DataGeneral> Datos = new List<DataGeneral>();
 
@@ -52,6 +55,7 @@ namespace PerfilEfectividad.WebServices
                     Registro.CodigoPuesto = "";
                 else
                     Registro.CodigoPuesto = dr["CodigoPuesto"].ToString();
+                Registro.CategoriaPuesto = wsPuesto.GetCategoriaPuesto(PuestoId);
                 Datos.Add(Registro);
             }
             return Datos;

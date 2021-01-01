@@ -32,11 +32,13 @@ namespace PerfilEfectividad.WebForms_Reportes
             dsPerfil.Tables["DtDatosPuesto"].Clear();
 
             var Logo = wsConfReportes.GetLogoaByte();
+            var NomPuesto = "";
             var ResInfoPuesto = wsPuestos.GetDataPuestoPerfil(PuestoId, UsuarioId);
             for (int i = 0; i < ResInfoPuesto.Count; i++)
             {
                 DataRow row = dsPerfil.Tables["DtDatosPuesto"].NewRow();
                 row["NombrePuesto"] = ResInfoPuesto[i].Puesto;
+                NomPuesto = ResInfoPuesto[i].Puesto;
                 row["Logo"] = Logo;
                 row["Area"] = ResInfoPuesto[i].Area;
                 row["SubArea"] = ResInfoPuesto[i].SubArea;
@@ -57,11 +59,11 @@ namespace PerfilEfectividad.WebForms_Reportes
                 row["FactorRelacionInterna"] = ResInfoPuesto[i].RelacionInterna;
                 row["FactorRelacionExterna"] = ResInfoPuesto[i].RelacionExterna;
                 row["FactorManejoInfo"] = ResInfoPuesto[i].ManejoInfo;
-                row["RiesgoOcupacional"] = ResInfoPuesto[i].RiesgoOcupacional;
+                row["RiesgoOcupacional"] = ResInfoPuesto[i].RiesgoOcupacional.ToString().Trim();
                 row["FactorRiesgoOcupacional"] = ResInfoPuesto[i].Riesgo;
-                row["EsfuerzoFisico"] = ResInfoPuesto[i].EsfuerzoFisico;
+                row["EsfuerzoFisico"] = ResInfoPuesto[i].EsfuerzoFisico.ToString().Trim();
                 row["FactorEsfuerzoFisico"] = ResInfoPuesto[i].Esfuerzo;
-                row["AmbienteTrabajo"] = ResInfoPuesto[i].AmbienteTrabajo;
+                row["AmbienteTrabajo"] = ResInfoPuesto[i].AmbienteTrabajo.ToString().Trim();
                 row["FactorAmbienteTrabajo"] = ResInfoPuesto[i].Ambiente;
                 row["FactorEducacionFormal"] = ResInfoPuesto[i].EducacionFormal;
                 row["NivelEducacional"] = ResInfoPuesto[i].NivEduc;
@@ -76,6 +78,7 @@ namespace PerfilEfectividad.WebForms_Reportes
                 row["Cntcursos"] = ResInfoPuesto[i].Cntcursos;
                 row["CntIdiomas"] = ResInfoPuesto[i].CntIdiomas;
                 row["CntExperiencia"] = ResInfoPuesto[i].CntExperiencia;
+                row["Categoria"] = wsPuestos.GetCategoriaPuesto(PuestoId);
                 dsPerfil.Tables["DtDatosPuesto"].Rows.Add(row);
             }
 
@@ -139,7 +142,7 @@ namespace PerfilEfectividad.WebForms_Reportes
                 row["TipoRelacion"] = Relaciones[i].TipoRelacion;
                 row["Puesto"] = Relaciones[i].Puesto;
                 row["Proposito"] = Relaciones[i].Proposito;
-                row["Frecuencia"] = Relaciones[i].Puesto;
+                row["Frecuencia"] = Relaciones[i].Frecuencia;
                 dsPerfil.Tables["DtRelacionesInternas"].Rows.Add(row);
             }
 
@@ -203,7 +206,7 @@ namespace PerfilEfectividad.WebForms_Reportes
             Reporte.Subreports[6].SetDataSource(dsPerfil);
 
             Reporte.SetParameterValue("Titulo", Titulo);
-            string NomReporte = NomReporte = Guid.NewGuid().ToString() + ".pdf";
+            string NomReporte = NomPuesto + ".pdf";
             string url = Server.MapPath(".") + @"\" + DirRep + NomReporte;
             DiskFileDestinationOptions options2 = new DiskFileDestinationOptions
             {

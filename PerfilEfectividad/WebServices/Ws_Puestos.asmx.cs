@@ -451,5 +451,31 @@ namespace PerfilEfectividad.WebServices
             return Datos;
         }
 
+        [WebMethod]
+        public string GetCategoriaPuesto(int PuestoId)
+        {
+            try
+            {
+                if (ds.Tables["DATOS"] != null)
+                    ds.Tables.Remove("DATOS");
+                cn.Open();
+                SqlCommand Comando = new SqlCommand("Sp_GetCategoriaPuesto", cn);
+                Comando.CommandType = CommandType.StoredProcedure;
+                Comando.Parameters.Add("@PuestoId", SqlDbType.Int).Value = PuestoId;
+                Comando.Parameters.Add("@Categoria", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+                SqlDataAdapter adp = new SqlDataAdapter(Comando);
+                adp.Fill(ds, "DATOS");
+                string Resultado = Comando.Parameters["@Categoria"].Value.ToString();
+                cn.Close();
+
+                return Resultado;
+            }
+            catch (Exception ex)
+            {
+                return "Sin Categoría";
+            }
+
+        }
+
     }
 }
